@@ -1,4 +1,5 @@
 <template>
+  <routerView></routerView>
 <!--img src="C:\Repos\PillPall\src\assets\PillPallModel.png"-->
   <div class="notificationBar">
     <NotificationBanner text="This is an informational message" type="info" />
@@ -7,14 +8,12 @@
     <NotificationBanner text="This is a success message" type="success" />
   </div>
   
-
 </template>
-
 
 <!-- <nav>
   <RouterLink to="/">Home</RouterLink>
-  <RouterLink to="/about">About</RouterLink>
 </nav> -->
+
 
 <script>
 import NotificationBanner from './components/NotificationBanner.vue';
