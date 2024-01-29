@@ -6,7 +6,8 @@
             :value="medication.name" 
             @input="medication.name = $event; updateValue()" 
             placeholder="e.g. tylenol" 
-            width="200px" :maxlength='30'
+            width="200px" 
+            :maxlength='30'
         ></TextField>
         <TextField id="" 
             class="textField"

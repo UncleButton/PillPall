@@ -1,7 +1,7 @@
 <template>
     <div class="pillInfoCardsContainer">
       <PillInfoCard v-for="(container, index) in containers" :key="index" :medication="container" @click="editPills(index)"></PillInfoCard>
-      <PillInfoCard v-if="containers.length < 4" @click="editPills(-1)"></PillInfoCard>
+      <PillInfoCard v-for="(container, index) in Array.from({length: 4-containers.length})" @click="editPills(-1)"></PillInfoCard>
     </div>
     <routerView></routerView>
 </template>
@@ -35,7 +35,6 @@ export default {
       try {
         var user = new User();
         this.myEntity = await apiService.getUser(user);
-        console.log(this.myEntity);
       } catch (error) {
         console.error('Error fetching entity data:', error);
       }
@@ -64,6 +63,7 @@ export default {
   align-items: center; /* Align items vertically */
   justify-content: space-evenly;
   padding: 10px;
+  margin-top: 30px;
 }
 
 </style>

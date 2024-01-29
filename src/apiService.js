@@ -6,7 +6,7 @@ import Medication from '../src/models/Medication';
 
 const BASE_URL = 'http://localhost:5218';
 
-export default {
+const apiService = {
   // Example of a GET request
   async getUser(userToGet) {
     try {
@@ -15,6 +15,18 @@ export default {
         const user = this.mapSingleResultToModel(response.data, User);
         
         return user;
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async getUsers() {
+    try {
+        const response = await axios.post(BASE_URL+ '/User/getUsers');
+        
+        const users = this.mapListResultToModels(response.data, User);
+        
+        return users;
     } catch (error) {
         throw error;
     }
@@ -70,3 +82,5 @@ export default {
 
   // Add other API calls as needed
 };
+
+export default apiService;

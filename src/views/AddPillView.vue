@@ -65,7 +65,9 @@ export default {
     },
     async saveNewPills(){
         try {
-            await apiService.saveMedication(this.medication);
+            await apiService.saveMedication(this.medication).then(() => {
+                this.$router.push({name: 'home'});
+            });
         } catch (error) {
             console.error('Error fetching entity data:', error);
         }
@@ -116,7 +118,7 @@ export default {
 .footerButtonsContainer {
     height: 70px;
     display: flex; /* Use flexbox layout */
-    position: fixed;
+    position: absolute;
     bottom: 200px;
     left: 560px;
 
