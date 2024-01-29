@@ -1,26 +1,69 @@
 <template>
-  
-    <div class="testDiv">test1</div>
-    <h3 class="testClass">THIS IS A TEST</h3>
-    
+    <div class="pillInfoCardsContainer">
+      <PillInfoCard v-for="(container, index) in containers" :key="index" :medication="container" @click="editPills(index)"></PillInfoCard>
+      <PillInfoCard v-if="containers.length < 4" @click="editPills(-1)"></PillInfoCard>
+    </div>
+    <routerView></routerView>
 </template>
 
 <script>
 import NotificationBanner from '../components/NotificationBanner.vue';
+import PillInfoCard from '../components/PillInfoCard.vue';
+import User from '../models/User';
+import apiService from '../apiService';
+import Medication from '@/models/Medication';
+
 export default {
   components: {
-    NotificationBanner
+    NotificationBanner,
+    PillInfoCard,
+},
+  data() {
+    return {
+      myEntity: new User(),
+      testMedication: new Medication(),
+      containers: []
+    }
+  },
+  mounted(){
+    this.fetchUserData();
+    this.testMedication.name = "ibprophen";
+    this.updateContainers();
+  },
+  methods: {
+    async fetchUserData() {
+      try {
+        var user = new User();
+        this.myEntity = await apiService.getUser(user);
+        console.log(this.myEntity);
+      } catch (error) {
+        console.error('Error fetching entity data:', error);
+      }
+    },
+    editPills(containerIndex){
+      this.$store.commit('setContainerIndex', containerIndex);
+      this.$router.push({name: 'add pill'});
+    },
+    async updateContainers(){
+      try {
+        this.containers = await apiService.getContainers();
+        this.$store.commit('setAllContainers', this.containers);
+      } catch (error) {
+        console.error('Error fetching entity data:', error);
+      }
+    }
   }
 }
+
 </script>
 
 <style>
-#testClass {
-  color: green;
+
+.pillInfoCardsContainer {
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Align items vertically */
+  justify-content: space-evenly;
+  padding: 10px;
 }
-.testDiv {
-  background-color: aqua;
-  width: 300px;
-  height: 400px;
-}
+
 </style>
