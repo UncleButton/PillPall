@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="custom-text-field">
         <label :for="id">{{ label }}</label>
         <textarea v-if="isMultiline" :id="id" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @focus="showKeyboard"></textarea>
@@ -12,7 +13,7 @@
       <textarea id="keyboardTextBoxFocus" class="keyboardTextBox" :value="textData" :placeholder="placeholder" :maxlength="maxlength" @input="onInputChange"></textarea>
       <SimpleKeyboard class="keyboard" @onChange="onChange" @onKeyPress="onKeyPress" :input="textData" @focus="focusOnTextArea"/>
     </div>
-    
+  </div>
 
   </template>
   

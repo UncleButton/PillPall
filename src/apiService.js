@@ -3,48 +3,14 @@
 import axios, { HttpStatusCode } from 'axios';
 import User from '../src/models/User';
 import Medication from '../src/models/Medication';
+import ScheduleResponse from './models/ScheduleResponse';
+import ScheduleMed from './models/ScheduleMed';
+import Time from './models/Time';
 
 const BASE_URL = 'http://localhost:5218';
 
 const apiService = {
   // Example of a GET request
-  async getUser(userToGet) {
-    try {
-        const response = await axios.post(BASE_URL+ '/User/getUser', userToGet);
-        
-        const user = this.mapSingleResultToModel(response.data, User);
-        
-        return user;
-    } catch (error) {
-        throw error;
-    }
-  },
-
-  async getUsers() {
-    try {
-        const response = await axios.post(BASE_URL+ '/User/getUsers');
-        
-        const users = this.mapListResultToModels(response.data, User);
-        
-        return users;
-    } catch (error) {
-        throw error;
-    }
-  },
-
-  async newUser(newUser) {
-    try {
-        const response = await axios.post(BASE_URL+ '/User/newUser', newUser);
-                
-        if(response.status == HttpStatusCode.Ok)
-          return;
-        else 
-          throw "Something went wrong!";
-    } catch (error) {
-        throw error;
-    }
-  },
-
   async getContainers() {
     try {
       const response = await axios.get(BASE_URL+ '/PillInformation/getAllContainers');
@@ -65,6 +31,30 @@ const apiService = {
         return;
       else 
         throw "Something went wrong!";
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async getSchedules() {
+    try {
+      const response = await axios.get(BASE_URL+ '/Schedule/getSchedules');
+      
+      const schedules = this.mapListResultToModels(response.data, ScheduleResponse);
+
+      
+      schedules.forEach(element => {
+        const meds = [];
+        element.scheduleMeds.forEach(scheduleMed => meds.push(this.mapSingleResultToModel(scheduleMed, ScheduleMed)));
+
+        const times = [];
+        element.times.forEach(time => times.push(this.mapSingleResultToModel(time, Time)));
+
+        element.scheduleMeds = meds;
+        element.times = times;
+      })
+      
+      return schedules;
     } catch (error) {
         throw error;
     }

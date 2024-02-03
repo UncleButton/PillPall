@@ -16,9 +16,11 @@
         </div>
     </div>
 
-    <PillInfo v-if="infoStage==0" :medication='medication' @input="updateMedication"></PillInfo>
-    <DosageInfo v-if="infoStage==1" :medication='medication' @input="updateMedication"></DosageInfo>
-    <PharmacyInfo v-if="infoStage==2" :medication='medication' @input="updateMedication"></PharmacyInfo>
+    <div class="infoPages">
+        <PillInfo v-if="infoStage==0" :medication='medication' @input="updateMedication"></PillInfo>
+        <DosageInfo v-if="infoStage==1" :medication='medication' @input="updateMedication"></DosageInfo>
+        <PharmacyInfo v-if="infoStage==2" :medication='medication' @input="updateMedication"></PharmacyInfo>
+    </div>
     
     <div class="footerButtonsContainer">
         <div class="footerButton" :class="infoStage > 0 ? 'clickable' : 'nonclickable'" @click="infoStage > 0 ? infoStage-- : infoStage">
@@ -80,7 +82,7 @@ export default {
 <style>
 
 .headerContainer {
-    margin-top: -35px;
+    margin-top: -3px;
     display: flex; /* Use flexbox layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -147,7 +149,10 @@ export default {
     .nonclickable {
         background-color: grey;
     }
+}
 
+.infoPages {
+    margin: 32px
 }
 
 </style>

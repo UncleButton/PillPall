@@ -10,8 +10,8 @@
         ></TextField>
         <TextField id="" 
             label="Pharmacy Phone Number"
-            :value="medication.pharmacyAddr2" 
-            @input="medication.pharmacyAddr2 = $event; updateValue()" 
+            :value="medication.pharmacyPhone" 
+            @input="medication.pharmacyPhone = $event; updateValue()" 
             placeholder="e.g. (440)759-1234"
             width="200px" :maxlength='50'
         ></TextField>
@@ -52,7 +52,7 @@
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="State" 
+            label="Zip Code" 
             :value="medication.pharmacyZip" 
             @input="medication.pharmacyZip = $event; updateValue()" 
             type="number" 

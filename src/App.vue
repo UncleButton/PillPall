@@ -1,23 +1,25 @@
 <template>
-  <div id="backgroundImage"></div>
-  <div class="overlay"></div>
-  <div id="header"></div>
-  <div id="footer"></div>
+  <div>
+    <div id="backgroundImage"></div>
+    <div class="overlay"></div>
+    <div id="header"></div>
+    <div id="footer"></div>
 
-  <nav class="homeButton" v-if="$route.name != 'home'">
-    <RouterLink to="/">
-        <img class="homeIcon" src="./assets/homeIcon.png">
-    </RouterLink>
-  </nav>
+    <nav class="homeButton" v-if="$route.name != 'home'">
+      <RouterLink to="/">
+          <img class="homeIcon" src="./assets/homeIcon.png">
+      </RouterLink>
+    </nav>
 
-  <routerView></routerView>
-  <div class="notificationBar">
-    <!-- <NotificationBanner text="This is an informational message" type="info" />
-    <NotificationBanner text="This is an error message" type="error" :autoHide="false"/>
-    <NotificationBanner text="This is a warning message" type="warning" />
-    <NotificationBanner text="This is a success message" type="success" /> -->
+    <routerView></routerView>
+    <div class="notificationBar">
+      <!-- <NotificationBanner text="This is an informational message" type="info" />
+      <NotificationBanner text="This is an error message" type="error" :autoHide="false"/>
+      <NotificationBanner text="This is a warning message" type="warning" />
+      <NotificationBanner text="This is a success message" type="success" /> -->
+    </div>
+    <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
   </div>
-  <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
 </template>
 
 <!-- <nav>
@@ -40,10 +42,14 @@ export default {
       currentWeekDay: '',
       currentMonth: '',
       currentDay: '',
-      currentRoute: this.$route.path
+      currentRoute: this.$route.path,
+      timerId: null
     };
   },
   mounted() {
+    this.startTimer();
+    document.addEventListener('click', this.clearTimer);
+
     // Update current time every second
     this.updateTime();
     setInterval(() => {
@@ -62,19 +68,27 @@ export default {
       // Ensure two-digit format (e.g., 01, 02, ..., 09)
       return unit < 10 ? '0' + unit : unit;
     },
+    startTimer() {
+      this.timerId = setInterval(() => {
+        console.log("Idle: rerouting to home");
+        this.$router.push({name: 'home'});
+      }, 60000);
+    },
+    clearTimer() {
+      clearInterval(this.timerId);
+      this.startTimer();
+    }
   }
 }
 </script>
 
 <style scoped>
 #backgroundImage {
-  margin-left: -32px;
-  margin-top: -32px;
   background-image: url('./assets/GenericBackgroundImage.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 100vw;
+  height: 480px;
+  width: 800px;
   z-index: -1;
   position: fixed;
   filter: brightness(0.8);
