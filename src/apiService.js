@@ -3,7 +3,7 @@
 import axios, { HttpStatusCode } from 'axios';
 import User from '../src/models/User';
 import Medication from '../src/models/Medication';
-import ScheduleResponse from './models/ScheduleResponse';
+import ScheduleBus from './models/ScheduleBus';
 import ScheduleMed from './models/ScheduleMed';
 import Time from './models/Time';
 
@@ -40,8 +40,7 @@ const apiService = {
     try {
       const response = await axios.get(BASE_URL+ '/Schedule/getSchedules');
       
-      const schedules = this.mapListResultToModels(response.data, ScheduleResponse);
-
+      const schedules = this.mapListResultToModels(response.data, ScheduleBus);
       
       schedules.forEach(element => {
         const meds = [];
@@ -55,6 +54,19 @@ const apiService = {
       })
       
       return schedules;
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async saveSchedule(scheduleBus) {
+    try {
+      const response = await axios.post(BASE_URL+ '/Schedule/saveSchedule', scheduleBus);
+              
+      if(response.status == HttpStatusCode.Ok)
+        return;
+      else 
+        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }

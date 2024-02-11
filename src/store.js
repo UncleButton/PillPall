@@ -4,7 +4,8 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     containerIndex: -1,
-    containers: []
+    containers: [],
+    schedules: [],
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -15,7 +16,10 @@ const store = createStore({
     },
     setAllContainers(state, newContainers){
         state.containers = newContainers;
-    }
+    },
+    setAllSchedules(state, newSchedules){
+      state.schedules = newSchedules;
+  }
   },
   actions: {
     increment(context) {
@@ -29,6 +33,9 @@ const store = createStore({
     getContainers(state) {
         return state.containers;
     },
+    getSchedules(state) {
+      return state.schedules;
+  },
     getContainerAtIndex(state) {
         return state.containers[state.containerIndex];
     }

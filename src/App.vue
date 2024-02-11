@@ -91,6 +91,7 @@ export default {
   width: 800px;
   z-index: -1;
   position: fixed;
+  top: 0px;
   filter: brightness(0.8);
 }
 .overlay {

@@ -1,13 +1,20 @@
 <template>
   <div class="masterContainer">
-    <div class="pillInfoCardsContainer">
-      <PillInfoCard v-for="(container, index) in containers" :key="index" :medication="container" @click="editPills(index)" :isLoading="isLoading"></PillInfoCard>
-      <PillInfoCard v-for="(container, index) in Array.from({length: 6-containers.length})" @click="editPills(-1)" :isLoading="isLoading"></PillInfoCard>
+
+    <div class="selectionBarFlexContainer">
+        <div @click="pageData = 0" class="selectorBar" :class="pageData==0 ? 'selected' : 'unselected'">
+            <h4 class="selectionBarText">Medications</h4>
+        </div>
+        <div @click="pageData = 1" class="selectorBar" :class="pageData==1 ? 'selected' : 'unselected'">
+            <h4 class="selectionBarText">Schedules</h4>
+        </div>
     </div>
+
+    <MedicationContainer v-if="pageData == 0"></MedicationContainer>
+    <SchedulesContainer v-if="pageData == 1"></SchedulesContainer>
 
     <div class="footer">
       <div class="footerButtonsContainer">
-        <div class="scheduleButton button">Schedules</div>
         <div class="dispenseButton button">Dispense</div>
       </div>
     </div>
@@ -17,46 +24,52 @@
 </template>
 
 <script>
-import NotificationBanner from '../components/NotificationBanner.vue';
-import PillInfoCard from '../components/PillInfoCard.vue';
-import apiService from '../apiService';
+import NotificationBanner from '@/components/NotificationBanner.vue';
+import PillInfoCard from '@/components/PillInfoCard.vue';
+import apiService from '@/apiService';
+import globalFunctions from '@/globalFunctions';
 import Medication from '@/models/Medication';
-import ScheduleResponse from '@/models/ScheduleResponse';
-import Loader from '../components/Loader.vue';
+import ScheduleBus from '@/models/ScheduleBus';
+import Loader from '@/components/Loader.vue';
+import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
+import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
 
 export default {
   components: {
     NotificationBanner,
     PillInfoCard,
     Loader,
+    MedicationContainer,
+    SchedulesContainer
 },
   data() {
     return {
       containers: [],
-      schedules: []
+      schedules: [],
+      isLoadingContainers: true,
+      isLoadingSchedules: true,
+      pageData: 0
     }
   },
   computed: {
-    isLoading() {
-      return this.containers.length === 0 && this.schedules.length === 0;
-    },
+    
   },
   mounted(){
-    this.updateContainers();
-    this.fetchSchedules();
+    globalFunctions.updateContainers().then(() => 
+    { 
+      this.containers = this.$store.state.containers;
+      this.isLoadingContainers = false;
+    });
+    globalFunctions.updateSchedules().then(() => 
+    { 
+      this.schedules = this.$store.state.schedules;
+      this.isLoadingSchedules = false;
+    });
   },
   methods: {
     editPills(containerIndex){
       this.$store.commit('setContainerIndex', containerIndex);
       this.$router.push({name: 'add pill'});
-    },
-    async updateContainers(){
-      try {
-        this.containers = await apiService.getContainers();
-        this.$store.commit('setAllContainers', this.containers);
-      } catch (error) {
-        console.error('Error fetching entity data:', error);
-      }
     },
     async fetchSchedules(){
       try {
@@ -75,6 +88,35 @@ export default {
 .masterContainer {
   height: 480px;
 }
+
+.selectionBarFlexContainer {
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
+    padding: 10px;
+    margin-top: 75px;
+
+    .selectorBar {
+        width: 325px;
+        height: 6px;
+        display: flex; /* Use flexbox layout */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+
+        .selectionBarText {
+            color: white;
+            font-size: 20px;
+            padding-bottom: 30px;;
+        }
+    }
+    .selected {
+        background-color: #367EC3;
+    }
+    .unselected {
+        background-color: rgb(155, 155, 155);
+    }
+}
+
 
 .pillInfoCardsContainer {
   display: flex; /* Use flexbox layout */

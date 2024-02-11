@@ -1,6 +1,6 @@
 export class Time {
-    id = -1;
-    dateTime = "";
+
+    dateTime = "nana";
 
     constructor() { }
 }
