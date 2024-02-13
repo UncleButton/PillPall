@@ -59,9 +59,9 @@ const apiService = {
     }
   },
 
-  async saveSchedule(scheduleBus) {
+  async saveSchedule(meds) {
     try {
-      const response = await axios.post(BASE_URL+ '/Schedule/saveSchedule', scheduleBus);
+      const response = await axios.post(BASE_URL+ '/Schedule/saveSchedule', meds);
               
       if(response.status == HttpStatusCode.Ok)
         return;

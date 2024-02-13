@@ -91,6 +91,7 @@ export default {
 }
 
 .selectionBarFlexContainer {
+    margin-top: 0px;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
@@ -152,7 +153,8 @@ export default {
 }
 
 .infoPages {
-    margin: 32px
+    margin-top: 10px;
+    margin-left: 32px
 }
 
 </style>

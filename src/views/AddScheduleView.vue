@@ -29,7 +29,7 @@
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
             <div v-for="(container, index) in containers.slice(0, 3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ meds.filter(med => med.medId == container.id).length > 0 ? meds.filter(med => med.medId == container.id)[0].numPills : 0 }}</div>
+                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication?.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication?.id == container.id)[0].numPills : 0 }}</div>
                 <div class="qtyButtonsContainer">
                     <div @click="incQty(container.id)">+</div>
                     <div @click="decQty(container.id)">-</div>
@@ -39,7 +39,7 @@
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
             <div v-for="(container, index) in containers.slice(3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ meds.filter(med => med.medId == container.id).length > 0 ? meds.filter(med => med.medId == container.id)[0].numPills : 0 }}</div>
+                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication?.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication?.id == container.id)[0].numPills : 0 }}</div>
                 <div class="qtyButtonsContainer">
                     <div @click="incQty(container.id)">+</div>
                     <div @click="decQty(container.id)">-</div>
@@ -81,7 +81,7 @@ export default {
     return {
       schedule: new Schedule(),
       times: [new Time(), new Time(), new Time()],
-      meds: [],
+      scheduleMeds: [],
       containers: this.$store.state.containers,
       infoStage: 0,
       hours: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
@@ -89,23 +89,16 @@ export default {
     }
   },
   mounted(){
-    //if editing pills, get the current info to populate fields
-    if(this.$store.getters.getContainerIndex != -1)
-        this.medication = this.$store.getters.getContainerAtIndex;
+    this.schedule.times = this.times;
   },
   methods: {
     updateMedication(newValue) {
         this.medication = newValue;
     },
     async saveSchedule(){
+        this.schedule.times = this.schedule.times.filter(time => !time.dateTime.includes('na'));
         try {
-            var scheduleBus = new ScheduleBus();
-            scheduleBus.name = this.schedule.name;
-            scheduleBus.pin = this.schedule.pin;
-            scheduleBus.times = this.times;
-            scheduleBus.scheduleMeds = this.meds;
-
-            await apiService.saveSchedule(scheduleBus).then(() => {
+            await apiService.saveSchedule(this.scheduleMeds).then(() => {
                 this.$router.push({name: 'home'});
             });
         } catch (error) {
@@ -113,20 +106,21 @@ export default {
         }
     },
     incQty(id){
-        if(this.meds.filter(med => med.medId == id).length == 0){//if not already in list
+        if(this.scheduleMeds.filter(med => med?.medication?.id == id).length == 0){//if not already in list
             var newMed = new ScheduleMed();
-            newMed.medId = id;
+            newMed.medication = this.containers.filter(med => med.id == id)[0];
             newMed.numPills = 1;
-            this.meds.push(newMed);
+            newMed.schedule = this.schedule;
+            this.scheduleMeds.push(newMed);
         }
         else //already in list, just inc it
         {
-            this.meds.filter(med => med.medId == id)[0].numPills++;
+            this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
         }
     },
     decQty(id){
-        if(this.meds.filter(med => med.medId == id).length > 0){//qty > 0
-            var med = this.meds.filter(med => med.medId == id)[0];
+        if(this.scheduleMeds.filter(med => med?.medication?.id == id).length > 0){//qty > 0
+            var med = this.scheduleMeds.filter(med => med?.medication?.id == id)[0];
             if(med.numPills > 0)
                 med.numPills--;
         }

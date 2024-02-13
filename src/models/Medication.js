@@ -1,6 +1,5 @@
 
 export class Medication {
-    id = -1;
     name = "";
     description = "";
     numPills = null;
@@ -16,6 +15,7 @@ export class Medication {
     pharmacyZip = "";
     pharmacyPhone = "";
     userId = -1;
+    scheduleMeds = [];
 
     constructor() { }
 }

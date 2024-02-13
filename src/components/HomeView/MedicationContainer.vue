@@ -28,19 +28,25 @@
       }
     },
     computed: {
-      
+      storeContainers(){
+        return this.$store.state.containers;
+      },
+      storeSchedules() {
+        return this.$store.state.schedules;
+      } 
     },
     mounted(){
-      globalFunctions.updateContainers().then(() => 
-      { 
-        this.containers = this.$store.state.containers;
+      
+    },
+    watch: {
+      storeContainers(newValue, oldValue){
+        this.containers = newValue;
         this.isLoadingContainers = false;
-      });
-      globalFunctions.updateSchedules().then(() => 
-      { 
-        this.schedules = this.$store.state.schedules;
-        this.isLoadingSchedules = false;
-      });
+      },
+      storeSchedules(newValue, oldValue){
+        this.schedules = newValue;
+        this.isLoadingContainers = false;
+      }
     },
     methods: {
       editPills(containerIndex){
