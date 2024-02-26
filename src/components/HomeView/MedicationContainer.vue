@@ -36,7 +36,14 @@
       } 
     },
     mounted(){
-      
+        if(this.storeContainers.length > 0) {
+          this.containers = this.storeContainers;
+          this.isLoadingContainers = false;
+        }
+        if(this.storeSchedules.length > 0) {
+          this.schedules = this.storeSchedules;
+          this.isLoadingSchedules = false;
+        }
     },
     watch: {
       storeContainers(newValue, oldValue){

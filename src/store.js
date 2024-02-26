@@ -6,10 +6,14 @@ const store = createStore({
     containerIndex: -1,
     containers: [],
     schedules: [],
+    scheduleIndex: -1
   },
   mutations: {
     setContainerIndex(state, newValue){
         state.containerIndex = newValue;
+    },
+    setScheduleIndex(state, newValue){
+      state.scheduleIndex = newValue;
     },
     setContainer(state, id, newMeds){
         state.containers[id] = newMeds;
@@ -30,14 +34,20 @@ const store = createStore({
     getContainerIndex(state) {
       return state.containerIndex;
     },
+    getScheduleIndex(state){
+      return state.scheduleIndex;
+    },
     getContainers(state) {
         return state.containers;
     },
     getSchedules(state) {
       return state.schedules;
-  },
+    },
     getContainerAtIndex(state) {
-        return state.containers[state.containerIndex];
+      return state.containers[state.containerIndex];
+    },
+    getScheduleAtIndex(state){
+      return state.schedules[state.scheduleIndex];
     }
   }
 });

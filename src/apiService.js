@@ -72,6 +72,32 @@ const apiService = {
     }
   },
 
+  async updateSchedule(schedule) {
+    try {
+      const response = await axios.post(BASE_URL+ '/Schedule/updateSchedule', schedule);
+              
+      if(response.status == HttpStatusCode.Ok)
+        return;
+      else 
+        throw "Something went wrong!";
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async deleteSchedule(schedule) {
+    try {
+      const response = await axios.post(BASE_URL+ '/Schedule/deleteSchedule', schedule);
+              
+      if(response.status == HttpStatusCode.Ok)
+        return;
+      else 
+        throw "Something went wrong!";
+    } catch (error) {
+        throw error;
+    }
+  },
+
   mapSingleResultToModel(result, ModelClass) {
     const modelInstance = new ModelClass();
     Object.assign(modelInstance, result);
