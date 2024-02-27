@@ -116,7 +116,7 @@ export default {
     },
     async dispense(){
         try {
-            await apiService.dispense(this.schedule).then(() => {
+            await apiService.dispenseSchedule(this.schedule).then(() => {
                 this.$router.push({name: 'home'});
             });
         } catch (error) {

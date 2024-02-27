@@ -25,7 +25,7 @@ const apiService = {
 
   async saveMedication(medication) {
     try {
-      const response = await axios.post(BASE_URL+ '/PillInformation/newMedication', medication);
+      const response = await axios.post(BASE_URL+ '/PillInformation/saveMedication', medication);
               
       if(response.status == HttpStatusCode.Ok)
         return;
@@ -88,6 +88,19 @@ const apiService = {
   async deleteSchedule(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Schedule/deleteSchedule', schedule);
+              
+      if(response.status == HttpStatusCode.Ok)
+        return;
+      else 
+        throw "Something went wrong!";
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async dispenseSchedule(schedule) {
+    try {
+      const response = await axios.post(BASE_URL+ '/Dispense/dispenseSchedule', schedule);
               
       if(response.status == HttpStatusCode.Ok)
         return;
