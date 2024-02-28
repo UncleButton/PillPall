@@ -46,6 +46,13 @@
                 <p> {{ time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2) }}</p>
             </div>
         </div>
+
+        <div>
+            <div v-for="day in $store.state.weekDays">
+                <input type="checkbox" id="myCheckbox" :checked="schedule.days.includes(day)" @change="(event) => dayToggle(event, day)">
+                <label> {{ day }} </label>
+            </div>
+        </div>
     </div>
 
     <div class="button" @click="updateSchedule()">Save Schedule</div>
@@ -59,7 +66,6 @@
 import Medication from '@/models/Medication';
 import apiService from '@/apiService';
 import TextField from '@/components/TextField.vue';
-import ScheduleBus from '@/models/ScheduleBus';
 import Schedule from '@/models/Schedule';
 import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
@@ -121,6 +127,14 @@ export default {
             });
         } catch (error) {
             console.error('Error dispensing:', error);
+        }
+    },
+    dayToggle(event, day){
+        const checked = event.target.checked;
+        if(checked){
+            this.schedule.days += day;
+        } else {
+            this.schedule.days = this.schedule.days.replace(day, "");
         }
     }
   }

@@ -4,6 +4,7 @@ export class Schedule {
     pin = -1;
     scheduleMeds = [];
     times = [];
+    days = "";
     
     constructor() { }
 }

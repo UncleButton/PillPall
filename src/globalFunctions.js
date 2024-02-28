@@ -1,10 +1,5 @@
 // globalFunctions.js
 
-import User from '../src/models/User';
-import Medication from '../src/models/Medication';
-import ScheduleBus from './models/ScheduleBus';
-import ScheduleMed from './models/ScheduleMed';
-import Time from './models/Time';
 import apiService from './apiService';
 import store from './store';
 

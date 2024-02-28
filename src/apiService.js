@@ -1,11 +1,10 @@
 // apiService.js
 
 import axios, { HttpStatusCode } from 'axios';
-import User from '../src/models/User';
 import Medication from '../src/models/Medication';
-import ScheduleBus from './models/ScheduleBus';
 import ScheduleMed from './models/ScheduleMed';
 import Time from './models/Time';
+import Schedule from './models/Schedule';
 
 const BASE_URL = 'http://localhost:5218';
 
@@ -40,7 +39,7 @@ const apiService = {
     try {
       const response = await axios.get(BASE_URL+ '/Schedule/getSchedules');
       
-      const schedules = this.mapListResultToModels(response.data, ScheduleBus);
+      const schedules = this.mapListResultToModels(response.data, Schedule);
       
       schedules.forEach(element => {
         const meds = [];

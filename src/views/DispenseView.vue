@@ -1,6 +1,6 @@
 <template>    
     <div class="headerContainer">
-        <h1 class="newPillsHeader">Dispense</h1>
+        <h1 class="newPillsHeader">One-Time Dispense</h1>
     </div>
 
     <div class="medsTimesContainer">
@@ -22,12 +22,9 @@
 
 <script>
 
-import Medication from '@/models/Medication';
 import apiService from '@/apiService';
 import TextField from '@/components/TextField.vue';
-import ScheduleBus from '@/models/ScheduleBus';
 import Schedule from '@/models/Schedule';
-import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 

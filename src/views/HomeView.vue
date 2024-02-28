@@ -1,6 +1,10 @@
 <template>
   <div class="masterContainer">
 
+    <div class="headerContainer">
+        <h1 v-if="pageData == 1">Today, {{ $store.getters.getCurrentWeekDay }}</h1>
+    </div>
+
     <div class="selectionBarFlexContainer">
         <div @click="pageData = 0" class="selectorBar" :class="pageData==0 ? 'selected' : 'unselected'">
             <h4 class="selectionBarText">Medications</h4>
@@ -28,8 +32,6 @@ import NotificationBanner from '@/components/NotificationBanner.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
 import apiService from '@/apiService';
 import globalFunctions from '@/globalFunctions';
-import Medication from '@/models/Medication';
-import ScheduleBus from '@/models/ScheduleBus';
 import Loader from '@/components/Loader.vue';
 import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
@@ -97,7 +99,7 @@ export default {
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
     padding: 10px;
-    margin-top: 75px;
+    margin-top: 35px;
 
     .selectorBar {
         width: 325px;

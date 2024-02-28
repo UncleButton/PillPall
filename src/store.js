@@ -6,7 +6,8 @@ const store = createStore({
     containerIndex: -1,
     containers: [],
     schedules: [],
-    scheduleIndex: -1
+    scheduleIndex: -1,
+    weekDays: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -23,7 +24,7 @@ const store = createStore({
     },
     setAllSchedules(state, newSchedules){
       state.schedules = newSchedules;
-  }
+    }
   },
   actions: {
     increment(context) {
@@ -48,6 +49,13 @@ const store = createStore({
     },
     getScheduleAtIndex(state){
       return state.schedules[state.scheduleIndex];
+    },
+    getCurrentWeekDay(state) {
+      const today = new Date();
+      return state.weekDays[today.getDay()];
+    },
+    getWeekDay(state, dayIndex){
+      return state.weekDays[dayIndex];
     }
   }
 });

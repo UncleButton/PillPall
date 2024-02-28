@@ -37,7 +37,7 @@ export default {
       this.$router.push({name: 'add schedule'});
     },
     schedulesAtHour(hour){
-      const schedulesAtHour = this.schedules.filter(schedule => schedule.times.filter(time => hour == parseInt(time.dateTime.slice(0,2))).length>0);
+      const schedulesAtHour = this.schedules.filter(schedule => schedule.times.filter(time => hour == parseInt(time.dateTime.slice(0,2))).length>0).filter(schedule => schedule.days.includes(this.$store.getters.getCurrentWeekDay));
       return schedulesAtHour;
     },
     goToScheduleView(schedule){
@@ -51,7 +51,6 @@ export default {
 </script>
 
 <style>
-
 .scheduleBackgroundContainer {
     position: absolute;
     left: 75px;

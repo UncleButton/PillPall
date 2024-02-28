@@ -54,6 +54,14 @@
                 <DropDown :items="minutes" label="Minute" @select="time.dateTime = time.dateTime.slice(0,2) + $event" :preSelectedItem="time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2)"></DropDown>
             </div>
         </div>
+
+        <div>
+            <div v-for="day in $store.state.weekDays">
+                <input type="checkbox" id="myCheckbox" @change="(event) => dayToggle(event, day)">
+                <label> {{ day }} </label>
+            </div>
+        </div>
+
     </div>
 
     <div class="saveSchedule" @click="saveSchedule()">Save Schedule</div>
@@ -62,10 +70,8 @@
 
 <script>
 
-import Medication from '@/models/Medication';
 import apiService from '@/apiService';
 import TextField from '@/components/TextField.vue';
-import ScheduleBus from '@/models/ScheduleBus';
 import Schedule from '@/models/Schedule';
 import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
@@ -82,6 +88,7 @@ export default {
       schedule: new Schedule(),
       times: [new Time(), new Time(), new Time()],
       scheduleMeds: [],
+      days: "",
       containers: this.$store.state.containers,
       infoStage: 0,
       hours: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
@@ -100,6 +107,7 @@ export default {
     },
     async saveSchedule(){
         this.schedule.times = this.schedule.times.filter(time => !time.dateTime.includes('na'));
+        this.schedule.days = this.days;
         try {
             await apiService.saveSchedule(this.scheduleMeds).then(() => {
                 this.$router.push({name: 'home'});
@@ -127,6 +135,14 @@ export default {
             var med = this.scheduleMeds.filter(med => med?.medication.id == id)[0];
             if(med.numPills > 0)
                 med.numPills--;
+        }
+    },
+    dayToggle(event, day){
+        const checked = event.target.checked;
+        if(checked){
+            this.days += day;
+        } else {
+            this.days = this.days.replace(day, "");
         }
     }
   }
@@ -160,6 +176,7 @@ export default {
 
 .timesContainer {
     margin-left: 50px;
+    margin-right: 50px;
     .hourMinuteContainer {
         display: flex; /* Use flexbox layout */
     }
