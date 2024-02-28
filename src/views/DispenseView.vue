@@ -1,62 +1,22 @@
 <template>    
     <div class="headerContainer">
-        <h1 class="newPillsHeader">Add New Schedule</h1>
+        <h1 class="newPillsHeader">Dispense</h1>
     </div>
-
-    <div class="flex-container">
-        <TextField id="" 
-            class="textField"
-            label="Schedule Name"
-            :value="schedule.name" 
-            @input="schedule.name = $event; updateValue()" 
-            placeholder="e.g. Britton's Alzheimer's Meds" 
-            width="300px" 
-            :maxlength='30'
-        ></TextField>
-        <TextField id="" 
-            class="textField"
-            label="PIN (optional)" 
-            :value="schedule.pin == -1 ? '' : schedule.pin" 
-            @input="schedule.pin = $event; updateValue()" 
-            type="number" 
-            placeholder="e.g. 1234" 
-            width="100px" 
-            :maxlength='4'
-        ></TextField>
-    </div> 
 
     <div class="medsTimesContainer">
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(0, 3)" :key="index" class="containersContainer">
+            <div v-for="(container, index) in containers" :key="index" class="containersContainer">
                 <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0 }}</div>
                 <div class="qtyButtonsContainer">
                     <div @click="incQty(container.id)">+</div>
                     <div @click="decQty(container.id)">-</div>
                 </div>
-            </div>
-        </div>
-        <div class="addMedsContainer">
-            <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0 }}</div>
-                <div class="qtyButtonsContainer">
-                    <div @click="incQty(container.id)">+</div>
-                    <div @click="decQty(container.id)">-</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timesContainer">
-            Times
-            <div v-for="time in times" class="hourMinuteContainer">
-                <DropDown :items="hours" label="Hour" @select="time.dateTime = $event + time.dateTime.slice(2)" :preSelectedItem="time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2)"></DropDown>
-                <DropDown :items="minutes" label="Minute" @select="time.dateTime = time.dateTime.slice(0,2) + $event" :preSelectedItem="time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2)"></DropDown>
             </div>
         </div>
     </div>
 
-    <div class="saveSchedule" @click="saveSchedule()">Save Schedule</div>
+    <div @click="dispense()"> DISPENSE </div>
 
 </template>
 
@@ -80,7 +40,6 @@ export default {
   data() {
     return {
       schedule: new Schedule(),
-      times: [new Time(), new Time(), new Time()],
       scheduleMeds: [],
       containers: this.$store.state.containers,
       infoStage: 0,
@@ -89,19 +48,15 @@ export default {
     }
   },
   mounted(){
-        this.schedule.times = this.times;
-  },
-  beforeRouteLeave(){
-    this.$store.commit('setScheduleIndex', -1);
+    
   },
   methods: {
     updateMedication(newValue) {
         this.medication = newValue;
     },
-    async saveSchedule(){
-        this.schedule.times = this.schedule.times.filter(time => !time.dateTime.includes('na'));
+    async dispense(){
         try {
-            await apiService.saveSchedule(this.scheduleMeds).then(() => {
+            await apiService.dispenseCustom(this.scheduleMeds).then(() => {
                 this.$router.push({name: 'home'});
             });
         } catch (error) {
@@ -154,8 +109,10 @@ export default {
 }
 
 .addMedsContainer {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
 }
 
 .timesContainer {
@@ -170,20 +127,25 @@ export default {
     width: 150px;
     height: 50px;
     margin: 5px;
-
+    width: 15%;
+    height: 80%;
+    
+    
     .qtyButtonsContainer {
         display: flex; /* Use flexbox layout */
-        align-items: center; /* Align items vertically */
+        flex-direction: column;
+        height: 100px;
+        margin: 10px;
         div {
             display: flex; /* Use flexbox layout */
             align-items: center; /* Align items vertically */
             justify-content: center; /* Center horizontally */
             background-color: green;
-            width: 20px;
-            height: 20px;
+            width: 60px;
+            height: 30px;
             font-weight: bold;
             font-size: 20px;
-            margin-left: 10px;
+            margin-top: 10px;
         }
     }
 }

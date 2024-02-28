@@ -128,7 +128,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .headerContainer {
     margin-top: -3px;
@@ -169,22 +169,6 @@ export default {
     justify-content: center; /* Center horizontally */
     font-size: 17px;
     overflow-wrap: break-word;
-
-    .qtyButtonsContainer {
-        display: flex; /* Use flexbox layout */
-        align-items: center; /* Align items vertically */
-        div {
-            display: flex; /* Use flexbox layout */
-            align-items: center; /* Align items vertically */
-            justify-content: center; /* Center horizontally */
-            background-color: green;
-            width: 20px;
-            height: 20px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-left: 10px;
-        }
-    }
 }
 
 .flex-container {

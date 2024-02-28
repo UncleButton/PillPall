@@ -111,6 +111,19 @@ const apiService = {
     }
   },
 
+  async dispenseCustom(scheduleMeds) {
+    try {
+      const response = await axios.post(BASE_URL+ '/Dispense/dispenseCustom', scheduleMeds);
+              
+      if(response.status == HttpStatusCode.Ok)
+        return;
+      else 
+        throw "Something went wrong!";
+    } catch (error) {
+        throw error;
+    }
+  },
+
   mapSingleResultToModel(result, ModelClass) {
     const modelInstance = new ModelClass();
     Object.assign(modelInstance, result);

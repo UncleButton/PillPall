@@ -15,7 +15,7 @@
 
     <div class="footer">
       <div class="footerButtonsContainer">
-        <div class="dispenseButton button">Dispense</div>
+        <div class="dispenseButton button" @click="goToDispense()">Dispense</div>
       </div>
     </div>
 
@@ -77,6 +77,9 @@ export default {
       } catch (error) {
         console.error('Error fetching schedule data:', error);
       }
+    },
+    goToDispense(){
+      this.$router.push({name: 'dispense view'});
     }
   }
 }
