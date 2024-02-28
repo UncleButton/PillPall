@@ -37,7 +37,8 @@ export default {
       this.$router.push({name: 'add schedule'});
     },
     schedulesAtHour(hour){
-      const schedulesAtHour = this.schedules.filter(schedule => schedule.times.filter(time => hour == parseInt(time.dateTime.slice(0,2))).length>0).filter(schedule => schedule.days.includes(this.$store.getters.getCurrentWeekDay));
+      const schedulesToday = this.$store.getters.getTodaysSchedules;
+      const schedulesAtHour = schedulesToday.filter(schedule => schedule.times.filter(time => hour == parseInt(time.dateTime.slice(0,2))).length>0);
       return schedulesAtHour;
     },
     goToScheduleView(schedule){
@@ -72,8 +73,8 @@ export default {
     justify-content: space-evenly;
     .calendarSchedule {
       display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
       width: 150px;
       background: green;
       border-radius: 10px;

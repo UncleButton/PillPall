@@ -25,11 +25,11 @@
       };
     },
     mounted() {
-      // Update current time every second
+      // Update current time every 5 seconds
       this.updateTime();
       setInterval(() => {
         this.updateTime();
-      }, 1000);
+      }, 5000);
     },
     methods: {
       updateTime() {
@@ -41,6 +41,9 @@
         this.currentDay = now.getDate();
         this.currentMonth = this.months[now.getMonth()];
         this.currentWeekDay = this.weekDays[now.getDay()];
+
+        //update upcoming schedule
+        this.$store.commit('setNextSchedule');
       },
       formatTimeUnit(unit) {
         // Ensure two-digit format (e.g., 01, 02, ..., 09)

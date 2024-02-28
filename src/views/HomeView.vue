@@ -19,7 +19,8 @@
 
     <div class="footer">
       <div class="footerButtonsContainer">
-        <div class="dispenseButton button" @click="goToDispense()">Dispense</div>
+        <div class="dispenseButton button" @click="goToDispense()">Custom Dispense</div>
+        <div class="nextDoseBar">Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
       </div>
     </div>
 
@@ -66,7 +67,9 @@ export default {
     { 
       this.schedules = this.$store.state.schedules;
       this.isLoadingSchedules = false;
+      this.$store.commit('setNextSchedule');
     });
+    
   },
   methods: {
     editPills(containerIndex){
@@ -143,14 +146,22 @@ export default {
 
     .button {
       width: 100px;
-      height: 35px;
-      border-radius: 20px;
+      height: 45px;
+      border-radius: 5px;
       background-color: green;
       display: flex; /* Use flexbox layout */
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
       margin: 5px;
     }
+  }
+
+  .nextDoseBar {
+    width: 500px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: rgb(255,255,255,0.1);
+    margin: 5px;
   }
 }
 
