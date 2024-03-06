@@ -2,7 +2,8 @@
   <div class="masterContainer">
 
     <div class="headerContainer">
-        <h1 v-if="pageData == 1">Today, {{ $store.getters.getCurrentWeekDay }}</h1>
+        <h1 v-if="pageData == 1">{{ $store.getters.getCurrentWeekDay }}, {{ $store.getters.getCurrentMonth }} {{ $store.getters.getCurrentMonthDay }}</h1>
+        <h1 v-else>PillPal Home</h1>
     </div>
 
     <div class="selectionBarFlexContainer">
@@ -20,7 +21,14 @@
     <div class="footer">
       <div class="footerButtonsContainer">
         <div class="dispenseButton button" @click="goToDispense()">Custom Dispense</div>
-        <div class="nextDoseBar">Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
+        <div class="nextDoseBar">
+          <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
+          <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
+          <div class="dispenseScheduleButton" @click="dispenseNextSchedule">
+            <div><img class="dispenseIcon" src="../assets/dispenseIcon.png"></div>
+            <div>Dispense Now</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -85,6 +93,15 @@ export default {
     },
     goToDispense(){
       this.$router.push({name: 'dispense view'});
+    },
+    async dispenseNextSchedule(){
+      try {
+        await apiService.dispenseSchedule(this.$store.getters.getNextSchedule).then(() => {
+          this.$router.push({name: 'home'});
+        });
+        } catch (error) {
+            console.error('Error dispensing next scheduled dose:', error);
+        }
     }
   }
 }
@@ -145,23 +162,43 @@ export default {
     align-items: center; /* Center vertically */
 
     .button {
-      width: 100px;
-      height: 45px;
-      border-radius: 5px;
+      width: 150px;
+      height: 42px;
+      border-radius: 25px;
       background-color: green;
       display: flex; /* Use flexbox layout */
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
-      margin: 5px;
+      margin-left: -5px;
     }
   }
 
   .nextDoseBar {
     width: 500px;
     height: 45px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: rgb(255,255,255,0.1);
-    margin: 5px;
+    margin: 15px;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Center vertically */
+    padding: 10px;
+    justify-content: space-evenly;
+  }
+  .dispenseScheduleButton {
+    width: 155px;
+    background-color: #367EC3;
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-right: 20px;
+    border-radius: 25px;
+    div {
+      margin: 5px;
+    }
+  }
+  .dispenseIcon {
+    width: 30px;
+    height: 26px;
   }
 }
 

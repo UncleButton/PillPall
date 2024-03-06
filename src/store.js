@@ -9,7 +9,9 @@ const store = createStore({
     schedules: [],
     scheduleIndex: -1,
     weekDays: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
-    nextSchedule: new Schedule()
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+    nextSchedule: new Schedule(),
+    nextScheduleTime: ""
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -74,8 +76,10 @@ const store = createStore({
       });
 
       var upcomingSchedule = sortedUpcomingSchedules[0];
+      var upcomingScheduleTime = upcomingSchedule?.times[0]?.dateTime;
 
       state.nextSchedule = upcomingSchedule;
+      state.nextScheduleTime = upcomingScheduleTime;
     }
   },
   actions: {
@@ -109,6 +113,14 @@ const store = createStore({
     getWeekDay(state, dayIndex){
       return state.weekDays[dayIndex];
     },
+    getCurrentMonth(state) {
+      const today = new Date();
+      return state.months[today.getMonth()];
+    },
+    getCurrentMonthDay(state) {
+      const today = new Date();
+      return today.getDate();
+    },
     getTodaysSchedules(state){
       const today = new Date();
       const todaysSchedules = state.schedules.filter(schedule => schedule.days.includes(state.weekDays[today.getDay()]));
@@ -116,6 +128,9 @@ const store = createStore({
     },
     getNextSchedule(state){
       return state.nextSchedule;
+    },
+    getNextScheduleTime(state){
+      return state.nextScheduleTime;
     }
   }
 });

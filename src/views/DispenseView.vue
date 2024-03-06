@@ -7,11 +7,13 @@
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
             <div v-for="(container, index) in containers" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0 }}</div>
-                <div class="qtyButtonsContainer">
-                    <div @click="incQty(container.id)">+</div>
-                    <div @click="decQty(container.id)">-</div>
-                </div>
+                <PillInfoCard 
+                    :medication="container" 
+                    :dispensable="true" 
+                    :numToDispense="scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0" 
+                    @decrement-pills="decQty" 
+                    @increment-pills="incQty">
+                </PillInfoCard>
             </div>
         </div>
     </div>
@@ -27,12 +29,14 @@ import TextField from '@/components/TextField.vue';
 import Schedule from '@/models/Schedule';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
+import PillInfoCard from '@/components/PillInfoCard.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
-    DropDown
+    DropDown,
+    PillInfoCard
 },
   data() {
     return {
@@ -98,9 +102,9 @@ export default {
 }
 
 .medsTimesContainer {
-    width: 700px;
-    height: 200px;
-    margin-left: 50px;
+    width: 760px;
+    height: 220px;
+    margin-left: 20px;
     background-color: rgb(255,255,255, 0.2);
     display: flex;
 }
@@ -116,34 +120,6 @@ export default {
     margin-left: 50px;
     .hourMinuteContainer {
         display: flex; /* Use flexbox layout */
-    }
-}
-
-.containersContainer {
-    background-color: grey;
-    width: 150px;
-    height: 50px;
-    margin: 5px;
-    width: 15%;
-    height: 80%;
-    
-    
-    .qtyButtonsContainer {
-        display: flex; /* Use flexbox layout */
-        flex-direction: column;
-        height: 100px;
-        margin: 10px;
-        div {
-            display: flex; /* Use flexbox layout */
-            align-items: center; /* Align items vertically */
-            justify-content: center; /* Center horizontally */
-            background-color: green;
-            width: 60px;
-            height: 30px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-top: 10px;
-        }
     }
 }
 
