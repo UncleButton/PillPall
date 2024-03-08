@@ -50,6 +50,14 @@ export default {
     this.startTimer();
     document.addEventListener('click', this.clearTimer);
 
+    //send out reminders every minute and set next schedule
+    this.$store.commit('setNextSchedule');
+    this.$store.commit('sendScheduleReminders');
+    setInterval(() => {
+      this.$store.commit('setNextSchedule');
+      this.$store.commit('sendScheduleReminders');
+    }, 60000);
+
     // Update current time every second
     this.updateTime();
     setInterval(() => {

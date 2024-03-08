@@ -122,8 +122,8 @@ export default {
     height: 70px;
     display: flex; /* Use flexbox layout */
     position: absolute;
-    bottom: 200px;
-    left: 560px;
+    bottom: -10px;
+    left: 250px;
 
     .footerButton {
         padding: 4px;
@@ -136,7 +136,7 @@ export default {
         display: flex; /* Use flexbox layout */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
-        margin: 5px;
+        margin: 15px;
 
         h4 {
             color: white;
@@ -154,7 +154,7 @@ export default {
 
 .infoPages {
     margin-top: 10px;
-    margin-left: 32px
+    margin-left: 132px
 }
 
 </style>

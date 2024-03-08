@@ -21,7 +21,7 @@
     <div class="footer">
       <div class="footerButtonsContainer">
         <div class="dispenseButton button" @click="goToDispense()">Custom Dispense</div>
-        <div class="nextDoseBar">
+        <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
           <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
           <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
           <div class="dispenseScheduleButton" @click="dispenseNextSchedule">
@@ -119,9 +119,13 @@ export default {
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
     padding: 10px;
-    margin-top: 35px;
+    margin-top: 20px;
+    background-color: #367EC3;
+    height: 40px;
+    margin-bottom: 5px;
 
     .selectorBar {
+        margin-bottom: -15px;
         width: 325px;
         height: 6px;
         display: flex; /* Use flexbox layout */
@@ -135,7 +139,7 @@ export default {
         }
     }
     .selected {
-        background-color: #367EC3;
+        background-color: #145fa5;
     }
     .unselected {
         background-color: rgb(155, 155, 155);

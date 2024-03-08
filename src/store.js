@@ -1,6 +1,9 @@
 // src/store.js
 import { createStore } from 'vuex';
 import Schedule from './models/Schedule';
+import globalFunctions from './globalFunctions';
+import apiService from './apiService';
+import DateTimeWidget from './components/DateTimeWidget.vue';
 
 const store = createStore({
   state: {
@@ -80,6 +83,24 @@ const store = createStore({
 
       state.nextSchedule = upcomingSchedule;
       state.nextScheduleTime = upcomingScheduleTime;
+    },
+    async sendScheduleReminders(state){
+      store.state.schedules.forEach(async schedule => {
+        schedule.times.forEach(async time => {
+          var dateTime = new Date();
+          dateTime.setHours(time.dateTime.slice(0,2), time.dateTime.slice(2));
+
+          var now = new Date();
+          var diffInMillis = (dateTime - now);
+          var diffInMinutes = Math.floor((diffInMillis/1000)/60);
+
+          if(diffInMinutes == 30) {
+            await apiService.sendReminder(schedule);
+            console.log("sent reminder");
+            delay(5000);
+          } 
+        })
+      })
     }
   },
   actions: {
@@ -134,5 +155,7 @@ const store = createStore({
     }
   }
 });
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 export default store;

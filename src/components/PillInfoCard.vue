@@ -9,7 +9,7 @@
       <div @click="incrementPills" class="button">+</div>
     </div>
     <div v-else class="button-container">
-      <div class="editText">Click to edit</div>
+      <div class="editText">(Click to edit)</div>
     </div>
   </div>
   <div v-else class="medication-card">

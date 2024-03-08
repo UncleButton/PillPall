@@ -41,9 +41,6 @@
         this.currentDay = now.getDate();
         this.currentMonth = this.months[now.getMonth()];
         this.currentWeekDay = this.weekDays[now.getDay()];
-
-        //update upcoming schedule
-        this.$store.commit('setNextSchedule');
       },
       formatTimeUnit(unit) {
         // Ensure two-digit format (e.g., 01, 02, ..., 09)
