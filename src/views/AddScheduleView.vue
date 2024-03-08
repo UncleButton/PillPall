@@ -3,7 +3,7 @@
         <h1 class="newPillsHeader">Add New Schedule</h1>
     </div>
 
-    <div class="flex-container">
+    <div class="flex-container top-bar-info">
         <TextField id="" 
             class="textField"
             label="Schedule Name"
@@ -33,45 +33,36 @@
             :maxlength='30'
         ></TextField>
     </div> 
+    <div class="timesContainer">
+        <div>Times</div>
+        <div v-for="time in times" class="hourMinuteContainer">
+            <DropDown :items="hours" label="" @select="time.dateTime = $event + time.dateTime.slice(2)" :preSelectedItem="time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2)"></DropDown>
+            <div>:</div>
+            <DropDown :items="minutes" label="" @select="time.dateTime = time.dateTime.slice(0,2) + $event" :preSelectedItem="time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2)"></DropDown>
+        </div>
+    </div>
 
     <div class="medsTimesContainer">
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(0, 3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0 }}</div>
-                <div class="qtyButtonsContainer">
-                    <div @click="incQty(container.id)">+</div>
-                    <div @click="decQty(container.id)">-</div>
-                </div>
+            <div v-for="(container, index) in containers" :key="index" class="containersContainer">
+                <PillInfoCard 
+                    :medication="container" 
+                    :dispensable="true" 
+                    :numToDispense="scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0" 
+                    @decrement-pills="decQty" 
+                    @increment-pills="incQty">
+                </PillInfoCard>
             </div>
         </div>
-        <div class="addMedsContainer">
-            <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0 }}</div>
-                <div class="qtyButtonsContainer">
-                    <div @click="incQty(container.id)">+</div>
-                    <div @click="decQty(container.id)">-</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timesContainer">
-            Times
-            <div v-for="time in times" class="hourMinuteContainer">
-                <DropDown :items="hours" label="Hour" @select="time.dateTime = $event + time.dateTime.slice(2)" :preSelectedItem="time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2)"></DropDown>
-                <DropDown :items="minutes" label="Minute" @select="time.dateTime = time.dateTime.slice(0,2) + $event" :preSelectedItem="time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2)"></DropDown>
-            </div>
-        </div>
-
-        <div>
-            <div v-for="day in $store.state.weekDays">
-                <input type="checkbox" id="myCheckbox" @change="(event) => dayToggle(event, day)">
-                <label> {{ day }} </label>
-            </div>
-        </div>
-
     </div>
+
+    <div class="timesContainer">
+        <div v-for="day in $store.state.weekDays">
+            <input type="checkbox" id="myCheckbox" @change="(event) => dayToggle(event, day)" :checked="day == $store.getters.getCurrentWeekDay">
+            <label> {{ day }} </label>
+        </div>
+    </div>    
 
     <div class="saveSchedule" @click="saveSchedule()">Save Schedule</div>
 
@@ -85,12 +76,13 @@ import Schedule from '@/models/Schedule';
 import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
+import PillInfoCard from '@/components/PillInfoCard.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
-    DropDown
+    PillInfoCard
 },
   data() {
     return {
@@ -105,7 +97,8 @@ export default {
     }
   },
   mounted(){
-        this.schedule.times = this.times;
+    this.schedule.times = this.times;
+    this.days = this.$store.getters.getCurrentWeekDay;
   },
   beforeRouteLeave(){
     this.$store.commit('setScheduleIndex', -1);
@@ -170,47 +163,45 @@ export default {
     margin-bottom: 25px;
 }
 
+.top-bar-info {
+    margin-top: -25px;
+    margin-bottom: 5px;
+}
+
 .medsTimesContainer {
-    width: 700px;
-    height: 200px;
-    margin-left: 50px;
+    width: 760px;
+    height: 220px;
+    margin-left: 20px;
     background-color: rgb(255,255,255, 0.2);
     display: flex;
+    margin-bottom: 8px;
 }
 
 .addMedsContainer {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
 }
 
 .timesContainer {
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 20px;
+    margin-right: 150px;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
+    margin-bottom: 5px;
+
+    div {
+        margin-left: 3px;
+        margin-right: 3px;
+        color: black;
+        font-size: 18px;
+    }
+
     .hourMinuteContainer {
         display: flex; /* Use flexbox layout */
-    }
-}
-
-.containersContainer {
-    background-color: grey;
-    width: 150px;
-    height: 50px;
-    margin: 5px;
-
-    .qtyButtonsContainer {
-        display: flex; /* Use flexbox layout */
         align-items: center; /* Align items vertically */
-        div {
-            display: flex; /* Use flexbox layout */
-            align-items: center; /* Align items vertically */
-            justify-content: center; /* Center horizontally */
-            background-color: green;
-            width: 20px;
-            height: 20px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-left: 10px;
-        }
     }
 }
 
@@ -219,6 +210,18 @@ export default {
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
   justify-content: space-evenly;
+}
+
+.saveSchedule {
+    width: 150px;
+    height: 42px;
+    border-radius: 25px;
+    background-color: green;
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-left: 5px;
+    margin-top: 13px;
 }
 
 </style>

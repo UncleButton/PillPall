@@ -75,7 +75,9 @@ export default {
         }
         else //already in list, just inc it
         {
-            this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
+            //dont allow them to try dispensing more than pills left
+            if(this.containers.filter(container => container.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills)
+                this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
         }
     },
     decQty(id){

@@ -1,7 +1,7 @@
 <template>
     <label>{{ label }}</label>
     <div class="custom-dropdown" @click="toggleDropdown" @blur="collapseDropdown()">
-      <div class="selected-item">{{ selectedItem == '' ? '^' : selectedItem }}</div>
+      <div class="selected-item">{{ selectedItem == '' ? '--' : selectedItem }}</div>
       <div v-if="isOpen" class="dropdown-menu">
         <div v-for="(item, index) in items" :key="index" @click="selectItem(item)" class="items">
           {{ item }}
