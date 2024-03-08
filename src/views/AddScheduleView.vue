@@ -23,6 +23,15 @@
             width="100px" 
             :maxlength='4'
         ></TextField>
+        <TextField id="" 
+            class="textField"
+            label="Reminder Email (optional)" 
+            :value="schedule.notificationEmail" 
+            @input="schedule.notificationEmail = $event; updateValue()" 
+            placeholder="e.g. john.doe@gmail.com" 
+            width="300px" 
+            :maxlength='30'
+        ></TextField>
     </div> 
 
     <div class="medsTimesContainer">
@@ -206,13 +215,10 @@ export default {
 }
 
 .flex-container {
+  margin-left: 20px;
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
-
-  .textField {
-    padding-right: 80px;
-  }
-
+  justify-content: space-evenly;
 }
 
 </style>

@@ -94,7 +94,7 @@ const store = createStore({
           var diffInMillis = (dateTime - now);
           var diffInMinutes = Math.floor((diffInMillis/1000)/60);
 
-          if(diffInMinutes == 30) {
+          if(diffInMinutes == 30 && schedule.notificationEmail != "") {
             await apiService.sendReminder(schedule);
             console.log("sent reminder");
             delay(5000);

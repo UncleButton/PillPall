@@ -5,6 +5,7 @@ export class Schedule {
     scheduleMeds = [];
     times = [];
     days = "";
+    notificationEmail = "";
     
     constructor() { }
 }
