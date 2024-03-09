@@ -36,7 +36,8 @@ export default {
     },
     isLoading: {
       type: Boolean,
-      required: true
+      required: false,
+      default: false
     },
     dispensable: {
       type: Boolean,

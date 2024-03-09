@@ -95,13 +95,21 @@ export default {
       this.$router.push({name: 'dispense view'});
     },
     async dispenseNextSchedule(){
+      var nextSchedule = this.$store.getters.getNextSchedule;
+      if(nextSchedule.pin != "")
+      {
+        await globalFunctions.challengePin(nextSchedule.pin);
+                
+        if(!this.$store.state.PINApproved)
+          return;   
+      }
       try {
-        await apiService.dispenseSchedule(this.$store.getters.getNextSchedule).then(() => {
+        await apiService.dispenseSchedule(nextSchedule).then(() => {
           this.$router.push({name: 'home'});
         });
-        } catch (error) {
-            console.error('Error dispensing next scheduled dose:', error);
-        }
+      } catch (error) {
+          console.error('Error dispensing next scheduled dose:', error);
+      }
     }
   }
 }

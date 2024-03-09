@@ -25,7 +25,25 @@ const globalFunctions = {
     }
   },
 
-  
+  async challengePin(pin){
+    console.log("challenging pin: " + pin);
+    store.commit("challengePIN", pin);
+
+    return new Promise((resolve, reject) => {
+      const intervalId = setInterval(() => {
+        let stillGoing = store.state.PINChallengeInProgress;
+      if (!stillGoing) {
+        setTimeout(() => { //delay for 100 ms so that things behind the popup are not clicked when enter is tapped
+          resolve();
+          store.state.PINDone = true;
+          clearInterval(intervalId);
+        }, 100);
+        //resolve(); // Resolve the promise when condition is met
+      }
+    }, 100); // Check every second
+    });
+
+  },  
 
   // Add other API calls as needed
 };

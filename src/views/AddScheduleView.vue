@@ -16,12 +16,11 @@
         <TextField id="" 
             class="textField"
             label="PIN (optional)" 
-            :value="schedule.pin == -1 ? '' : schedule.pin" 
+            :value="schedule.pin == '' ? '' : schedule.pin" 
             @input="schedule.pin = $event; updateValue()" 
-            type="number" 
             placeholder="e.g. 1234" 
             width="100px" 
-            :maxlength='4'
+            :maxlength='6'
         ></TextField>
         <TextField id="" 
             class="textField"
@@ -77,6 +76,7 @@ import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
+import globalFunctions from '@/globalFunctions';
 
 export default {
   components: {
@@ -118,18 +118,29 @@ export default {
             console.error('Error fetching entity data:', error);
         }
     },
-    incQty(id){
+    async incQty(id){
         if(this.scheduleMeds.filter(med => med?.medication.id == id).length == 0){//if not already in list
-            console.log("inc");
             var newMed = new ScheduleMed();
             newMed.medication = this.containers.filter(container => container.id == id)[0];
             newMed.numPills = 1;
             newMed.schedule = this.schedule;
-            this.scheduleMeds.push(newMed);
+
+            if(newMed.medication.pin != "")
+            {
+                await globalFunctions.challengePin(newMed.medication.pin);
+                
+                if(this.$store.state.PINApproved)
+                    this.scheduleMeds.push(newMed);   
+
+                return;
+            }
+            this.scheduleMeds.push(newMed);   
         }
         else //already in list, just inc it
         {
-            this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
+            //dont allow them to try dispensing more than pills left
+            if(this.containers.filter(container => container.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills)
+                this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
         }
     },
     decQty(id){

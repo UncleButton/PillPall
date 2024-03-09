@@ -25,6 +25,7 @@
         schedules: [],
         isLoadingContainers: true,
         isLoadingSchedules: true,
+        medication: null
       }
     },
     computed: {
@@ -56,9 +57,20 @@
       }
     },
     methods: {
-      editPills(containerIndex){
+      async editPills(containerIndex){
         this.$store.commit('setContainerIndex', containerIndex);
-        this.$router.push({name: 'add pill'});
+        if(containerIndex != -1){
+          this.medication = this.$store.getters.getContainerAtIndex;
+          if(this.medication.pin != "")
+          {
+            await globalFunctions.challengePin(this.medication.pin);
+            
+            if(this.$store.state.PINApproved)
+              this.$router.push({name: 'add pill'});
+          }
+        } else {
+          this.$router.push({name: 'add pill'});
+        }
       },
       goToSchedule() {
         this.$router.push({name: 'schedules'});

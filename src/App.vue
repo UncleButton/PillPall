@@ -19,22 +19,21 @@
       <NotificationBanner text="This is a success message" type="success" /> -->
     </div>
     <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
+    <PinChallenge v-if="!$store.state.PINDone" :pinAnswer="$store.state.PINAnswer"></PinChallenge>
   </div>
 </template>
-
-<!-- <nav>
-  <RouterLink to="/">Home</RouterLink>
-</nav> -->
 
 
 <script>
 import NotificationBanner from './components/NotificationBanner.vue';
 import DateTimeWidget from './components/DateTimeWidget.vue';
-import apiService from './apiService';
+import PinChallenge from './components/PinChallenge.vue';
+
 export default {
   components: {
     NotificationBanner,
-    DateTimeWidget
+    DateTimeWidget,
+    PinChallenge
   },
   data() {
     return {
@@ -43,7 +42,8 @@ export default {
       currentMonth: '',
       currentDay: '',
       currentRoute: this.$route.path,
-      timerId: null
+      timerId: null,
+      pinChallenge: false
     };
   },
   mounted() {

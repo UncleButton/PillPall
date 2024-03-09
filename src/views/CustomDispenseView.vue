@@ -30,6 +30,7 @@ import Schedule from '@/models/Schedule';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
+import globalFunctions from '@/globalFunctions'; 
 
 export default {
   components: {
@@ -64,14 +65,23 @@ export default {
             console.error('Error fetching entity data:', error);
         }
     },
-    incQty(id){
+    async incQty(id){
         if(this.scheduleMeds.filter(med => med?.medication.id == id).length == 0){//if not already in list
-            console.log("inc");
             var newMed = new ScheduleMed();
             newMed.medication = this.containers.filter(container => container.id == id)[0];
             newMed.numPills = 1;
             newMed.schedule = this.schedule;
-            this.scheduleMeds.push(newMed);
+
+            if(newMed.medication.pin != "")
+            {
+                await globalFunctions.challengePin(newMed.medication.pin);
+                
+                if(this.$store.state.PINApproved)
+                    this.scheduleMeds.push(newMed);   
+
+                return;
+            }
+            this.scheduleMeds.push(newMed);  
         }
         else //already in list, just inc it
         {

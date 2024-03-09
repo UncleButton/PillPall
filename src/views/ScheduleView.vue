@@ -16,12 +16,11 @@
         <TextField id="" 
             class="textField"
             label="PIN (optional)" 
-            :value="schedule.pin == -1 ? '' : schedule.pin" 
+            :value="schedule.pin == '' ? '' : schedule.pin" 
             @input="schedule.pin = $event; updateValue()" 
-            type="number" 
             placeholder="e.g. 1234" 
             width="100px" 
-            :maxlength='4'
+            :maxlength='6'
         ></TextField>
     </div> 
 

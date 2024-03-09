@@ -14,7 +14,11 @@ const store = createStore({
     weekDays: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
     months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
     nextSchedule: new Schedule(),
-    nextScheduleTime: ""
+    nextScheduleTime: "",
+    PINAnswer: "",
+    PINApproved: true,
+    PINChallengeInProgress: false,
+    PINDone: true
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -31,6 +35,24 @@ const store = createStore({
     },
     setAllSchedules(state, newSchedules){
       state.schedules = newSchedules;
+    },
+    challengePIN(state, pin){
+      state.PINAnswer = pin;
+      state.PINApproved = false;
+      state.PINChallengeInProgress = true;
+      state.PINDone = false;
+    },
+    pinApproved(state){
+      console.log("PIN Approved");
+      state.PINApproved = true;
+      state.PINChallengeInProgress = false;
+      state.PINAnswer = "";
+    },
+    pinDeclined(state){
+      console.log("PIN Declined");
+      state.PINApproved = false;
+      state.PINChallengeInProgress = false;
+      state.PINAnswer = "";
     },
     setNextSchedule(state){
       const today = new Date();

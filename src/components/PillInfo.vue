@@ -44,10 +44,9 @@
             label="PIN (optional)" 
             :value="medication.pin" 
             @input="medication.pin = $event; updateValue()"
-            type="number" 
             placeholder="e.g. 1234" 
             width="150px" 
-            :maxlength='4'
+            :maxlength='6'
         ></TextField>
     </div>
 </template>
