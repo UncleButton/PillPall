@@ -50,6 +50,7 @@
           this.$store.commit("pinApproved");
         },
         onChange(input) {
+          input = input.slice(0, 6);
           this.textData = input;
         },
         onKeyPress(button) {

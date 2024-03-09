@@ -89,11 +89,12 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
         this.keyboardVisible = false;
       },
       onChange(input) {
+        input = input.slice(0, this.maxlength);
         this.textData = input;
         this.updateValue(this.textData);
       },
       onKeyPress(button) {
-        if(button === '{enter}')
+        if(button == '{enter}')
           this.hideKeyboard();
         console.log("button", button);
       },
