@@ -1,9 +1,7 @@
 // src/store.js
 import { createStore } from 'vuex';
 import Schedule from './models/Schedule';
-import globalFunctions from './globalFunctions';
 import apiService from './apiService';
-import DateTimeWidget from './components/DateTimeWidget.vue';
 
 const store = createStore({
   state: {
@@ -18,7 +16,15 @@ const store = createStore({
     PINAnswer: "",
     PINApproved: true,
     PINChallengeInProgress: false,
-    PINDone: true
+    PINDone: true,
+    informationBanner: false,
+    successBanner: false,
+    warningBanner: false,
+    errorBanner: false,
+    informationBannerText: "",
+    successBannerText: "",
+    warningBannerText: "",
+    errorBannerText: ""
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -53,6 +59,38 @@ const store = createStore({
       state.PINApproved = false;
       state.PINChallengeInProgress = false;
       state.PINAnswer = "";
+    },
+    setInformationBanner(state, text){
+      state.informationBanner = true;
+      state.informationBannerText = text;
+    },
+    setSuccessBanner(state, text){
+      state.successBanner = true;
+      state.successBannerText = text;
+    },
+    setWarningBanner(state, text){
+      state.warningBanner = true;
+      state.warningBannerText = text;
+    },
+    setErrorBanner(state, text){
+      state.errorBanner = true;
+      state.errorBannerText = text;
+    },
+    clearInformationBanner(state){
+      state.informationBanner = false;
+      state.informationBannerText = "";
+    },
+    clearSuccessBanner(state){
+      state.successBanner = false;
+      state.successBannerText = "";
+    },
+    clearWarningBanner(state){
+      state.warningBanner = false;
+      state.warningBannerText = "";
+    },
+    clearErrorBanner(state){
+      state.errorBanner = false;
+      state.errorBannerText = "";
     },
     setNextSchedule(state){
       const today = new Date();
@@ -119,7 +157,6 @@ const store = createStore({
           if(diffInMinutes == 30 && schedule.notificationEmail != "") {
             await apiService.sendReminder(schedule);
             console.log("sent reminder");
-            delay(5000);
           } 
         })
       })
@@ -177,7 +214,5 @@ const store = createStore({
     }
   }
 });
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 export default store;

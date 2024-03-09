@@ -30,7 +30,6 @@ import Schedule from '@/models/Schedule';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
-import globalFunctions from '@/globalFunctions'; 
 
 export default {
   components: {
@@ -74,7 +73,7 @@ export default {
 
             if(newMed.medication.pin != "")
             {
-                await globalFunctions.challengePin(newMed.medication.pin);
+                await this.challengePin(newMed.medication.pin);
                 
                 if(this.$store.state.PINApproved)
                     this.scheduleMeds.push(newMed);   

@@ -11,7 +11,6 @@
   <script>
   import PillInfoCard from '@/components/PillInfoCard.vue';
   import apiService from '@/apiService';
-  import globalFunctions from '@/globalFunctions';
   import Loader from '@/components/Loader.vue';
   
   export default {
@@ -63,14 +62,13 @@
           this.medication = this.$store.getters.getContainerAtIndex;
           if(this.medication.pin != "")
           {
-            await globalFunctions.challengePin(this.medication.pin);
+            await this.challengePin(this.medication.pin);
             
             if(this.$store.state.PINApproved)
               this.$router.push({name: 'add pill'});
           }
-        } else {
-          this.$router.push({name: 'add pill'});
-        }
+        } 
+        this.$router.push({name: 'add pill'});
       },
       goToSchedule() {
         this.$router.push({name: 'schedules'});

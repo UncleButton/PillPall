@@ -40,7 +40,6 @@
 import NotificationBanner from '@/components/NotificationBanner.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
 import apiService from '@/apiService';
-import globalFunctions from '@/globalFunctions';
 import Loader from '@/components/Loader.vue';
 import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
@@ -66,12 +65,12 @@ export default {
     
   },
   mounted(){
-    globalFunctions.updateContainers().then(() => 
+    this.updateContainers().then(() => 
     { 
       this.containers = this.$store.state.containers;
       this.isLoadingContainers = false;
     });
-    globalFunctions.updateSchedules().then(() => 
+    this.updateSchedules().then(() => 
     { 
       this.schedules = this.$store.state.schedules;
       this.isLoadingSchedules = false;
@@ -98,7 +97,7 @@ export default {
       var nextSchedule = this.$store.getters.getNextSchedule;
       if(nextSchedule.pin != "")
       {
-        await globalFunctions.challengePin(nextSchedule.pin);
+        await this.challengePin(nextSchedule.pin);
                 
         if(!this.$store.state.PINApproved)
           return;   

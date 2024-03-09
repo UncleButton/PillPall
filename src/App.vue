@@ -13,10 +13,10 @@
 
     <routerView></routerView>
     <div class="notificationBar">
-      <!-- <NotificationBanner text="This is an informational message" type="info" />
-      <NotificationBanner text="This is an error message" type="error" :autoHide="false"/>
-      <NotificationBanner text="This is a warning message" type="warning" />
-      <NotificationBanner text="This is a success message" type="success" /> -->
+      <NotificationBanner v-if="$store.state.informationBanner" :text="$store.state.informationBannerText" type="info" :autoHide="false"/>
+      <NotificationBanner v-if="$store.state.errorBanner" :text="$store.state.errorBannerText" type="error" :autoHide="false"/>
+      <NotificationBanner v-if="$store.state.warningBanner" :text="$store.state.warningBannerText" type="warning" :autoHide="false"/>
+      <NotificationBanner v-if="$store.state.successBanner" :text="$store.state.successBannerText" type="success" :autoHide="true"/>
     </div>
     <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
     <PinChallenge v-if="!$store.state.PINDone" :pinAnswer="$store.state.PINAnswer"></PinChallenge>

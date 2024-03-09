@@ -19,10 +19,6 @@
 
 <script>
 
-import Medication from '@/models/Medication';
-import apiService from '@/apiService';
-import globalFunctions from '@/globalFunctions';
-
 export default {
   components: {
     
@@ -47,7 +43,7 @@ export default {
     async goToScheduleView(schedule){
       if(schedule.pin != "")
       {
-        await globalFunctions.challengePin(schedule.pin);
+        await this.challengePin(schedule.pin);
                 
         if(!this.$store.state.PINApproved)
           return;  
