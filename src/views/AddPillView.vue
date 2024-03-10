@@ -23,18 +23,10 @@
     </div>
     
     <div class="footerButtonsContainer">
-        <div v-if="infoStage > 0" class="footerButton" :class="infoStage > 0 ? 'clickable' : 'nonclickable'" @click="infoStage > 0 ? infoStage-- : infoStage">
-            <h4>Back</h4>
-        </div>
-        <div v-else class="footerButton clickable" @click="goHome">
-            <h4>Home</h4>
-        </div>
-        <div v-if="infoStage < 2" class="footerButton clickable" @click="infoStage < 2 ? infoStage++ : infoStage">
-            <h4>Next</h4>
-        </div>
-        <div v-else class="footerButton clickable" @click="saveNewPills()">
-            <h4>Save</h4>
-        </div>
+        <SaveButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></SaveButton>
+        <SaveButton v-else @click="goHome" text="Home"></SaveButton>
+        <SaveButton v-if="infoStage < 2" @click="infoStage < 2 ? infoStage++ : infoStage" text="Next Page"></SaveButton>
+        <SaveButton v-else @click="saveNewPills()" text="Save Medication"></SaveButton>
     </div>
 
 </template>
@@ -46,12 +38,14 @@ import DosageInfo from '../components/DosageInfo.vue';
 import PharmacyInfo from '../components/PharmacyInfo.vue';
 import Medication from '../models/Medication';
 import apiService from '../apiService';
+import SaveButton from '../components/SaveButton.vue';
 
 export default {
   components: {
     PillInfo,
     DosageInfo,
-    PharmacyInfo
+    PharmacyInfo,
+    SaveButton
   },
   data() {
     return {
@@ -120,40 +114,6 @@ export default {
     }
     .unselected {
         background-color: rgb(155, 155, 155);
-    }
-}
-
-.footerButtonsContainer {
-    height: 70px;
-    display: flex; /* Use flexbox layout */
-    position: absolute;
-    bottom: -10px;
-    left: 250px;
-
-    .footerButton {
-        padding: 4px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        font-size: 16px;
-        box-sizing: border-box;
-        width: 100px;
-        height: 40px;
-        display: flex; /* Use flexbox layout */
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
-        margin: 15px;
-
-        h4 {
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
-    }
-    .clickable {
-        background-color: #367EC3;
-    }
-    .nonclickable {
-        background-color: grey;
     }
 }
 

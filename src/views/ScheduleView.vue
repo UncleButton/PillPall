@@ -62,9 +62,11 @@
         </div>
     </div>  
 
-    <div class="button" @click="updateSchedule()">Save Schedule</div>
-    <div class="button" @click="deleteSchedule()">Delete Schedule</div>
-    <div class="button" @click="dispense()">Dispense</div>
+    <div class="footerButtonsContainer">
+        <SaveButton @click="updateSchedule()" text="Save Schedule"></SaveButton>
+        <DeleteButton @click="deleteSchedule()" text="Delete Schedule"></DeleteButton>
+        <DispenseButton @click="dispense" text="Dispense Now"></DispenseButton>
+    </div>
 
 </template>
 
@@ -78,12 +80,18 @@ import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
+import SaveButton from '@/components/SaveButton.vue';
+import DispenseButton from '@/components/DispenseButton.vue';
+import DeleteButton from '@/components/DeleteButton.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
-    PillInfoCard
+    PillInfoCard,
+    SaveButton,
+    DispenseButton,
+    DeleteButton
 },
   data() {
     return {
@@ -214,18 +222,6 @@ export default {
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
   justify-content: space-evenly;
-}
-
-.saveSchedule {
-    width: 150px;
-    height: 42px;
-    border-radius: 25px;
-    background-color: green;
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin-left: 5px;
-    margin-top: 13px;
 }
 
 </style>

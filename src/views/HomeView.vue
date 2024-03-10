@@ -18,17 +18,13 @@
     <MedicationContainer v-if="pageData == 0"></MedicationContainer>
     <SchedulesContainer v-if="pageData == 1"></SchedulesContainer>
 
-    <div class="footer">
-      <div class="footerButtonsContainer">
-        <div class="dispenseButton button" @click="dispense()">Custom Dispense</div>
-        <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
-          <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
-          <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
-          <div class="dispenseScheduleButton" @click="dispenseNextSchedule">
-            <div><img class="dispenseIcon" src="../assets/dispenseIcon.png"></div>
-            <div>Dispense Now</div>
-          </div>
-        </div>
+    
+    <div class="footerButtonsContainer">
+      <SaveButton @click="dispense()" text="Custom Dispense"></SaveButton>
+      <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
+        <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
+        <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
+        <DispenseButton @click="dispenseNextSchedule" text="Dispense Now"></DispenseButton>
       </div>
     </div>
 
@@ -43,6 +39,8 @@ import apiService from '@/apiService';
 import Loader from '@/components/Loader.vue';
 import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
+import DispenseButton from '@/components/DispenseButton.vue';
+import SaveButton from '@/components/SaveButton.vue';
 
 export default {
   components: {
@@ -50,7 +48,9 @@ export default {
     PillInfoCard,
     Loader,
     MedicationContainer,
-    SchedulesContainer
+    SchedulesContainer,
+    DispenseButton,
+    SaveButton
 },
   data() {
     return {
@@ -165,29 +165,7 @@ export default {
   margin-top: 30px;
 }
 
-
-.footer {
-  .footerButtonsContainer {
-    position: absolute;
-    bottom: -10px;
-    left: 20px;
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-
-    .button {
-      width: 150px;
-      height: 42px;
-      border-radius: 25px;
-      background-color: green;
-      display: flex; /* Use flexbox layout */
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-      margin-left: -5px;
-    }
-  }
-
-  .nextDoseBar {
+.nextDoseBar {
     width: 500px;
     height: 45px;
     border-radius: 10px;
@@ -197,23 +175,6 @@ export default {
     align-items: center; /* Center vertically */
     padding: 10px;
     justify-content: space-evenly;
-  }
-  .dispenseScheduleButton {
-    width: 155px;
-    background-color: #367EC3;
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin-right: 20px;
-    border-radius: 25px;
-    div {
-      margin: 5px;
-    }
-  }
-  .dispenseIcon {
-    width: 30px;
-    height: 26px;
-  }
 }
 
 </style>

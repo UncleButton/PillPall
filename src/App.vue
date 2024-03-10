@@ -90,7 +90,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #backgroundImage {
   background-image: url('./assets/GenericBackgroundImage.jpg');
   background-size: cover;
@@ -143,10 +143,8 @@ export default {
   bottom: 0px;
   left: 0px;
   background-color: #2c4b61;
-  background-size: cover;
-  background-position: center;
   height: 50px;
-  width: 100vw;
+  width: 800px;
   z-index: -1;
 }
 .notificationBar {
@@ -163,4 +161,17 @@ export default {
   bottom: 3px;
   right: 3px;
 }
+
+.footerButtonsContainer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 50px;
+  width: 700px;
+}
+
+
 </style>
