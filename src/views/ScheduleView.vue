@@ -22,6 +22,15 @@
             width="100px" 
             :maxlength='6'
         ></TextField>
+        <TextField id="" 
+            class="textField"
+            label="Reminder Email (optional)" 
+            :value="schedule.notificationEmail" 
+            @input="schedule.notificationEmail = $event; updateValue()" 
+            placeholder="e.g. john.doe@gmail.com" 
+            width="300px" 
+            :maxlength='30'
+        ></TextField>
     </div> 
 
     <div class="medsTimesContainer">
@@ -92,7 +101,7 @@ export default {
         this.editingSchedule = true;
     }
     else
-        this.$router.push({name: 'home'});
+        this.goHome()
   },
   beforeRouteLeave(){
     this.$store.commit('setScheduleIndex', -1);
@@ -104,28 +113,34 @@ export default {
     async updateSchedule(){
         try {
             await apiService.updateSchedule(this.schedule).then(() => {
-                this.$router.push({name: 'home'});
+                this.goHome()
+                this.setBanner("success", "Success!");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
+            this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
     },
     async deleteSchedule(){
         try {
             await apiService.deleteSchedule(this.schedule).then(() => {
-                this.$router.push({name: 'home'});
+                this.goHome()
+                this.setBanner("success", "Success!");
             });
         } catch (error) {
             console.error('Error deleting entity data:', error);
+            this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
     },
     async dispense(){
         try {
             await apiService.dispenseSchedule(this.schedule).then(() => {
-                this.$router.push({name: 'home'});
+                this.goHome()
+                this.setBanner("success", "Success!");
             });
         } catch (error) {
             console.error('Error dispensing:', error);
+            this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
     },
     dayToggle(event, day){
@@ -185,13 +200,10 @@ export default {
 }
 
 .flex-container {
-  display: flex; /* Use flexbox layout */
-  align-items: center; /* Align items vertically */
-
-  .textField {
-    padding-right: 80px;
-  }
-
+    margin-left: 20px;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
 }
 
 </style>

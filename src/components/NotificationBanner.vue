@@ -39,6 +39,7 @@ export default {
     handleCloseClick() {
         this.isVisible = false;
         this.$emit('close');
+        setTimeout(() => {this.clearBanner(this.type)}, 1000);//let it fade out before removing it
     },
   },
   mounted() {
@@ -46,7 +47,8 @@ export default {
       setTimeout(() => {
         this.isVisible = false;
         this.$emit('close');
-      }, 10000); // 10 seconds before fading
+        setTimeout(() => {this.clearBanner(this.type)}, 1000);//let it fade out before removing it
+      }, 5000); // 10 seconds before fading
     }
   },
 };

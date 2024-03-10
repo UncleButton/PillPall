@@ -111,10 +111,12 @@ export default {
         this.schedule.days = this.days;
         try {
             await apiService.saveSchedule(this.scheduleMeds).then(() => {
-                this.$router.push({name: 'home'});
+                this.goHome();
+                this.setBanner("success", "Success!");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
+            this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
     },
     async incQty(id){

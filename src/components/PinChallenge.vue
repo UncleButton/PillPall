@@ -44,6 +44,7 @@
         failed(){
           this.textData = '';
           this.$store.commit("pinDeclined");
+          this.setBanner("error", "Incorrect Pin");
         },
         passed(){
           this.$emit('passed');

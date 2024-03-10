@@ -79,7 +79,7 @@ export default {
     startTimer() {
       this.timerId = setInterval(() => {
         console.log("Idle: rerouting to home");
-        this.$router.push({name: 'home'});
+        this.goHome()
       }, 60000);
     },
     clearTimer() {

@@ -65,19 +65,17 @@
             await this.challengePin(this.medication.pin);
             
             if(this.$store.state.PINApproved)
-              this.$router.push({name: 'add pill'});
+              this.goToAddPill()
           }
         } 
-        this.$router.push({name: 'add pill'});
-      },
-      goToSchedule() {
-        this.$router.push({name: 'schedules'});
+        this.goToAddPill()
       },
       async fetchSchedules(){
         try {
           this.schedules = await apiService.getSchedules();
         } catch (error) {
           console.error('Error fetching schedule data:', error);
+          this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
       }
     }

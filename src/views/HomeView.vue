@@ -20,7 +20,7 @@
 
     <div class="footer">
       <div class="footerButtonsContainer">
-        <div class="dispenseButton button" @click="goToDispense()">Custom Dispense</div>
+        <div class="dispenseButton button" @click="dispense()">Custom Dispense</div>
         <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
           <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
           <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
@@ -81,17 +81,18 @@ export default {
   methods: {
     editPills(containerIndex){
       this.$store.commit('setContainerIndex', containerIndex);
-      this.$router.push({name: 'add pill'});
+      this.goToAddPill()
     },
     async fetchSchedules(){
       try {
         this.schedules = await apiService.getSchedules();
       } catch (error) {
         console.error('Error fetching schedule data:', error);
+        this.setBanner("error", "Error: Something went wrong!  Please try again.");
       }
     },
-    goToDispense(){
-      this.$router.push({name: 'dispense view'});
+    dispense(){
+      this.goToDispenseView()
     },
     async dispenseNextSchedule(){
       var nextSchedule = this.$store.getters.getNextSchedule;
@@ -104,10 +105,12 @@ export default {
       }
       try {
         await apiService.dispenseSchedule(nextSchedule).then(() => {
-          this.$router.push({name: 'home'});
+          this.goHome()
+          this.setBanner("success", "Success!");
         });
       } catch (error) {
-          console.error('Error dispensing next scheduled dose:', error);
+        console.error('Error fetching schedule data:', error);
+        this.setBanner("error", "Error: Something went wrong!  Please try again.");
       }
     }
   }

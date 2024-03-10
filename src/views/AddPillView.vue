@@ -23,8 +23,11 @@
     </div>
     
     <div class="footerButtonsContainer">
-        <div class="footerButton" :class="infoStage > 0 ? 'clickable' : 'nonclickable'" @click="infoStage > 0 ? infoStage-- : infoStage">
+        <div v-if="infoStage > 0" class="footerButton" :class="infoStage > 0 ? 'clickable' : 'nonclickable'" @click="infoStage > 0 ? infoStage-- : infoStage">
             <h4>Back</h4>
+        </div>
+        <div v-else class="footerButton clickable" @click="goHome">
+            <h4>Home</h4>
         </div>
         <div v-if="infoStage < 2" class="footerButton clickable" @click="infoStage < 2 ? infoStage++ : infoStage">
             <h4>Next</h4>
@@ -68,10 +71,12 @@ export default {
     async saveNewPills(){
         try {
             await apiService.saveMedication(this.medication).then(() => {
-                this.$router.push({name: 'home'});
+                this.goHome();
+                this.setBanner("success", "Success!");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
+            this.setBanner("error", "Error: Something went wrong!  Please try again.");
         }
     }
   }

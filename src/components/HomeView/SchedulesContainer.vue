@@ -7,7 +7,7 @@
     <div class="scheduleBackgroundContainer">
         <div v-for="index in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" :key="index" class="calendarScheduleRow">
             <div v-for="schedule in schedulesAtHour(index)">
-                  <div class="calendarSchedule" @click="goToScheduleView(schedule)">{{ schedule.name }}</div>
+                  <div class="calendarSchedule" @click="viewSchedule(schedule)">{{ schedule.name }}</div>
             </div>
         </div>
     </div>
@@ -32,15 +32,12 @@ export default {
     
   },
   methods: {
-    goToAddSchedule() {
-      this.$router.push({name: 'add schedule'});
-    },
     schedulesAtHour(hour){
       const schedulesToday = this.$store.getters.getTodaysSchedules;
       const schedulesAtHour = schedulesToday.filter(schedule => schedule.times.filter(time => hour == parseInt(time.dateTime.slice(0,2))).length>0);
       return schedulesAtHour;
     },
-    async goToScheduleView(schedule){
+    async viewSchedule(schedule){
       if(schedule.pin != "")
       {
         await this.challengePin(schedule.pin);
@@ -50,7 +47,7 @@ export default {
       }
       var scheduleIndex = this.schedules.indexOf(schedule);
       this.$store.commit('setScheduleIndex', scheduleIndex);
-      this.$router.push({name: 'schedule view'});
+      this.goToScheduleView()
     }
   }
 }

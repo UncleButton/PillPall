@@ -25,11 +25,6 @@ const apiService = {
   async saveMedication(medication) {
     try {
       const response = await axios.post(BASE_URL+ '/PillInformation/saveMedication', medication);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -61,11 +56,6 @@ const apiService = {
   async saveSchedule(meds) {
     try {
       const response = await axios.post(BASE_URL+ '/Schedule/saveSchedule', meds);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -74,11 +64,6 @@ const apiService = {
   async updateSchedule(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Schedule/updateSchedule', schedule);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -87,11 +72,6 @@ const apiService = {
   async deleteSchedule(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Schedule/deleteSchedule', schedule);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -100,11 +80,6 @@ const apiService = {
   async dispenseSchedule(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Dispense/dispenseSchedule', schedule);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -113,11 +88,6 @@ const apiService = {
   async dispenseCustom(scheduleMeds) {
     try {
       const response = await axios.post(BASE_URL+ '/Dispense/dispenseCustom', scheduleMeds);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -126,11 +96,6 @@ const apiService = {
   async sendReminder(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Reminder/remindSchedule', schedule);
-              
-      if(response.status == HttpStatusCode.Ok)
-        return;
-      else 
-        throw "Something went wrong!";
     } catch (error) {
         throw error;
     }
@@ -145,8 +110,6 @@ const apiService = {
   mapListResultToModels(results, ModelClass) {
     return results.map(result => this.mapSingleResultToModel(result, ModelClass));
   },
-
-  // Add other API calls as needed
 };
 
 export default apiService;
