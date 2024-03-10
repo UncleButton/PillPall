@@ -48,6 +48,7 @@
                 <PillInfoCard 
                     :medication="container" 
                     :dispensable="true" 
+                    :editable="true"
                     :numToDispense="scheduleMeds.filter(med => med?.medication.id == container.id).length > 0 ? scheduleMeds.filter(med => med?.medication.id == container.id)[0].numPills : 0" 
                     @decrement-pills="decQty" 
                     @increment-pills="incQty">

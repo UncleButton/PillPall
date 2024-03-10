@@ -1,7 +1,7 @@
 <template>
     <div class="masterContainer">
       <div class="pillInfoCardsContainer">
-        <PillInfoCard v-for="(container, index) in containers" :key="index" :medication="container" @click="editPills(index)" :isLoading="isLoadingContainers"></PillInfoCard>
+        <PillInfoCard v-for="(container, index) in containers" :key="index" :medication="container" @click="editPills(index)" :isLoading="isLoadingContainers" :editable="true"></PillInfoCard>
         <PillInfoCard v-for="(container, index) in Array.from({length: 6-containers.length})" @click="editPills(-1)" :isLoading="isLoadingContainers"></PillInfoCard>
       </div>
       <routerView></routerView>

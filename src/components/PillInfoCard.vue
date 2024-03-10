@@ -4,11 +4,11 @@
     <div class="pill-count"><div>Pills left:</div><div>{{ medication.numPills }}</div></div>
     <div v-if="!dispensable" class="pill-count"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>
     <div v-else class="pill-count">Dispense: {{ numToDispense }}</div>
-    <div v-if="dispensable" class="button-container">
+    <div v-if="dispensable && editable" class="button-container">
       <div @click="decrementPills" class="button">-</div>
       <div @click="incrementPills" class="button">+</div>
     </div>
-    <div v-else class="button-container">
+    <div v-if="editable && !dispensable" class="button-container">
       <div class="editText">(Click to edit)</div>
     </div>
   </div>
@@ -36,12 +36,14 @@ export default {
     },
     isLoading: {
       type: Boolean,
-      required: false,
       default: false
     },
     dispensable: {
       type: Boolean,
-      required: false,
+      default: false
+    },
+    editable: {
+      type: Boolean,
       default: false
     },
     numToDispense: {

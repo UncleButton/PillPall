@@ -145,7 +145,10 @@ const store = createStore({
       state.nextScheduleTime = upcomingScheduleTime;
     },
     async sendScheduleReminders(state){
-      store.state.schedules.forEach(async schedule => {
+      const today = new Date();
+      const todaysSchedules = state.schedules.filter(schedule => schedule.days.includes(state.weekDays[today.getDay()]));
+      
+      todaysSchedules.forEach(async schedule => {
         schedule.times.forEach(async time => {
           var dateTime = new Date();
           dateTime.setHours(time.dateTime.slice(0,2), time.dateTime.slice(2));

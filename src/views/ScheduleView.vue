@@ -1,9 +1,9 @@
 <template>    
     <div class="headerContainer">
-        <h1 class="scheduleHeader">Schedule</h1>
+        <h1 class="newPillsHeader">Edit Schedule</h1>
     </div>
 
-    <div class="flex-container">
+    <div class="flex-container top-bar-info">
         <TextField id="" 
             class="textField"
             label="Schedule Name"
@@ -32,36 +32,35 @@
             :maxlength='30'
         ></TextField>
     </div> 
+    <div class="timesContainer">
+        Times
+        <div v-for="time in times" class="hourMinuteContainer">
+            <p> Time: {{ time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2) }}:</p>
+            <p> {{ time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2) }}</p>
+        </div>
+    </div>
 
     <div class="medsTimesContainer">
         <div class="addMedsContainer">
             <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(0, 3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medicationId == container.id).length > 0 ? scheduleMeds.filter(med => med?.medicationId == container.id)[0].numPills : 0 }}</div>
-            </div>
-        </div>
-        <div class="addMedsContainer">
-            <div v-if="containers.length == 0">No Medication added to machine yet!</div>
-            <div v-for="(container, index) in containers.slice(3)" :key="index" class="containersContainer">
-                <div>{{ container.name }} Qty: {{ scheduleMeds.filter(med => med?.medicationId == container.id).length > 0 ? scheduleMeds.filter(med => med?.medicationId == container.id)[0].numPills : 0 }}</div>
-            </div>
-        </div>
-
-        <div class="timesContainer">
-            Times
-            <div v-for="time in times" class="hourMinuteContainer">
-                <p> Time: {{ time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2) }}:</p>
-                <p> {{ time.dateTime.slice(2) == 'na' ? null : time.dateTime.slice(2) }}</p>
-            </div>
-        </div>
-
-        <div>
-            <div v-for="day in $store.state.weekDays">
-                <input type="checkbox" id="myCheckbox" :checked="schedule.days.includes(day)" @change="(event) => dayToggle(event, day)">
-                <label> {{ day }} </label>
+            <div v-for="(container, index) in containers.filter(med => schedule.scheduleMeds.filter(scheduleMed => scheduleMed.medicationId == med.id).length > 0)" :key="index" class="containersContainer">
+                <PillInfoCard 
+                    :medication="container" 
+                    :dispensable="true" 
+                    :numToDispense="schedule.scheduleMeds.filter(scheduleMed => scheduleMed.medicationId == container.id)[0].numPills" 
+                    @decrement-pills="decQty" 
+                    @increment-pills="incQty">
+                </PillInfoCard>
             </div>
         </div>
     </div>
+
+    <div class="timesContainer">
+        <div v-for="day in $store.state.weekDays">
+            <input type="checkbox" id="myCheckbox" :checked="schedule.days.includes(day)" @change="(event) => dayToggle(event, day)">
+            <label> {{ day }} </label>
+        </div>
+    </div>  
 
     <div class="button" @click="updateSchedule()">Save Schedule</div>
     <div class="button" @click="deleteSchedule()">Delete Schedule</div>
@@ -78,12 +77,13 @@ import Schedule from '@/models/Schedule';
 import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
+import PillInfoCard from '@/components/PillInfoCard.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
-    DropDown
+    PillInfoCard
 },
   data() {
     return {
@@ -167,43 +167,65 @@ export default {
     margin-bottom: 25px;
 }
 
+.top-bar-info {
+    margin-top: -25px;
+    margin-bottom: 5px;
+}
+
 .medsTimesContainer {
-    width: 700px;
-    height: 200px;
-    margin-left: 50px;
+    width: 760px;
+    height: 220px;
+    margin-left: 20px;
     background-color: rgb(255,255,255, 0.2);
     display: flex;
+    margin-bottom: 8px;
 }
 
 .addMedsContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.timesContainer {
-    margin-left: 50px;
-    .hourMinuteContainer {
-        display: flex; /* Use flexbox layout */
-    }
-}
-
-.containersContainer {
-    background-color: grey;
-    width: 150px;
-    height: 50px;
-    margin: 5px;
-    display: flex; /* Use flexbox layout */
-    align-items: center; /* Align items vertically */
-    justify-content: center; /* Center horizontally */
-    font-size: 17px;
-    overflow-wrap: break-word;
-}
-
-.flex-container {
-    margin-left: 20px;
+    width: 100%;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
+}
+
+.timesContainer {
+    margin-left: 20px;
+    margin-right: 150px;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: space-evenly;
+    margin-bottom: 5px;
+
+    div {
+        margin-left: 3px;
+        margin-right: 3px;
+        color: black;
+        font-size: 18px;
+    }
+
+    .hourMinuteContainer {
+        display: flex; /* Use flexbox layout */
+        align-items: center; /* Align items vertically */
+    }
+}
+
+.flex-container {
+  margin-left: 20px;
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Align items vertically */
+  justify-content: space-evenly;
+}
+
+.saveSchedule {
+    width: 150px;
+    height: 42px;
+    border-radius: 25px;
+    background-color: green;
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-left: 5px;
+    margin-top: 13px;
 }
 
 </style>
