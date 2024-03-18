@@ -11,13 +11,22 @@
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="Quantity (how many total pills?)" 
+            label="Quantity" 
             :value="medication.numPills" 
             @input="medication.numPills = $event; updateValue()" 
             type="number" 
             placeholder="e.g. 100" 
             width="100px" 
             :maxlength='4'
+        ></TextField>
+        <TextField id="" 
+            class="textField"
+            label="PIN (optional)" 
+            :value="medication.pin" 
+            @input="medication.pin = $event; updateValue()"
+            placeholder="e.g. 1234" 
+            width="150px" 
+            :maxlength='6'
         ></TextField>
     </div> 
     <TextField id="" 
@@ -40,14 +49,25 @@
             :maxlength='10'
         ></TextField>
         <TextField id="" 
-            class="textField"
-            label="PIN (optional)" 
-            :value="medication.pin" 
-            @input="medication.pin = $event; updateValue()"
-            placeholder="e.g. 1234" 
-            width="150px" 
-            :maxlength='6'
+          class="textField"
+          label="Pills Per Dose"
+          :value="medication.maxPillsPerDose" 
+          @input="medication.maxPillsPerDose = $event; updateValue()"
+          type="number" 
+          placeholder="e.g. 3" 
+          width="100px" 
+          :maxlength='3'
         ></TextField>
+        <TextField id="" 
+          class="textField"
+          label="Doses Per Day"
+          :value="medication.maxDosesPerDay" 
+          @input="medication.maxDosesPerDay = $event; updateValue()"
+          type="number" 
+          placeholder="e.g. 3" 
+          width="100px" 
+          :maxlength='2'
+        ></TextField> 
     </div>
 </template>
 

@@ -75,7 +75,7 @@
           this.schedules = await apiService.getSchedules();
         } catch (error) {
           console.error('Error fetching schedule data:', error);
-          this.setBanner("error", "Error: Something went wrong!  Please try again.");
+          this.setBanner("error");
         }
       }
     }

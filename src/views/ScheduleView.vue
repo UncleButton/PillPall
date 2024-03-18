@@ -122,33 +122,33 @@ export default {
         try {
             await apiService.updateSchedule(this.schedule).then(() => {
                 this.goHome()
-                this.setBanner("success", "Success!");
+                this.setBanner("success");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
-            this.setBanner("error", "Error: Something went wrong!  Please try again.");
+            this.setBanner("error");
         }
     },
     async deleteSchedule(){
         try {
             await apiService.deleteSchedule(this.schedule).then(() => {
                 this.goHome()
-                this.setBanner("success", "Success!");
+                this.setBanner("success");
             });
         } catch (error) {
             console.error('Error deleting entity data:', error);
-            this.setBanner("error", "Error: Something went wrong!  Please try again.");
+            this.setBanner("error");
         }
     },
     async dispense(){
         try {
             await apiService.dispenseSchedule(this.schedule).then(() => {
                 this.goHome()
-                this.setBanner("success", "Success!");
+                this.setBanner("success");
             });
         } catch (error) {
             console.error('Error dispensing:', error);
-            this.setBanner("error", "Error: Something went wrong!  Please try again.");
+            this.setBanner("error");
         }
     },
     dayToggle(event, day){

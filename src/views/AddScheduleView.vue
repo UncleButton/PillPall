@@ -117,11 +117,11 @@ export default {
         try {
             await apiService.saveSchedule(this.scheduleMeds).then(() => {
                 this.goHome();
-                this.setBanner("success", "Success!");
+                this.setBanner("success");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
-            this.setBanner("error", "Error: Something went wrong!  Please try again.");
+            this.setBanner("error");
         }
     },
     async incQty(id){

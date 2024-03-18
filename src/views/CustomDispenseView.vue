@@ -19,7 +19,9 @@
         </div>
     </div>
 
-    <div @click="dispense()"> DISPENSE </div>
+    <div class="footerButtonsContainer">
+        <DispenseButton @click="dispense()" text="Dispense Now"></DispenseButton>
+    </div>
 
 </template>
 
@@ -31,13 +33,15 @@ import Schedule from '@/models/Schedule';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
+import DispenseButton from '@/components/DispenseButton.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
     DropDown,
-    PillInfoCard
+    PillInfoCard,
+    DispenseButton
 },
   data() {
     return {
@@ -60,11 +64,11 @@ export default {
         try {
             await apiService.dispenseCustom(this.scheduleMeds).then(() => {
                 this.goHome();
-                this.setBanner("success", "Success!");
+                this.setBanner("success");
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
-            this.setBanner("error", "Error: Something went wrong!  Please try again.");
+            this.setBanner("error");
         }
     },
     async incQty(id){

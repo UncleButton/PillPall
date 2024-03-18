@@ -22,7 +22,7 @@
     <div class="footerButtonsContainer">
       <SaveButton @click="dispense()" text="Custom Dispense"></SaveButton>
       <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
-        <div>Upcoming Dose: {{ $store.getters.getNextSchedule?.name }}</div>
+        <div>Upcoming Dose: ''{{ $store.getters.getNextSchedule?.name }}''</div>
         <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
         <DispenseButton @click="dispenseNextSchedule" text="Dispense Now"></DispenseButton>
       </div>
@@ -88,7 +88,7 @@ export default {
         this.schedules = await apiService.getSchedules();
       } catch (error) {
         console.error('Error fetching schedule data:', error);
-        this.setBanner("error", "Error: Something went wrong!  Please try again.");
+        this.setBanner("error");
       }
     },
     dispense(){
@@ -106,11 +106,11 @@ export default {
       try {
         await apiService.dispenseSchedule(nextSchedule).then(() => {
           this.goHome()
-          this.setBanner("success", "Success!");
+          this.setBanner("success");
         });
       } catch (error) {
         console.error('Error fetching schedule data:', error);
-        this.setBanner("error", "Error: Something went wrong!  Please try again.");
+        this.setBanner("error");
       }
     }
   }

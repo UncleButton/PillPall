@@ -20,7 +20,7 @@ app.mixin({
               store.commit('setAllContainers', containers);
             } catch (error) {
               console.error('Error fetching containers data:', error);
-              this.setBanner("error", "Error: Something went wrong!  Please try again.");
+              this.setBanner("error");
             }
         },
         
@@ -31,7 +31,7 @@ app.mixin({
               store.commit('setAllSchedules', schedules);
             } catch (error) {
               console.error('Error fetching schedules data:', error);
-              this.setBanner("error", "Error: Something went wrong!  Please try again.");
+              this.setBanner("error");
             }
         },
         
@@ -55,19 +55,19 @@ app.mixin({
         
         },
 
-        setBanner(bannerType, message){
+        setBanner(bannerType, message = null){
             switch(bannerType) {
                 case "info":
                     store.commit('setInformationBanner', message);
                     break;
                 case "success":
-                    store.commit('setSuccessBanner', message);
+                    store.commit('setSuccessBanner', message || "Success!");
                     break;
                 case "warning":
-                    store.commit('setWarningBanner', message);
+                    store.commit('setWarningBanner', message || "Warning");
                     break;
                 case "error":
-                    store.commit('setErrorBanner', message);
+                    store.commit('setErrorBanner', message || "Error: Something went wrong!");
                     break;
             }                
         },
