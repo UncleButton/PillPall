@@ -1,5 +1,8 @@
 <template>
-  <div v-if="medication != null" class="medication-card">
+  <div v-if="isLoading" class="medication-card">
+    <Loader size="100px"></Loader>
+  </div>
+  <div v-else-if="medication != null" class="medication-card">
     <div class="medication-name">{{ medication.name }}</div>
     <div class="pill-count"><div>Pills left:</div><div>{{ medication.numPills }}</div></div>
     <div v-if="!dispensable" class="pill-count"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>

@@ -21,9 +21,15 @@
     
     <div class="footerButtonsContainer">
       <SaveButton @click="dispense()" text="Custom Dispense"></SaveButton>
-      <div v-if="$store.getters.getNextSchedule != null" class="nextDoseBar">
-        <div>Upcoming Dose: ''{{ $store.getters.getNextSchedule?.name }}''</div>
-        <div>At: {{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
+      <div class="nextDoseBar">
+        <div>Upcoming Dose: </div>
+        <div v-if="!isLoadingSchedules">"{{ $store.getters.getNextSchedule?.name }}"</div>
+        <Loader v-else size="30px"></Loader>
+
+        <div>At: </div>
+        <div v-if="!isLoadingSchedules">{{ $store.getters.getNextScheduleTime?.slice(0,2) }}:{{ $store.getters.getNextScheduleTime?.slice(2) }}</div>
+        <Loader v-else size="30px"></Loader>
+
         <DispenseButton @click="dispenseNextSchedule" text="Dispense Now"></DispenseButton>
       </div>
     </div>
@@ -70,6 +76,7 @@ export default {
       this.containers = this.$store.state.containers;
       this.isLoadingContainers = false;
     });
+    
     this.updateSchedules().then(() => 
     { 
       this.schedules = this.$store.state.schedules;
