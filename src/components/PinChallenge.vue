@@ -1,7 +1,7 @@
 <template>
     <div> 
       <div class="keyboardView">
-        <div class="closeKeyboard" @click="failed">Close</div>
+        <div class="closeKeyboard" @click="close">Close</div>
         <label class="keyboardTextBoxLabel">PIN CHALLENGE</label>
         <textarea id="keyboardTextBoxFocus" class="keyboardTextBox" @input="onInputChange" :value="textData"></textarea>
         <SimpleKeyboard class="keyboard" @onChange="onChange" @onKeyPress="onKeyPress" :input="textData" @focus="focusOnTextArea"/>
@@ -41,6 +41,10 @@
           });
           this.textData = this.value;
         },
+        close() {
+          this.textData = '';
+          this.$store.commit("pinDeclined");
+        },
         failed(){
           this.textData = '';
           this.$store.commit("pinDeclined");
@@ -58,7 +62,6 @@
           if(button === '{enter}'){
             this.textData == this.$store.state.PINAnswer ? this.passed() : this.failed();
           }
-            
         },
         onInputChange(input) {
           this.textData = input.target.value;

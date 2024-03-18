@@ -1,6 +1,6 @@
 <template>
     <label>{{ label }}</label>
-    <div class="custom-dropdown" @click="toggleDropdown" @blur="collapseDropdown()">
+    <div class="custom-dropdown" @click="toggleDropdown">
       <div class="selected-item">{{ selectedItem == '' ? '--' : selectedItem }}</div>
       <div v-if="isOpen" class="dropdown-menu">
         <div v-for="(item, index) in items" :key="index" @click="selectItem(item)" class="items">
@@ -44,11 +44,11 @@ import { stringifyQuery } from 'vue-router';
     },
     mounted() {
         
-        
     },
     methods: {
       toggleDropdown() {
         this.isOpen = !this.isOpen;
+        setTimeout(() => {this.collapseDropdown()}, 5000); //auto close if 5 seconds passes
       },
       collapseDropdown() {
         this.isOpen = false;

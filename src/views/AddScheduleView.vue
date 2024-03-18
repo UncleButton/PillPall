@@ -12,28 +12,31 @@
             placeholder="e.g. Britton's Alzheimer's Meds" 
             width="300px" 
             :maxlength='30'
+            :required="true"
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="PIN (optional)" 
+            label="PIN" 
             :value="schedule.pin == '' ? '' : schedule.pin" 
             @input="schedule.pin = $event; updateValue()" 
-            placeholder="e.g. 1234" 
+            placeholder="e.g. 123abc" 
             width="100px" 
             :maxlength='6'
+            tooltip="(Max length: 6) If set, PIN will be required any time this schedule is accessed. Any characters are allowed."
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="Reminder Email (optional)" 
+            label="Reminder Email" 
             :value="schedule.notificationEmail" 
             @input="schedule.notificationEmail = $event; updateValue()" 
             placeholder="e.g. john.doe@gmail.com" 
             width="300px" 
             :maxlength='30'
+            tooltip="If set, reminders will be sent to this email address 30 minutes before the set dose times."
         ></TextField>
     </div> 
     <div class="timesContainer">
-        <div>Times</div>
+        <div><span>Times</span><span class="required">*</span></div>
         <div v-for="time in times" class="hourMinuteContainer">
             <DropDown :items="hours" label="" @select="time.dateTime = $event + time.dateTime.slice(2)" :preSelectedItem="time.dateTime.slice(0,2) == 'na' ? null : time.dateTime.slice(0,2)"></DropDown>
             <div>:</div>
@@ -147,6 +150,10 @@ export default {
             //dont allow them to try dispensing more than pills left
             if(this.containers.filter(container => container.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills)
                 this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
+
+            if(this.scheduleMeds.filter(med => med?.medication.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].medication.maxPillsPerDose){
+                this.setBanner("warning", "Warning: You're trying to dispense more pills than the recommended dose!");
+            }
         }
     },
     decQty(id){
@@ -162,6 +169,9 @@ export default {
             this.days += day;
         } else {
             this.days = this.days.replace(day, "");
+            if(this.days == "") {
+                this.setBanner("warning", "Warning: Schedules must have at least 1 day selected");
+            } 
         }
     }
   }
@@ -178,6 +188,10 @@ export default {
     align-items: center; /* Center vertically */
     height: 50px;
     margin-bottom: 25px;
+}
+
+.required {
+    color: darkred;
 }
 
 .top-bar-info {

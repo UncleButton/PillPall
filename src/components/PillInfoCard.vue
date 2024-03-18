@@ -4,9 +4,10 @@
   </div>
   <div v-else-if="medication != null" class="medication-card">
     <div class="medication-name">{{ medication.name }}</div>
-    <div class="pill-count"><div>Pills left:</div><div>{{ medication.numPills }}</div></div>
-    <div v-if="!dispensable" class="pill-count"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>
-    <div v-else class="pill-count">Dispense: {{ numToDispense }}</div>
+    <div class="reg-text">Pills left: {{ medication.numPills }}</div>
+    <div v-if="!dispensable" class="reg-text"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>
+    <div v-if="dispensable && medication.maxPillsPerDose != null" class="reg-text">Dosage: {{ medication.maxPillsPerDose }}</div>
+    <div v-if="dispensable" class="reg-text"><br><span class="reg-text pill-count">Dispense: {{ numToDispense }}</span></div>
     <div v-if="dispensable && editable" class="button-container">
       <div @click="decrementPills" class="button">-</div>
       <div @click="incrementPills" class="button">+</div>
@@ -18,7 +19,7 @@
   <div v-else class="medication-card">
     <div>
       <img src="../assets/addIcon.png">
-      <div class="pill-count">Add New Pills</div>
+      <div class="reg-text">Add New Pills</div>
     </div>
   </div>
 </template>
@@ -94,12 +95,16 @@ export default {
   font-weight: bold;
 }
 
-.pill-count {
+.reg-text {
   font-size: 15px;  
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+}
+
+.pill-count {
+  font-weight: bold;
 }
 
 .editText {

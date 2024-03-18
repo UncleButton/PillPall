@@ -1,6 +1,7 @@
 <template>    
     <div class="headerContainer">
-        <h1 class="newPillsHeader">Add New Pills</h1>
+        <h1 v-if="$store.getters.getContainerIndex == -1" class="newPillsHeader">Add New Pills</h1>
+        <h1 v-else class="newPillsHeader">Edit Pills</h1>
     </div>
     
 

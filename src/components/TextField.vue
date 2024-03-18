@@ -1,10 +1,14 @@
 <template>
   <div>
     <div class="custom-text-field">
-        <label :for="id">{{ label }}</label>
+        <label>
+          <span :for="id">{{ label }}</span>
+          <span v-if="required" class="required">*</span>
+          <span v-if="tooltip != ''"><img class="tooltipIcon" src="../assets/tooltipIcon.png" @click="toggleTooltip"></span>
+          <span v-if="tooltipVisible" class="tooltipBox">{{ tooltip }}</span>
+        </label>
         <textarea v-if="isMultiline" :id="id" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @focus="showKeyboard"></textarea>
         <input v-else :type="type" :id="id" :value="textData" @input="onInputChange" :maxlength="maxlength" :placeholder="placeholder" :style='{ width }' @focus="showKeyboard"/>
-        <span class="error-message" v-if="error">{{ error }}</span>
     </div>
 
     <div class="keyboardView" v-if="keyboardVisible">
@@ -50,20 +54,29 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
         type: Number,
         default: 500
       },
-        placeholder: {
+      placeholder: {
         type: String,
         default: ''
       },
-        isMultiline: {
+      isMultiline: {
         type: Boolean,
         default: false
+      },
+      required: {
+        type: Boolean,
+        default: false
+      },
+      tooltip: {
+        type: String,
+        default: ''
       },
       error: String
     },
     data() {
       return {
         keyboardVisible: false,
-        textData: ''
+        textData: '',
+        tooltipVisible: false
       }
     },
     mounted() {
@@ -71,6 +84,10 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
     },
     emits: ['input'],
     methods: {
+      toggleTooltip(){
+        this.tooltipVisible = true;
+        setTimeout(() => {this.tooltipVisible = false}, 5000);//turn off tooltip after 5 seconds
+      },
       async setTextData() {
         await new Promise(resolve => {
           setTimeout(resolve, 1); // Wait for 1 milliseconds
@@ -118,6 +135,24 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
     display: block;
     margin-bottom: 2px;
     color: white;
+  }
+  .required {
+    color: darkred;
+    font-size: 18px;
+  }
+
+  .tooltipIcon {
+    width: 18px;
+    height: 18px;
+  }
+  .tooltipBox {
+    width: 200px;
+    height: fit-content;
+    background-color: rgba(39, 86, 156, 0.81);
+    border-radius: 5px;
+    position: absolute;
+    padding: 5px;
+    z-index: 1000;
   }
   
   textarea,

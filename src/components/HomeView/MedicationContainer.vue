@@ -63,7 +63,9 @@ export default {
           await this.challengePin(this.medication.pin);
           
           if(this.$store.state.PINApproved)
-            this.goToAddPill()
+            this.goToAddPill();
+
+            return;
         }
       } 
       this.goToAddPill()

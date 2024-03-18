@@ -12,19 +12,11 @@
             placeholder="e.g. Britton's Alzheimer's Meds" 
             width="300px" 
             :maxlength='30'
+            :required="true"
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="PIN (optional)" 
-            :value="schedule.pin == '' ? '' : schedule.pin" 
-            @input="schedule.pin = $event; updateValue()" 
-            placeholder="e.g. 1234" 
-            width="100px" 
-            :maxlength='6'
-        ></TextField>
-        <TextField id="" 
-            class="textField"
-            label="Reminder Email (optional)" 
+            label="Reminder Email" 
             :value="schedule.notificationEmail" 
             @input="schedule.notificationEmail = $event; updateValue()" 
             placeholder="e.g. john.doe@gmail.com" 
@@ -157,6 +149,9 @@ export default {
             this.schedule.days += day;
         } else {
             this.schedule.days = this.schedule.days.replace(day, "");
+            if(this.schedule.days == "") {
+                this.setBanner("warning", "Warning: Schedules must have at least 1 day selected");
+            }
         }
     }
   }

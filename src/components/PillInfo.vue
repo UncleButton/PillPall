@@ -8,6 +8,7 @@
             placeholder="e.g. tylenol" 
             width="200px" 
             :maxlength='30'
+            :required="true"
         ></TextField>
         <TextField id="" 
             class="textField"
@@ -18,15 +19,18 @@
             placeholder="e.g. 100" 
             width="100px" 
             :maxlength='4'
+            :required="true"
+            tooltip="How many total pills?"
         ></TextField>
         <TextField id="" 
             class="textField"
-            label="PIN (optional)" 
+            label="PIN" 
             :value="medication.pin" 
             @input="medication.pin = $event; updateValue()"
-            placeholder="e.g. 1234" 
+            placeholder="e.g. 123abc" 
             width="150px" 
             :maxlength='6'
+            tooltip="(Max length: 6) If set, PIN will be required any time these pills are accessed. Any characters are allowed."
         ></TextField>
     </div> 
     <TextField id="" 
@@ -41,12 +45,13 @@
     <div class="flex-container">
         <TextField id="" 
             class="textField"
-            label="Expiration Date (with slashes)" 
+            label="Expiration Date" 
             :value="medication.expirationDate" 
             @input="medication.expirationDate = $event; updateValue()" 
             placeholder="mm/dd/yyyy" 
             width="150px" 
             :maxlength='10'
+            tooltip="Enter in form 'mm/dd/yyyy'. (Include slashes)"
         ></TextField>
         <TextField id="" 
           class="textField"
