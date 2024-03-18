@@ -10,7 +10,7 @@
           <img class="homeIcon" src="./assets/homeIcon.png">
       </RouterLink>
     </nav>
-
+    <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
     <routerView></routerView>
     <div class="notificationBar">
       <NotificationBanner v-if="$store.state.informationBanner" :text="$store.state.informationBannerText" type="info" :autoHide="false"/>
@@ -18,7 +18,7 @@
       <NotificationBanner v-if="$store.state.warningBanner" :text="$store.state.warningBannerText" type="warning" :autoHide="false"/>
       <NotificationBanner v-if="$store.state.successBanner" :text="$store.state.successBannerText" type="success" :autoHide="true"/>
     </div>
-    <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
+    
     <PinChallenge v-if="!$store.state.PINDone" :pinAnswer="$store.state.PINAnswer"></PinChallenge>
   </div>
 </template>
@@ -106,8 +106,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 800px;
+  height: 480px;
   z-index: -1;
   background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent red color */
 }
@@ -119,7 +119,7 @@ export default {
   background-size: cover;
   background-position: center;
   height: 50px;
-  width: 100vw;
+  width: 800px;
   z-index: -1;
 }
 
@@ -151,9 +151,8 @@ export default {
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 800px;
   top: 0;
-  left: 50%;
 }
 
 .dateTimeWidget {

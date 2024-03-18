@@ -94,6 +94,10 @@ export default {
             //dont allow them to try dispensing more than pills left
             if(this.containers.filter(container => container.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills)
                 this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
+
+            if(this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].medication.maxPillsPerDose){
+                this.setBanner("warning", "Warning: You're trying to dispense more pills than the recommended dose!");
+            }
         }
     },
     decQty(id){
@@ -128,7 +132,7 @@ export default {
 }
 
 .addMedsContainer {
-    width: 100%;
+    width: 800px;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;

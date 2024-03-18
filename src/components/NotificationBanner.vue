@@ -59,8 +59,7 @@ export default {
   position: relative;
   top: 0;
   
-  transform: translateX(-50%);
-  width: 100%;
+  width: 800px;
   padding: 10px;
   text-align: center;
   font-weight: bold;

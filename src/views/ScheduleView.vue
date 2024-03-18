@@ -190,7 +190,7 @@ export default {
 }
 
 .addMedsContainer {
-    width: 100%;
+    width: 800px;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
