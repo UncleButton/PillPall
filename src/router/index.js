@@ -4,6 +4,7 @@ import AddPill from '../views/AddPillView.vue'
 import AddSchedule from '../views/AddScheduleView.vue'
 import ScheduleView from '../views/ScheduleView.vue'
 import CustomDispenseView from '../views/CustomDispenseView.vue'
+import DispenseLogView from '../views/DispenseLogView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/dispense',
       name: 'dispense view',
       component: CustomDispenseView
+    },
+    {
+      path: '/dispenseLog',
+      name: 'dispense log',
+      component: DispenseLogView
     }
   ]
 })

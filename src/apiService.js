@@ -5,6 +5,7 @@ import Medication from '../src/models/Medication';
 import ScheduleMed from './models/ScheduleMed';
 import Time from './models/Time';
 import Schedule from './models/Schedule';
+import VerboseDispenseLog from './models/VerboseDispenseLog';
 
 const BASE_URL = 'http://localhost:5218';
 
@@ -96,6 +97,18 @@ const apiService = {
   async sendReminder(schedule) {
     try {
       const response = await axios.post(BASE_URL+ '/Reminder/remindSchedule', schedule);
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async getDispenseLog() {
+    try {
+      const response = await axios.get(BASE_URL+ '/Dispense/getDispenseLogs');
+      
+      const dispenseLogs = this.mapListResultToModels(response.data, VerboseDispenseLog);
+      
+      return dispenseLogs;
     } catch (error) {
         throw error;
     }

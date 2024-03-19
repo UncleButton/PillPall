@@ -22,6 +22,7 @@
             placeholder="e.g. john.doe@gmail.com" 
             width="300px" 
             :maxlength='30'
+            tooltip="If set, reminders will be sent to this email address 30 minutes before the set dose times."
         ></TextField>
     </div> 
     <div class="timesContainer">

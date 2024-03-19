@@ -151,7 +151,7 @@ export default {
             if(this.containers.filter(container => container.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills)
                 this.scheduleMeds.filter(med => med.medication.id == id)[0].numPills++;
 
-            if(this.scheduleMeds.filter(med => med?.medication.id == id)[0].numPills > this.scheduleMeds.filter(med => med.medication.id == id)[0].medication.maxPillsPerDose){
+            if(this.containers.filter(container => container.id == id)[0].maxPillsPerDose != null && this.scheduleMeds.filter(med => med?.medication.id == id)[0].numPills > this.containers.filter(container => container.id == id)[0].maxPillsPerDose){
                 this.setBanner("warning", "Warning: You're trying to dispense more pills than the recommended dose!");
             }
         }

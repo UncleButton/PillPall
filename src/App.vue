@@ -10,6 +10,11 @@
           <img class="homeIcon" src="./assets/homeIcon.png">
       </RouterLink>
     </nav>
+    <nav class="dispenseLogButton">
+      <RouterLink to="/dispenseLog">
+          <img class="logIcon" src="./assets/logIcon.png">
+      </RouterLink>
+    </nav>
     <DateTimeWidget class="dateTimeWidget"></DateTimeWidget>
     <routerView></routerView>
     <div class="notificationBar">
@@ -129,12 +134,27 @@ export default {
     left: 5px;
     width: 40px;
     height: 40px;
-    background-color: #437599;
-    border-radius: 5px;
 
     .homeIcon {
-      margin-top: 2px;
-      margin-left: -2px;
+      margin-top: -5px;
+      margin-left: -5px;
+      width: 50px;
+      height: 50px;
+    }
+}
+
+.dispenseLogButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+
+    .logIcon {
+      margin-top: 0px;
+      margin-left: -5px;
+      width: 40px;
+      height: 40px;
     }
 }
 
