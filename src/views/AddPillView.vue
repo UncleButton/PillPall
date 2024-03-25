@@ -4,7 +4,7 @@
         <h1 v-else class="newPillsHeader">Edit Pills</h1>
     </div>
     
-
+    
     <div class="selectionBarFlexContainer">
         <div @click="infoStage = 0" class="selectorBar" :class="infoStage==0 ? 'selected' : 'unselected'">
             <h4 class="selectionBarText">Pill Info</h4>
@@ -14,20 +14,22 @@
         </div>
     </div>
 
-    <div class="infoPages">
-        <PillInfo v-if="infoStage==0" :medication='medication' @input="updateMedication"></PillInfo>
-        <PharmacyInfo v-if="infoStage==1" :medication='medication' @input="updateMedication"></PharmacyInfo>
-    </div>
-    
-    <div class="footerButtonsContainer">
-        <SaveButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></SaveButton>
-        <SaveButton v-else @click="goHome" text="Home"></SaveButton>
-        <SaveButton v-if="infoStage < 1" @click="infoStage < 1 ? infoStage++ : infoStage" text="Next Page"></SaveButton>
-        <SaveButton v-else @click="saveNewPills()" text="Save Medication"></SaveButton>
+    <div class="pillInfoContainer">
+        <div class="infoPages">
+            <PillInfo v-if="infoStage==0" :medication='medication' @input="updateMedication"></PillInfo>
+            <PharmacyInfo v-if="infoStage==1" :medication='medication' @input="updateMedication"></PharmacyInfo>
+        </div>
+        
+        <div class="footerButtonsContainer">
+            <SaveButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></SaveButton>
+            <SaveButton v-else @click="goHome" text="Home"></SaveButton>
+            <SaveButton v-if="infoStage < 1" @click="infoStage < 1 ? infoStage++ : infoStage" text="Next Page"></SaveButton>
+            <SaveButton v-else @click="saveNewPills()" text="Save Medication"></SaveButton>
+        </div>
     </div>
 
     <div class="refillContainer">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Refill Quantity"
             :value="refillQty" 
@@ -36,10 +38,9 @@
             placeholder="e.g. 30" 
             width="100px" 
             :maxlength='3'
+            :editable="$store.getters.getContainerIndex != -1"
         ></TextField> 
-        <div class="refillButton" v-if="$store.getters.getContainerIndex != -1" @click="refill">
-        Refill
-        </div>
+        <div class="refillButton" @click="refill" :class="$store.getters.getContainerIndex == -1 ? 'editable' : ''">Refill</div>
     </div>
     
 
@@ -89,6 +90,9 @@ export default {
         }
     },
     async refill(){
+        if(this.$store.getters.getContainerIndex == -1)
+            return;
+
         try {
             await apiService.refill(this.$store.getters.getContainerIndex, this.medication, this.refillQty).then(() => {
                 this.goHome();
@@ -122,7 +126,7 @@ export default {
     justify-content: space-evenly;
     padding: 10px;
     margin-top: 20px;
-    background-color: #367EC3;
+    background-color: var(--translucent-blue);
     height: 40px;
     margin-bottom: 5px;
 
@@ -135,43 +139,61 @@ export default {
         align-items: center; /* Center vertically */
 
         .selectionBarText {
-            color: white;
+            color: var(--primary-text-color);
             font-size: 20px;
             padding-bottom: 30px;;
         }
     }
     .selected {
-        background-color: #145fa5;
+        background-color: var(--secondary-blue);
     }
     .unselected {
-        background-color: rgb(155, 155, 155);
+        background-color: var(--disabled);
     }
 }
 
 .infoPages {
-    margin-top: 10px;
-    margin-left: 132px
+    margin-top: 5px;
+    margin-left: 112px
 }
 
 .refillContainer {
-  display: flex; /* Use flexbox layout */
-  align-items: center; /* Align items vertically */
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  right: 40px;
-  bottom: 150px;
+    background-color: var(--mostly-translucent-blue);
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    right: 40px;
+    bottom: 150px;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .refillButton{
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
   justify-content: center;
-  background-color: green;
+  background-color: var(--primary-orange);
   width: 100px;
   height: 70px;
   border-radius: 15px;
   font-size: 20px;
+  color: black;
+}
+
+.pillInfoContainer {
+    background-color: var(--mostly-translucent-blue);
+    border-radius: 15px;
+    width: fit-content;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    justify-content: center;
+    margin-left: 30px;
+}
+
+.editable {
+    background-color: var(--disabled);
 }
 
 </style>

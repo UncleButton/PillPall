@@ -137,7 +137,7 @@ export default {
     justify-content: space-evenly;
     padding: 10px;
     margin-top: 20px;
-    background-color: #367EC3;
+    background-color: var(--translucent-blue);
     height: 40px;
     margin-bottom: 5px;
 
@@ -150,16 +150,16 @@ export default {
         align-items: center; /* Center vertically */
 
         .selectionBarText {
-            color: white;
+            color: var(--primary-text-color);
             font-size: 20px;
             padding-bottom: 30px;;
         }
     }
     .selected {
-        background-color: #145fa5;
+        background-color: var(--secondary-blue);
     }
     .unselected {
-        background-color: rgb(155, 155, 155);
+        background-color: var(--disabled);
     }
 }
 

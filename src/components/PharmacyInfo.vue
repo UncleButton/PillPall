@@ -1,6 +1,6 @@
 <template>
     <div class="flex-container">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Prescriber Name"
             :value="medication.prescriberName" 
@@ -8,7 +8,7 @@
             placeholder="e.g. Dr. Mahoney" 
             width="300px" :maxlength='30'
         ></TextField>
-        <TextField id="" 
+        <TextField  
             label="Pharmacy Phone Number"
             :value="medication.pharmacyPhone" 
             @input="medication.pharmacyPhone = $event; updateValue()" 
@@ -17,7 +17,7 @@
         ></TextField>
     </div>
     <h2>Pharmacy Address</h2>
-    <TextField id=""
+    <TextField 
         class="flex-container" 
         label="Address line 1"
         :value="medication.pharmacyAddr1" 
@@ -25,7 +25,7 @@
         placeholder="e.g. 1234 Main Street" 
         width="520px" :maxlength='50'
     ></TextField>
-    <TextField id="" 
+    <TextField  
         class="flex-container"
         label="Address line 2"
         :value="medication.pharmacyAddr2" 
@@ -34,7 +34,7 @@
         width="520px" :maxlength='50'
     ></TextField>
     <div class="flex-container">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="City"
             :value="medication.pharmacyCity" 
@@ -42,7 +42,7 @@
             placeholder="e.g. Cleveland" 
             width="250px" :maxlength='30'
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="State" 
             :value="medication.pharmacyState" 
@@ -52,7 +52,7 @@
             width="100px" 
             :maxlength='50'
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Zip Code" 
             :value="medication.pharmacyZip" 

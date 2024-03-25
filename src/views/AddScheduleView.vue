@@ -4,7 +4,7 @@
     </div>
 
     <div class="flex-container top-bar-info">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Schedule Name"
             :value="schedule.name" 
@@ -14,7 +14,7 @@
             :maxlength='30'
             :required="true"
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="PIN" 
             :value="schedule.pin == '' ? '' : schedule.pin" 
@@ -24,7 +24,7 @@
             :maxlength='6'
             tooltip="(Max length: 6) If set, PIN will be required any time this schedule is accessed. Any characters are allowed."
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Reminder Email" 
             :value="schedule.notificationEmail" 
@@ -203,7 +203,7 @@ export default {
     width: 760px;
     height: 220px;
     margin-left: 20px;
-    background-color: rgb(255,255,255, 0.2);
+    background-color: var(--translucent-white);
     display: flex;
     margin-bottom: 8px;
 }

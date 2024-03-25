@@ -69,7 +69,7 @@ import { stringifyQuery } from 'vue-router';
   label {
     display: block;
     margin-bottom: 2px;
-    color: white;
+    color: var(--primary-text-color);
   }
   
   .dropdown-menu {
@@ -87,7 +87,7 @@ import { stringifyQuery } from 'vue-router';
     padding-left: 10px;
     padding-right: 30px;
     border: 1px solid #ccc;
-    background-color: white;
+    background-color: var(--primary-text-color);
     border-radius: 20px;
     font-size: 16px;
     box-sizing: border-box;

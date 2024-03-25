@@ -90,13 +90,13 @@ export default {
 table {
   width: 700px;
   margin-left: 50px;
-  background-color: rgba(39, 86, 156, 0.61);
+  background-color: var(--translucent-blue);
   th {
-    color: white;
+    color: var(--primary-text-color);
     font-weight: bold;
   }
   td {
-    color: lightgray;
+    color: var(--secondary-text-color);
     border: solid 1px black;
     padding: 3px;
     padding-left: 10px;
@@ -104,7 +104,7 @@ table {
 }
 
 .disabled {
-  background-color: gray;
+  background-color: var(--disabled);
 }
 
 </style>

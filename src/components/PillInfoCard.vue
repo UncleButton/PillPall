@@ -80,7 +80,7 @@ export default {
   font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
   width: 125px;
   height: 200px;
-  background-color: rgba(39, 86, 156, 0.61);
+  background-color: var(--translucent-blue);
   border-radius: 8px;
   padding: 16px;
   display: flex;
@@ -118,7 +118,7 @@ export default {
 .button {
   width: 50px;
   height: 50px;
-  background-color: #154f5e9c;
+  background-color: var(--secondary-blue);
   color: darkgray;
   border: none;
   border-radius: 50%;
@@ -128,9 +128,5 @@ export default {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 </style>

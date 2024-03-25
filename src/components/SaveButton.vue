@@ -22,7 +22,7 @@ export default {
     min-width: 150px;
     height: 42px;
     border-radius: 25px;
-    background-color: green;
+    background-color: var(--primary-orange);
     display: flex; /* Use flexbox layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -30,5 +30,6 @@ export default {
     padding-right: 5px;
     margin-left: 5px;
     margin-right: 5px;
+    color: black;
 }
 </style>

@@ -10,6 +10,22 @@
 
   --vt-c-indigo: #2c3e50;
 
+  --translucent-blue: rgba(39, 86, 156, 0.61);
+  --mostly-translucent-blue: rgba(39, 86, 156, 0.45);
+  --translucent-white: rgb(255,255,255,0.1);
+  --slightly-translucent-white: rgb(255,255,255,0.7);
+
+  --primary-blue: #367EC3;
+  --secondary-blue: #173e63;
+
+  --primary-orange: #d19c3a;
+  --secondary-orange: #9e7019;
+
+  --primary-text-color: white;
+  --secondary-text-color: lightgray;
+
+  --disabled: gray;
+
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);

@@ -82,7 +82,7 @@
     label {
       display: block;
       margin-bottom: 2px;
-      color: white;
+      color: var(--primary-text-color);
     }
     
     textarea,
@@ -124,7 +124,7 @@
       .keyboardTextBox {
         height: 70px;
         margin: 0px 50px 50px 50px;
-        background-color: white;
+        background-color: var(--primary-text-color);
         border-radius: 10px;
         width: 700px;
       }

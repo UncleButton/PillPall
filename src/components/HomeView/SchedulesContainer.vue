@@ -67,7 +67,7 @@ export default {
     height: 20px;
 }
 .calendarScheduleRow {
-    background-color: rgba(39, 86, 156, 0.3);
+    background-color: var(--mostly-translucent-blue);
     margin-left:50px;
     width: 550px;
     height: 20px;
@@ -79,7 +79,7 @@ export default {
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
       width: fit-content;
-      background: rgba(39, 86, 156);
+      background: var(--secondary-blue);
       border-radius: 10px;
       height: 18px;
       padding-left: 20px;
@@ -88,7 +88,7 @@ export default {
 }
 .addNewScheduleButton {
     position: absolute;
-    background-color: green;
+    background-color: var(--secondary-blue);
     top: 200px;
     right: 5px;
     width: 100px;

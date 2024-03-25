@@ -120,7 +120,7 @@ export default {
   position: absolute;
   top: 0px;
   left: 0px;
-  background-color: #2c4b61;
+  background-color: var(--secondary-blue);
   background-size: cover;
   background-position: center;
   height: 50px;
@@ -162,7 +162,7 @@ export default {
   position: absolute;
   bottom: 0px;
   left: 0px;
-  background-color: #2c4b61;
+  background-color:var(--secondary-blue);
   height: 50px;
   width: 800px;
   z-index: -1;

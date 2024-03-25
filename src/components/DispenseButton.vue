@@ -23,7 +23,7 @@ export default {
 .dispenseButton {
     width: fit-content;
     min-width: 150px;
-    background-color: #367EC3;
+    background-color: var(--primary-blue);
     display: flex; /* Use flexbox layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */

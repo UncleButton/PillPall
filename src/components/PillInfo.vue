@@ -1,6 +1,6 @@
 <template>
     <div class="flex-container">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Pill Name"
             :value="medication.name" 
@@ -11,7 +11,7 @@
             :required="true"
         ></TextField>
         <TextField
-            id="" 
+             
             class="textField"
             label="Quantity" 
             :value="medication.numPills" 
@@ -24,7 +24,7 @@
             tooltip="How many total pills?"
             :editable="$store.getters.getContainerIndex == -1"
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="PIN" 
             :value="medication.pin" 
@@ -35,7 +35,7 @@
             tooltip="(Max length: 6) If set, PIN will be required any time these pills are accessed. Any characters are allowed."
         ></TextField>
     </div> 
-    <TextField id="" 
+    <TextField  
         class="flex-container"
         label="Medication Description" 
         :value="medication.description" 
@@ -46,7 +46,7 @@
         :isMultiline="true"
     ></TextField>
     <div class="flex-container">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Expiration Date" 
             :value="medication.expirationDate" 
@@ -56,7 +56,7 @@
             :maxlength='10'
             tooltip="Enter in form 'mm/dd/yyyy'. (Include slashes)"
         ></TextField>
-        <TextField id="" 
+        <TextField  
           class="textField"
           label="Pills Per Dose"
           :value="medication.maxPillsPerDose" 
@@ -66,7 +66,7 @@
           width="100px" 
           :maxlength='3'
         ></TextField>
-        <TextField id="" 
+        <TextField  
           class="textField"
           label="Doses Per Day"
           :value="medication.maxDosesPerDay" 

@@ -4,7 +4,7 @@
     </div>
 
     <div class="flex-container top-bar-info">
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Schedule Name"
             :value="schedule.name" 
@@ -14,7 +14,7 @@
             :maxlength='30'
             :required="true"
         ></TextField>
-        <TextField id="" 
+        <TextField  
             class="textField"
             label="Reminder Email" 
             :value="schedule.notificationEmail" 

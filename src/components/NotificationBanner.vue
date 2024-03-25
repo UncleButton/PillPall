@@ -85,7 +85,7 @@ export default {
 }
 
 .notification-warning {
-  background-color: #f39c12; /* Yellow background for warning */
+  background-color: var(--primary-orange); /* Yellow background for warning */
   color: #fff;
 }
 

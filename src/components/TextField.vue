@@ -112,11 +112,13 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
           element.classList.add('shake-element'); // Add CSS class to trigger animation
           setTimeout(() => {
             element.classList.remove('shake-element'); // Remove CSS class after animation completes
-          }, 600);
+          }, 300);
         }
       },
       hideKeyboard(){
-        this.keyboardVisible = false;
+        setTimeout(() => {
+          this.keyboardVisible = false;
+        }, 100); // give buffer so that click doesnt register behind keyboard after it closes
       },
       onChange(input) {
         input = input.slice(0, this.maxlength);
@@ -147,7 +149,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
   label {
     display: block;
     margin-bottom: 2px;
-    color: white;
+    color: var(--primary-text-color);
   }
   .required {
     color: darkred;
@@ -161,7 +163,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
   .tooltipBox {
     width: 200px;
     height: fit-content;
-    background-color: rgba(39, 86, 156, 0.81);
+    background-color: var(--secondary-blue);
     border-radius: 5px;
     position: absolute;
     padding: 5px;
@@ -202,7 +204,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
     left: 0px;
     width: 800px;
     height: 480px;
-    background-color: rgb(255,255,255,0.7);
+    background-color: var(--slightly-translucent-white);
 
     .keyboardTextBox {
       height: 70px;
@@ -246,7 +248,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
   }
 
   .shake-element {
-    animation: shake 0.6s ease-in 1;
+    animation: shake 0.3s ease-in 1;
   }
 
   @keyframes shake {
