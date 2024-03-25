@@ -7,8 +7,9 @@
           <span v-if="tooltip != ''"><img class="tooltipIcon" src="../assets/tooltipIcon.png" @click="toggleTooltip"></span>
           <span v-if="tooltipVisible" class="tooltipBox">{{ tooltip }}</span>
         </label>
-        <textarea v-if="isMultiline" :id="id" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @focus="showKeyboard"></textarea>
-        <input v-else :type="type" :id="id" :value="textData" @input="onInputChange" :maxlength="maxlength" :placeholder="placeholder" :style='{ width }' @focus="showKeyboard"/>
+        <textarea v-if="isMultiline" :id="id" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"></textarea>
+        <input v-else :type="type" :id="id" :value="textData" @input="onInputChange" :maxlength="maxlength" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"/>
+        <span v-if="!editable"><img class="lockIcon" src="../assets/lockIcon.png"></span>
     </div>
 
     <div class="keyboardView" v-if="keyboardVisible">
@@ -70,6 +71,10 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
         type: String,
         default: ''
       },
+      editable: {
+        type: Boolean,
+        default: true
+      },
       error: String
     },
     data() {
@@ -99,8 +104,16 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
           this.$emit('input', newValue);
       },
       showKeyboard(){
-        this.keyboardVisible = true;
-        this.focusOnTextArea();
+        if(this.editable){
+          this.keyboardVisible = true;
+          this.focusOnTextArea();
+        } else {
+          const element = this.$el.querySelector(".lockIcon");
+          element.classList.add('shake-element'); // Add CSS class to trigger animation
+          setTimeout(() => {
+            element.classList.remove('shake-element'); // Remove CSS class after animation completes
+          }, 600);
+        }
       },
       hideKeyboard(){
         this.keyboardVisible = false;
@@ -184,7 +197,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
 
   .keyboardView {
     z-index: 1;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 800px;
@@ -213,6 +226,35 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
       color: black;
     }
     
+  }
+
+  input:focus{
+    outline: none;
+    cursor: none;
+  }
+
+  input:read-only {
+    background-color: gray;
+  }
+
+  .lockIcon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    margin-left: -14px;
+    margin-top: -4px;
+  }
+
+  .shake-element {
+    animation: shake 0.6s ease-in 1;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
   }
 
 

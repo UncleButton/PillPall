@@ -10,7 +10,8 @@
             :maxlength='30'
             :required="true"
         ></TextField>
-        <TextField id="" 
+        <TextField
+            id="" 
             class="textField"
             label="Quantity" 
             :value="medication.numPills" 
@@ -21,6 +22,7 @@
             :maxlength='4'
             :required="true"
             tooltip="How many total pills?"
+            :editable="$store.getters.getContainerIndex == -1"
         ></TextField>
         <TextField id="" 
             class="textField"
@@ -34,6 +36,7 @@
         ></TextField>
     </div> 
     <TextField id="" 
+        class="flex-container"
         label="Medication Description" 
         :value="medication.description" 
         @input="medication.description = $event; updateValue()" 
@@ -113,12 +116,12 @@ export default {
     width: 200px;
 }
 .flex-container {
+  margin-left: -80px;
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
 
   .textField {
-    padding-right: 80px;
+    padding-right: 70px;
   }
-
 }
 </style>

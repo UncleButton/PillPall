@@ -26,6 +26,23 @@
         <SaveButton v-else @click="saveNewPills()" text="Save Medication"></SaveButton>
     </div>
 
+    <div class="refillContainer">
+        <TextField id="" 
+            class="textField"
+            label="Refill Quantity"
+            :value="refillQty" 
+            @input="refillQty = Math.max(0, $event)"
+            type="number" 
+            placeholder="e.g. 30" 
+            width="100px" 
+            :maxlength='3'
+        ></TextField> 
+        <div class="refillButton" v-if="$store.getters.getContainerIndex != -1" @click="refill">
+        Refill
+        </div>
+    </div>
+    
+
 </template>
 
 <script>
@@ -35,17 +52,20 @@ import PharmacyInfo from '../components/PharmacyInfo.vue';
 import Medication from '../models/Medication';
 import apiService from '../apiService';
 import SaveButton from '../components/SaveButton.vue';
+import TextField from '@/components/TextField.vue';
 
 export default {
   components: {
     PillInfo,
     PharmacyInfo,
-    SaveButton
+    SaveButton,
+    TextField
   },
   data() {
     return {
       medication: new Medication(),
-      infoStage: 0
+      infoStage: 0,
+      refillQty: null
     }
   },
   mounted(){
@@ -67,6 +87,18 @@ export default {
             console.error('Error fetching entity data:', error);
             this.setBanner("error");
         }
+    },
+    async refill(){
+        try {
+            await apiService.refill(this.$store.getters.getContainerIndex, this.medication, this.refillQty).then(() => {
+                this.goHome();
+                this.setBanner("success");
+            });
+        } catch (error) {
+            console.error('Error refilling:', error);
+            this.setBanner("error");
+        }
+        
     }
   }
 }
@@ -119,6 +151,27 @@ export default {
 .infoPages {
     margin-top: 10px;
     margin-left: 132px
+}
+
+.refillContainer {
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Align items vertically */
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  right: 40px;
+  bottom: 150px;
+}
+
+.refillButton{
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Align items vertically */
+  justify-content: center;
+  background-color: green;
+  width: 100px;
+  height: 70px;
+  border-radius: 15px;
+  font-size: 20px;
 }
 
 </style>

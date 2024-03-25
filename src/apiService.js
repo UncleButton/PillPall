@@ -6,6 +6,7 @@ import ScheduleMed from './models/ScheduleMed';
 import Time from './models/Time';
 import Schedule from './models/Schedule';
 import VerboseDispenseLog from './models/VerboseDispenseLog';
+import RefillObject from './models/RefillObject';
 
 const BASE_URL = 'http://localhost:5218';
 
@@ -109,6 +110,19 @@ const apiService = {
       const dispenseLogs = this.mapListResultToModels(response.data, VerboseDispenseLog);
       
       return dispenseLogs;
+    } catch (error) {
+        throw error;
+    }
+  },
+
+  async refill(containerId, medication, qty) {
+    try {
+      const refill = new RefillObject();
+      refill.containerId = containerId;
+      refill.medication = medication;
+      refill.qty = qty;
+
+      const response = await axios.post(BASE_URL+ '/PillInformation/refill', refill);
     } catch (error) {
         throw error;
     }

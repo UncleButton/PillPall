@@ -17,7 +17,8 @@
         ></TextField>
     </div>
     <h2>Pharmacy Address</h2>
-    <TextField id="" 
+    <TextField id=""
+        class="flex-container" 
         label="Address line 1"
         :value="medication.pharmacyAddr1" 
         @input="medication.pharmacyAddr1 = $event; updateValue()" 
@@ -25,6 +26,7 @@
         width="520px" :maxlength='50'
     ></TextField>
     <TextField id="" 
+        class="flex-container"
         label="Address line 2"
         :value="medication.pharmacyAddr2" 
         @input="medication.pharmacyAddr2 = $event; updateValue()" 
@@ -46,7 +48,7 @@
             :value="medication.pharmacyState" 
             @input="medication.pharmacyState = $event; updateValue()" 
             type="number" 
-            placeholder="e.g. Ohio" 
+            placeholder="e.g. OH" 
             width="100px" 
             :maxlength='50'
         ></TextField>

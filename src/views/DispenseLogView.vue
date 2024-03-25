@@ -5,7 +5,7 @@
 
     <table>
         <tr>
-            <th>YYYY-MM-DD</th>
+            <th>MM-DD-YYYY</th>
             <th>HH:MM:SS</th>
             <th>Medication Name</th>
             <th>Number dispensed</th>
@@ -20,8 +20,10 @@
         </tr>
     </table>
     
-    <button @click="page++">+</button>
-    <button @click="page--">-</button>
+    <div v-if="dispenseLogs != null" class="footerButtonsContainer">
+      <SaveButton @click="decPage" text="Previous Page" :class="page > 0 ? '' : 'disabled'"></SaveButton>
+      <SaveButton @click="incPage" text="Next Page" :class="page < Math.floor(dispenseLogs.length/pageSize) ? '' : 'disabled'"></SaveButton>
+    </div>
 
 </template>
 
@@ -41,13 +43,13 @@ import DeleteButton from '@/models/VerboseDispenseLog';
 
 export default {
   components: {
-
+    SaveButton
   },
   data() {
     return {
       dispenseLogs: null,
-      page: 1,
-      pageSize: 6
+      page: 0,
+      pageSize: 7
     }
   },
   mounted(){
@@ -61,6 +63,14 @@ export default {
           console.error('Error dispense logs:', error);
           this.setBanner("error");
       }
+    },
+    decPage(){
+      if(this.page > 0)
+        this.page--;
+    },
+    incPage(){
+      if(this.page < Math.floor(this.dispenseLogs.length/this.pageSize))
+        this.page++;
     }
   }
 }
@@ -75,6 +85,26 @@ export default {
     align-items: center; /* Center vertically */
     height: 50px;
     margin-bottom: 25px;
+}
+
+table {
+  width: 700px;
+  margin-left: 50px;
+  background-color: rgba(39, 86, 156, 0.61);
+  th {
+    color: white;
+    font-weight: bold;
+  }
+  td {
+    color: lightgray;
+    border: solid 1px black;
+    padding: 3px;
+    padding-left: 10px;
+  }
+}
+
+.disabled {
+  background-color: gray;
 }
 
 </style>
