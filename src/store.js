@@ -157,8 +157,13 @@ const store = createStore({
           var diffInMillis = (dateTime - now);
           var diffInMinutes = Math.floor((diffInMillis/1000)/60);
 
-          if(diffInMinutes == 30 && schedule.notificationEmail != "") {
-            await apiService.sendReminder(schedule);
+          if((diffInMinutes == 60 || diffInMinutes == 5) && schedule.notificationEmail != "") {
+            var reminder = new Reminder();
+            reminder.toAddress = schedule.notificationEmail;
+            reminder.subject = "Schedule Reminder: \"" + schedule.name + "\" in ";
+            reminder.subject += diffInMinutes == 60 ? "1 hour." : "5 minutes.";
+            reminder.body = "Your PillPal schedule, \"" + schedule.name + "\" is scheduled for " + diffInMinutes == 60 ? "1 hour" : "5 minutes" + " from now.  Don't forget to take it!";
+            await apiService.sendReminder(reminder);
             console.log("sent reminder");
           } 
         })

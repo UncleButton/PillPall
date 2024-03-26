@@ -11,39 +11,32 @@
             <th>Number dispensed</th>
             <th>Schedule Name</th>
         </tr>
-        <tr v-for="(log, index) in dispenseLogs" :key="index" class="row">
-          <td v-if="index >= page*pageSize && index < page*pageSize + pageSize">{{ log.getDate() }}</td>
-          <td v-if="index >= page*pageSize && index < page*pageSize + pageSize">{{ log.getTime() }}</td>
-          <td v-if="index >= page*pageSize && index < page*pageSize + pageSize">{{ log.medName }}</td>
-          <td v-if="index >= page*pageSize && index < page*pageSize + pageSize">{{ log.numPills }}</td>
-          <td v-if="index >= page*pageSize && index < page*pageSize + pageSize">{{ log.scheduleName }}</td>
+        <tr v-if="dispenseLogs != null" v-for="(log, index) in dispenseLogs.slice(page*pageSize, page*pageSize + pageSize)" :key="index" class="row">
+          <td>{{ log.getDate() }}</td>
+          <td>{{ log.getTime() }}</td>
+          <td>{{ log.medName }}</td>
+          <td>{{ log.numPills }}</td>
+          <td>{{ log.scheduleName }}</td>
         </tr>
     </table>
     
     <div v-if="dispenseLogs != null" class="footerButtonsContainer">
-      <SaveButton @click="decPage" text="Previous Page" :class="page > 0 ? '' : 'disabled'"></SaveButton>
-      <SaveButton @click="incPage" text="Next Page" :class="page < Math.floor(dispenseLogs.length/pageSize) ? '' : 'disabled'"></SaveButton>
+      <StandardButton @click="decPage" text="Previous Page" :class="page > 0 ? '' : 'disabled'"></StandardButton>
+      <StandardButton @click="incPage" text="Next Page" :class="page < Math.floor(dispenseLogs.length/pageSize) ? '' : 'disabled'"></StandardButton>
     </div>
 
 </template>
 
 <script>
 
-import Medication from '@/models/Medication';
 import apiService from '@/apiService';
-import TextField from '@/components/TextField.vue';
-import Schedule from '@/models/Schedule';
-import Time from '@/models/Time';
-import ScheduleMed from '@/models/ScheduleMed';
-import DropDown from '@/components/DropDown.vue';
-import PillInfoCard from '@/components/PillInfoCard.vue';
-import SaveButton from '@/components/SaveButton.vue';
-import DispenseButton from '@/components/DispenseButton.vue';
-import DeleteButton from '@/models/VerboseDispenseLog';
+import APICallButton from '@/components/APICallButton.vue';
+import StandardButton from '@/components/StandardButton.vue';
 
 export default {
   components: {
-    SaveButton
+    APICallButton,
+    StandardButton
   },
   data() {
     return {

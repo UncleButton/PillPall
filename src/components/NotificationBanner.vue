@@ -1,6 +1,12 @@
 <template>
   <transition name="fade">
     <div v-if="isVisible" class="notification" :class="notificationType">
+      <span>
+        <img v-if="type=='info'" class="icon" src="../assets/infoIcon.png">
+        <img v-if="type=='error'" class="icon" src="../assets/errorIcon.png">
+        <img v-if="type=='warning'" class="icon" src="../assets/warningIcon.png">
+        <img v-if="type=='success'" class="icon" src="../assets/successIcon.png">
+      </span>
       {{ text }}
       <span class="close-btn" @click="handleCloseClick">×</span>
     </div>
@@ -72,6 +78,14 @@ export default {
   right: 10px;
   font-size: 24px;
   cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .notification-info {

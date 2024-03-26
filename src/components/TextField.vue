@@ -2,13 +2,13 @@
   <div>
     <div class="custom-text-field">
         <label>
-          <span :for="id">{{ label }}</span>
+          <span>{{ label }}</span>
           <span v-if="required" class="required">*</span>
           <span v-if="tooltip != ''"><img class="tooltipIcon" src="../assets/tooltipIcon.png" @click="toggleTooltip"></span>
           <span v-if="tooltipVisible" class="tooltipBox">{{ tooltip }}</span>
         </label>
-        <textarea v-if="isMultiline" :id="id" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"></textarea>
-        <input v-else :type="type" :id="id" :value="textData" @input="onInputChange" :maxlength="maxlength" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"/>
+        <textarea v-if="isMultiline" :value="textData" @input="onInputChange" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"></textarea>
+        <input v-else :type="type" :value="textData" @input="onInputChange" :maxlength="maxlength" :placeholder="placeholder" :style='{ width }' @click="showKeyboard" :readonly="!editable"/>
         <span v-if="!editable"><img class="lockIcon" src="../assets/lockIcon.png"></span>
     </div>
 
@@ -31,10 +31,6 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
       SimpleKeyboard,
     },
     props: {
-      id: {
-        type: String,
-        required: true
-      },
       label: {
         type: String,
         required: true

@@ -20,8 +20,8 @@
 
     
     <div class="footerButtonsContainer">
-      <SaveButton @click="dispense()" text="Custom Dispense"></SaveButton>
-      <div class="nextDoseBar">
+      <APICallButton @click="dispense()" text="Custom Dispense"></APICallButton>
+      <div class="nextDoseBar" v-if="!isLoadingSchedules && $store.getters.getNextSchedule != null">
         <div>Upcoming Dose: </div>
         <div v-if="!isLoadingSchedules">"{{ $store.getters.getNextSchedule?.name }}"</div>
         <Loader v-else size="30px"></Loader>
@@ -31,6 +31,9 @@
         <Loader v-else size="30px"></Loader>
 
         <DispenseButton @click="dispenseNextSchedule" text="Dispense Now"></DispenseButton>
+      </div>
+      <div class="nextDoseBar" v-else>
+        <div>No upcoming doses today.  You're all set!</div>
       </div>
     </div>
 
@@ -46,7 +49,7 @@ import Loader from '@/components/Loader.vue';
 import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
 import DispenseButton from '@/components/DispenseButton.vue';
-import SaveButton from '@/components/SaveButton.vue';
+import APICallButton from '@/components/APICallButton.vue';
 
 export default {
   components: {
@@ -56,7 +59,7 @@ export default {
     MedicationContainer,
     SchedulesContainer,
     DispenseButton,
-    SaveButton
+    APICallButton
 },
   data() {
     return {
@@ -136,10 +139,9 @@ export default {
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
     padding: 10px;
-    margin-top: 20px;
     background-color: var(--translucent-blue);
     height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 
     .selectorBar {
         margin-bottom: -15px;

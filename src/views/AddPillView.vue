@@ -21,10 +21,10 @@
         </div>
         
         <div class="footerButtonsContainer">
-            <SaveButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></SaveButton>
-            <SaveButton v-else @click="goHome" text="Home"></SaveButton>
-            <SaveButton v-if="infoStage < 1" @click="infoStage < 1 ? infoStage++ : infoStage" text="Next Page"></SaveButton>
-            <SaveButton v-else @click="saveNewPills()" text="Save Medication"></SaveButton>
+            <StandardButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></StandardButton>
+            <StandardButton v-else @click="goHome" text="Home"></StandardButton>
+            <StandardButton v-if="infoStage < 1" @click="infoStage < 1 ? infoStage++ : infoStage" text="Next Page"></StandardButton>
+            <APICallButton v-else @click="saveNewPills()" text="Save Medication"></APICallButton>
         </div>
     </div>
 
@@ -52,15 +52,17 @@ import PillInfo from '../components/PillInfo.vue';
 import PharmacyInfo from '../components/PharmacyInfo.vue';
 import Medication from '../models/Medication';
 import apiService from '../apiService';
-import SaveButton from '../components/SaveButton.vue';
+import APICallButton from '../components/APICallButton.vue';
 import TextField from '@/components/TextField.vue';
+import StandardButton from '../components/StandardButton.vue';
 
 export default {
   components: {
     PillInfo,
     PharmacyInfo,
-    SaveButton,
-    TextField
+    APICallButton,
+    TextField,
+    StandardButton
   },
   data() {
     return {
@@ -125,10 +127,10 @@ export default {
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: -15px;
     background-color: var(--translucent-blue);
     height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 
     .selectorBar {
         margin-bottom: -15px;

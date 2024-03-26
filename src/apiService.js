@@ -95,9 +95,9 @@ const apiService = {
     }
   },
 
-  async sendReminder(schedule) {
+  async sendReminder(reminder) {
     try {
-      const response = await axios.post(BASE_URL+ '/Reminder/remindSchedule', schedule);
+      const response = await axios.post(BASE_URL+ '/Reminder/sendReminder', reminder);
     } catch (error) {
         throw error;
     }

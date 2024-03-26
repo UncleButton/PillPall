@@ -56,7 +56,7 @@
     </div>  
 
     <div class="footerButtonsContainer">
-        <SaveButton @click="updateSchedule()" text="Save Schedule"></SaveButton>
+        <APICallButton @click="updateSchedule()" text="Save Schedule"></APICallButton>
         <DeleteButton @click="deleteSchedule()" text="Delete Schedule"></DeleteButton>
         <DispenseButton @click="dispense" text="Dispense Now"></DispenseButton>
     </div>
@@ -73,7 +73,7 @@ import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
-import SaveButton from '@/components/SaveButton.vue';
+import APICallButton from '@/components/APICallButton.vue';
 import DispenseButton from '@/components/DispenseButton.vue';
 import DeleteButton from '@/components/DeleteButton.vue';
 
@@ -82,7 +82,7 @@ export default {
     TextField,
     DropDown,
     PillInfoCard,
-    SaveButton,
+    APICallButton,
     DispenseButton,
     DeleteButton
 },

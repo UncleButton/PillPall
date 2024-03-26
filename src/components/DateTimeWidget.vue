@@ -3,10 +3,7 @@
         <h5 class="date">{{currentWeekDay}}, {{currentMonth}} {{ currentDay }}</h5>
         <p class="time">{{ currentTime }}</p>
     </div>
-    
 </template>
-
-  
   
   <script>
 
@@ -56,7 +53,7 @@
         width: 100px;
         height: 100px;
         border-radius: 15px;
-        position: fixed;
+        position: absolute;
         color: black;
         
         text-align: center;

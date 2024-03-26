@@ -3,7 +3,7 @@
         <h1 class="newPillsHeader">Add New Schedule</h1>
     </div>
 
-    <div class="flex-container top-bar-info">
+    <div class="flex-c top-bar-info">
         <TextField  
             class="textField"
             label="Schedule Name"
@@ -62,13 +62,13 @@
 
     <div class="timesContainer">
         <div v-for="day in $store.state.weekDays">
-            <input type="checkbox" id="myCheckbox" @change="(event) => dayToggle(event, day)" :checked="day == $store.getters.getCurrentWeekDay">
+            <input type="checkbox" @change="(event) => dayToggle(event, day)" :checked="day == $store.getters.getCurrentWeekDay">
             <label> {{ day }} </label>
         </div>
     </div>    
 
     <div class="footerButtonsContainer">
-        <SaveButton @click="saveSchedule()" text="Save Schedule"></SaveButton>
+        <APICallButton @click="saveSchedule()" text="Save Schedule"></APICallButton>
     </div>
 
 </template>
@@ -82,14 +82,14 @@ import Time from '@/models/Time';
 import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
-import SaveButton from '@/components/SaveButton.vue';
+import APICallButton from '@/components/APICallButton.vue';
 
 export default {
   components: {
     TextField,
     DropDown,
     PillInfoCard,
-    SaveButton
+    APICallButton
 },
   data() {
     return {
@@ -236,11 +236,11 @@ export default {
     }
 }
 
-.flex-container {
-  margin-left: 20px;
+.flex-c {
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
   justify-content: space-evenly;
+  margin-left: 20px;
 }
 
 </style>
