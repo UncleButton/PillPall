@@ -48,13 +48,13 @@
 
 <script>
 
-import PillInfo from '../components/PillInfo.vue';
-import PharmacyInfo from '../components/PharmacyInfo.vue';
+import PillInfo from '../components/AddPillView/PillInfo.vue';
+import PharmacyInfo from '../components/AddPillView/PharmacyInfo.vue';
 import Medication from '../models/Medication';
 import apiService from '../apiService';
-import APICallButton from '../components/APICallButton.vue';
+import APICallButton from '../components/Buttons/APICallButton.vue';
 import TextField from '@/components/TextField.vue';
-import StandardButton from '../components/StandardButton.vue';
+import StandardButton from '../components/Buttons/StandardButton.vue';
 
 export default {
   components: {

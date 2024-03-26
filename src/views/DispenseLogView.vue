@@ -30,8 +30,8 @@
 <script>
 
 import apiService from '@/apiService';
-import APICallButton from '@/components/APICallButton.vue';
-import StandardButton from '@/components/StandardButton.vue';
+import APICallButton from '@/components/Buttons/APICallButton.vue';
+import StandardButton from '@/components/Buttons/StandardButton.vue';
 
 export default {
   components: {

@@ -48,8 +48,8 @@ import apiService from '@/apiService';
 import Loader from '@/components/Loader.vue';
 import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
-import DispenseButton from '@/components/DispenseButton.vue';
-import APICallButton from '@/components/APICallButton.vue';
+import DispenseButton from '@/components/Buttons/DispenseButton.vue';
+import APICallButton from '@/components/Buttons/APICallButton.vue';
 
 export default {
   components: {

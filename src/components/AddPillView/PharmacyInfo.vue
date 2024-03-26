@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import TextField from '../components/TextField.vue';
+import TextField from '@/components/TextField.vue';
 import Medication from '@/models/Medication';
 
 export default {

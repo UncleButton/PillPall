@@ -114,7 +114,7 @@ export default {
   width: 800px;
   height: 480px;
   z-index: -1;
-  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent red color */
+  background-color: rgba(97, 97, 97, 0.15); /* Semi-transparent red color */
 }
 #header {
   position: absolute;
