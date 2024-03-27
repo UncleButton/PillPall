@@ -1,6 +1,6 @@
 <template>    
     <div class="deleteButton">
-        <div><img class="deleteIcon" src="../assets/deleteIcon.png"></div>
+        <div><img class="deleteIcon" src="../../assets/deleteIcon.png"></div>
         <div>{{ text }}</div>
     </div>
 </template>
@@ -23,7 +23,7 @@ export default {
 .deleteButton {
     width: fit-content;
     min-width: 150px;
-    background-color: #c33636;
+    background-color: var(--primary-orange);
     display: flex; /* Use flexbox layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -33,6 +33,7 @@ export default {
     margin-left: 5px;
     border-radius: 25px;
     height: 42px;
+    color: black;
 
     .deleteIcon {
         width: 26px;

@@ -1,6 +1,7 @@
 // src/store.js
 import { createStore } from 'vuex';
 import Schedule from './models/Schedule';
+import Reminder from './models/Reminder';
 import apiService from './apiService';
 
 const store = createStore({
@@ -139,7 +140,21 @@ const store = createStore({
       });
 
       var upcomingSchedule = sortedUpcomingSchedules[0];
-      var upcomingScheduleTime = upcomingSchedule?.times[0]?.dateTime;
+
+      //set next time correctly
+      var upcomingScheduleTime;
+      var loop = 0;
+      if(upcomingSchedule != null){
+        while(loop < upcomingSchedule.times.length){
+          var time = upcomingSchedule.times[loop];
+          if(currentHour < parseInt(time.dateTime.slice(0,2)) || (currentHour == parseInt(time.dateTime.slice(0,2)) && currentMinute <= parseInt(time.dateTime.slice(2)))){
+            upcomingScheduleTime = upcomingSchedule.times[loop].dateTime;
+            break;
+          }
+          loop++;
+        }
+      }
+      
 
       state.nextSchedule = upcomingSchedule;
       state.nextScheduleTime = upcomingScheduleTime;
@@ -160,9 +175,9 @@ const store = createStore({
           if((diffInMinutes == 60 || diffInMinutes == 5) && schedule.notificationEmail != "") {
             var reminder = new Reminder();
             reminder.toAddress = schedule.notificationEmail;
-            reminder.subject = "Schedule Reminder: \"" + schedule.name + "\" in ";
+            reminder.subject = "PillPal Schedule Reminder: \"" + schedule.name + "\" in ";
             reminder.subject += diffInMinutes == 60 ? "1 hour." : "5 minutes.";
-            reminder.body = "Your PillPal schedule, \"" + schedule.name + "\" is scheduled for " + diffInMinutes == 60 ? "1 hour" : "5 minutes" + " from now.  Don't forget to take it!";
+            reminder.body = "Your schedule \"" + schedule.name + "\" is scheduled for " + (diffInMinutes == 60 ? "1 hour" : "5 minutes") + " from now.  Don't forget to take it!";
             await apiService.sendReminder(reminder);
             console.log("sent reminder");
           } 

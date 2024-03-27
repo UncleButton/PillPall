@@ -159,7 +159,7 @@ import SimpleKeyboard from './SimpleKeyboard.vue';
   .tooltipBox {
     width: 200px;
     height: fit-content;
-    background-color: var(--secondary-blue);
+    background-color: var(--secondary-orange);
     border-radius: 5px;
     position: absolute;
     padding: 5px;

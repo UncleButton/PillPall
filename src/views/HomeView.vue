@@ -20,7 +20,7 @@
 
     
     <div class="footerButtonsContainer">
-      <APICallButton @click="dispense()" text="Custom Dispense"></APICallButton>
+      <StandardButton @click="dispense()" text="One-Time Dispense"></StandardButton>
       <div class="nextDoseBar" v-if="!isLoadingSchedules && $store.getters.getNextSchedule != null">
         <div>Upcoming Dose: </div>
         <div v-if="!isLoadingSchedules">"{{ $store.getters.getNextSchedule?.name }}"</div>
@@ -50,6 +50,7 @@ import MedicationContainer from '@/components/HomeView/MedicationContainer.vue';
 import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
 import DispenseButton from '@/components/Buttons/DispenseButton.vue';
 import APICallButton from '@/components/Buttons/APICallButton.vue';
+import StandardButton from '@/components/Buttons/StandardButton.vue';
 
 export default {
   components: {
@@ -59,7 +60,8 @@ export default {
     MedicationContainer,
     SchedulesContainer,
     DispenseButton,
-    APICallButton
+    APICallButton,
+    StandardButton
 },
   data() {
     return {

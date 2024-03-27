@@ -47,7 +47,6 @@
             label="State" 
             :value="medication.pharmacyState" 
             @input="medication.pharmacyState = $event; updateValue()" 
-            type="number" 
             placeholder="e.g. OH" 
             width="100px" 
             :maxlength='50'
