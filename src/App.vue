@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="backgroundImage"></div>
+    <div class="backgroundImage"></div>
     <div class="overlay"></div>
     <div id="header"></div>
     <div id="footer"></div>
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style>
-#backgroundImage {
+.backgroundImage {
   background-image: url('./assets/GenericBackgroundImage.jpg');
   background-size: cover;
   background-position: center;
@@ -114,7 +114,7 @@ export default {
   width: 800px;
   height: 480px;
   z-index: -1;
-  background-color: rgba(97, 97, 97, 0.15); /* Semi-transparent red color */
+  
 }
 #header {
   position: absolute;

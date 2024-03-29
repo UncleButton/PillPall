@@ -1,4 +1,5 @@
-<template>    
+<template>   
+    
     <div class="headerContainer">
         <h1 class="newPillsHeader">Edit Schedule</h1>
     </div>
@@ -60,7 +61,12 @@
         <DeleteButton @click="deleteSchedule()" text="Delete Schedule"></DeleteButton>
         <DispenseButton @click="dispense" text="Dispense Now"></DispenseButton>
     </div>
-
+    <div v-if="dispensing">
+        <div id="dispenseGif"></div>
+        <div class="translucentScreen"></div>
+        <div class="dispensingMessage">Dispensing! Please wait...</div>
+    </div>
+    
 </template>
 
 <script>
@@ -92,6 +98,7 @@ export default {
       times: [new Time(), new Time(), new Time()],
       scheduleMeds: [],
       containers: this.$store.state.containers,
+      dispensing: false
     }
   },
   mounted(){
@@ -135,11 +142,14 @@ export default {
     },
     async dispense(){
         try {
+            this.dispensing = true;
             await apiService.dispenseSchedule(this.schedule).then(() => {
+                this.dispensing = false;
                 this.goHome()
                 this.setBanner("success");
             });
         } catch (error) {
+            this.dispensing = false;
             console.error('Error dispensing:', error);
             this.setBanner("error");
         }
@@ -161,6 +171,43 @@ export default {
 </script>
 
 <style scoped>
+
+#dispenseGif {
+    background-image: url('./../assets/dispense2.gif');
+    background-size: cover;
+    background-position: center;
+    height: 480px;
+    width: 800px;
+    z-index: 1;
+    position: fixed;
+    top: 0px;
+}
+.translucentScreen {
+    background-size: cover;
+    background-position: center;
+    height: 480px;
+    width: 800px;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    background-color: var(--slightly-translucent-white);
+}
+.dispensingMessage {
+    background-color: white;
+    height: 220px;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+    left: 200px;
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: black;
+    border-radius: 20px;
+    border: solid 1px gray;
+    font-size: 30px;
+}
 
 .headerContainer {
     margin-top: -3px;
