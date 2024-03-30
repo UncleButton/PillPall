@@ -143,7 +143,7 @@ export default {
     padding: 10px;
     background-color: var(--translucent-blue);
     height: 40px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 
     .selectorBar {
         margin-bottom: -15px;

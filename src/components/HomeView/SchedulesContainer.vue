@@ -1,11 +1,11 @@
 <template>    
     <div class="scheduleBackgroundContainer">
-        <div v-for="index in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" :key="index" class="hourMarkers">
+        <div v-for="index in [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]" :key="index" class="hourMarkers">
             {{ index <= 12 ? index+" AM" : index-12+" PM" }}
         </div>
     </div>
     <div class="scheduleBackgroundContainer">
-        <div v-for="index in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" :key="index" class="calendarScheduleRow">
+        <div v-for="index in [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]" :key="index" class="calendarScheduleRow">
             <div v-for="schedule in schedulesAtHour(index)">
                   <div class="calendarSchedule" @click="viewSchedule(schedule)">{{ schedule.name }}</div>
             </div>
@@ -64,13 +64,14 @@ export default {
 .hourMarkers {
     border-bottom: white solid 1px;
     width: 600px;
-    height: 20px;
+    height: 18px;
+    line-height: 1.2;
 }
 .calendarScheduleRow {
     background-color: var(--mostly-translucent-blue);
     margin-left:50px;
     width: 550px;
-    height: 20px;
+    height: 18px;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
     justify-content: space-evenly;
@@ -79,11 +80,12 @@ export default {
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
       width: fit-content;
-      background: var(--secondary-blue);
+      background: var(--secondary-orange);
       border-radius: 10px;
-      height: 18px;
+      height: 16px;
       padding-left: 20px;
       padding-right: 20px;
+      color: black;
     }
 }
 .addNewScheduleButton {
