@@ -33,6 +33,7 @@
 import NotificationBanner from './components/NotificationBanner.vue';
 import DateTimeWidget from './components/DateTimeWidget.vue';
 import PinChallenge from './components/PinChallenge.vue';
+import apiService from '@/apiService';
 
 export default {
   components: {
@@ -68,6 +69,8 @@ export default {
     setInterval(() => {
       this.updateTime();
     }, 1000);
+
+    this.handshake();
   },
   methods: {
     updateTime() {
@@ -90,6 +93,13 @@ export default {
     clearTimer() {
       clearInterval(this.timerId);
       this.startTimer();
+    },
+    async handshake() {
+      try {
+        await apiService.handshake();
+      } catch (error) {
+        this.setBanner("error", "error establishing commmunication with device");
+      }
     }
   }
 }

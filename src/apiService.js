@@ -95,6 +95,14 @@ const apiService = {
     }
   },
 
+  async handshake() {
+    try {
+      const response = await axios.post(BASE_URL+ '/Dispense/handshake');
+    } catch (error) {
+        throw error;
+    }
+  },
+
   async sendReminder(reminder) {
     try {
       const response = await axios.post(BASE_URL+ '/Reminder/sendReminder', reminder);

@@ -188,4 +188,8 @@ export default {
     justify-content: space-evenly;
 }
 
+.headerContainer {
+  color: black;
+}
+
 </style>
