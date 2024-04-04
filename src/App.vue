@@ -125,6 +125,7 @@ export default {
   position: fixed;
   top: 0px;
   filter: brightness(0.8);
+  filter: saturate(0.4);
 }
 .overlay {
   position: absolute;

@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      schedules: this.$store.state.schedules,
+      
     }
   },
   mounted(){
@@ -45,8 +45,9 @@ export default {
         if(!this.$store.state.PINApproved)
           return;  
       }
-      var scheduleIndex = this.schedules.indexOf(schedule);
+      var scheduleIndex = this.$store.state.schedules.indexOf(schedule);
       this.$store.commit('setScheduleIndex', scheduleIndex);
+      console.log(scheduleIndex);
       this.goToScheduleView()
     }
   }
@@ -80,7 +81,7 @@ export default {
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
       width: fit-content;
-      background: var(--secondary-orange);
+      background: var(--primary-orange);
       border-radius: 10px;
       height: 16px;
       padding-left: 20px;
@@ -90,7 +91,7 @@ export default {
 }
 .addNewScheduleButton {
     position: absolute;
-    background-color: var(--secondary-blue);
+    background-color: var(--primary-blue);
     top: 200px;
     right: 5px;
     width: 100px;

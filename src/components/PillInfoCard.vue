@@ -4,7 +4,7 @@
   </div>
   <div v-else-if="medication != null" class="medication-card">
     <div class="medication-name">{{ medication.name }}</div>
-    <div class="reg-text">Pills left: {{ medication.numPills }}</div>
+    <div :class="this.lowPills ? 'warning-text' : 'reg-text'">Pills left: {{ medication.numPills }}</div>
     <div v-if="!dispensable" class="reg-text"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>
     <div v-if="dispensable && medication.maxPillsPerDose != null" class="reg-text">Dosage: {{ medication.maxPillsPerDose }}</div>
     <div v-if="dispensable" class="reg-text"><br><span class="reg-text pill-count">Dispense: {{ numToDispense }}</span></div>
@@ -14,6 +14,9 @@
     </div>
     <div v-if="editable && !dispensable" class="button-container">
       <div class="editText">(Click to edit)</div>
+    </div>
+    <div v-if="this.lowPills">
+      <img src="../assets//warningIcon.png" class="warning">
     </div>
   </div>
   <div v-else class="medication-card">
@@ -60,6 +63,11 @@ export default {
 
     }
   },
+  computed: {
+    lowPills(){
+      return this.medication.numPills < 10;
+    },
+  },
   mounted(){
     
   },
@@ -101,6 +109,27 @@ export default {
   flex-direction: column;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+}
+
+.warning-text {
+  font-size: 15px;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  color: rgb(212, 146, 21);
+  font-weight: bold;
+}
+
+.warning {
+  width: 33px;
+  height: 33px;
+  position: absolute;
+  margin-top: -182px;
+  margin-left: 27px;
+  background-color: rgb(212, 146, 21);
+  border-radius: 5px;
+  padding: 3px;
 }
 
 .pill-count {
