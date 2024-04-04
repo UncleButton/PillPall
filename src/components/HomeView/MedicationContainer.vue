@@ -15,7 +15,7 @@ export default {
   components: {
     PillInfoCard,
     Loader,
-},
+  },
   data() {
     return {
       containers: [],
@@ -34,14 +34,14 @@ export default {
     } 
   },
   mounted(){
-      if(this.storeContainers.length > 0) {
-        this.containers = this.storeContainers;
-        this.isLoadingContainers = false;
-      }
-      if(this.storeSchedules.length > 0) {
-        this.schedules = this.storeSchedules;
-        this.isLoadingSchedules = false;
-      }
+    if(this.storeContainers.length > 0) {
+      this.containers = this.storeContainers;
+      this.isLoadingContainers = false;
+    }
+    if(this.storeSchedules.length > 0) {
+      this.schedules = this.storeSchedules;
+      this.isLoadingSchedules = false;
+    }
   },
   watch: {
     storeContainers(newValue, oldValue){

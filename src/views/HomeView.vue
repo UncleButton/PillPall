@@ -75,7 +75,25 @@ export default {
     }
   },
   computed: {
-    
+    watchPageData(){
+      return this.pageData;
+    }
+  },
+  watch: {
+    watchPageData(newValue, oldValue){
+      this.updateContainers().then(() => 
+      { 
+        this.containers = this.$store.state.containers;
+        this.isLoadingContainers = false;
+      });
+      
+      this.updateSchedules().then(() => 
+      { 
+        this.schedules = this.$store.state.schedules;
+        this.isLoadingSchedules = false;
+        this.$store.commit('setNextSchedule');
+      });
+    }
   },
   mounted(){
     this.updateContainers().then(() => 
@@ -90,7 +108,6 @@ export default {
       this.isLoadingSchedules = false;
       this.$store.commit('setNextSchedule');
     });
-    
   },
   methods: {
     editPills(containerIndex){
