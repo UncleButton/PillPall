@@ -5,7 +5,7 @@
   <div v-else-if="medication != null" class="medication-card">
     <div class="medication-name">{{ medication.name }}</div>
     <div :class="this.lowPills ? 'warning-text' : 'reg-text'">Pills left: {{ medication.numPills }}</div>
-    <div v-if="!dispensable" class="reg-text"><div>Expiration:</div><div>{{ medication.expirationDate }}</div></div>
+    <div v-if="!dispensable" class="reg-text"><div :class="this.nearExpiration ? 'warning-text' : 'reg-text'">Expiration:</div><div :class="this.nearExpiration ? 'warning-text' : 'reg-text'">{{ medication.expirationDate == "" ? 'Not Set' : medication.expirationDate }}</div></div>
     <div v-if="dispensable && medication.maxPillsPerDose != null" class="reg-text">Dosage: {{ medication.maxPillsPerDose }}</div>
     <div v-if="dispensable" class="reg-text"><br><span class="reg-text pill-count">Dispense: {{ numToDispense }}</span></div>
     <div v-if="dispensable && editable" class="button-container">
@@ -15,7 +15,7 @@
     <div v-if="editable && !dispensable" class="button-container">
       <div class="editText">(Click to edit)</div>
     </div>
-    <div v-if="this.lowPills">
+    <div v-if="this.lowPills || this.nearExpiration">
       <img src="../assets//warningIcon.png" class="warning">
     </div>
   </div>
@@ -67,6 +67,35 @@ export default {
     lowPills(){
       return this.medication.numPills < 10;
     },
+    nearExpiration(){
+      if(this.medication.expirationDate == "")
+        return false;
+
+      var dateComponents = this.medication.expirationDate.split("/");
+      if(dateComponents.length < 3)
+        return false;
+
+      try {
+        var expDate = new Date(this.medication.expirationDate);     
+        var currentdate = new Date();
+
+        // Calculating the time difference
+        // of two dates
+        let Difference_In_Time =
+          expDate.getTime() - currentdate.getTime();
+        
+        // Calculating the no. of days between
+        // two dates
+        let Difference_In_Days =
+            Math.round
+                (Difference_In_Time / (1000 * 3600 * 24));
+
+        return Difference_In_Days <= 10;
+      } catch (error) {
+        return false;
+      }
+
+    }
   },
   mounted(){
     
