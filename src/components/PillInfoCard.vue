@@ -15,7 +15,7 @@
     <div v-if="editable && !dispensable" class="button-container">
       <div class="editText">(Click to edit)</div>
     </div>
-    <div v-if="this.lowPills || this.nearExpiration">
+    <div v-if="this.lowPills || this.nearExpiration" class="warning-div">
       <img src="../assets//warningIcon.png" class="warning">
     </div>
   </div>
@@ -150,15 +150,25 @@ export default {
   font-weight: bold;
 }
 
+.warning-div {
+  position: absolute;
+  margin-top: -22px;
+  margin-left: 95px;
+  width: 5px;
+  height: 10px;
+  background-color: transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 36px solid rgb(212, 146, 21);
+  border-radius: 5px;
+}
+
 .warning {
   width: 33px;
   height: 33px;
-  position: absolute;
-  margin-top: -182px;
-  margin-left: 27px;
-  background-color: rgb(212, 146, 21);
   border-radius: 5px;
-  padding: 3px;
+  margin-left: -16px;
+  margin-top: 3px;
 }
 
 .pill-count {
