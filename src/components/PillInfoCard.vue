@@ -157,10 +157,9 @@ export default {
   width: 5px;
   height: 10px;
   background-color: transparent;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 36px solid rgb(212, 146, 21);
-  border-radius: 5px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 28px solid rgb(212, 146, 21);
 }
 
 .warning {
@@ -168,7 +167,7 @@ export default {
   height: 33px;
   border-radius: 5px;
   margin-left: -16px;
-  margin-top: 3px;
+  margin-top: -2px;
 }
 
 .pill-count {
