@@ -174,6 +174,7 @@ export default {
         display: flex; /* Use flexbox layout */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
+        border-radius: 5px;
 
         .selectionBarText {
             color: var(--primary-text-color);
@@ -201,7 +202,7 @@ export default {
 .nextDoseBar {
     width: 500px;
     height: 45px;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: rgb(255,255,255,0.1);
     margin: 15px;
     display: flex; /* Use flexbox layout */

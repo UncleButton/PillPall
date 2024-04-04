@@ -52,7 +52,8 @@
         background-image: url('src/assets/WidgetBackgroundImage.jpg');
         width: 100px;
         height: 100px;
-        border-radius: 15px;
+        border-radius: 10px;
+        border-top-left-radius: 50px;
         position: absolute;
         color: black;
         

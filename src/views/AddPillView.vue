@@ -139,6 +139,7 @@ export default {
         display: flex; /* Use flexbox layout */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
+        border-radius: 5px;
 
         .selectionBarText {
             color: var(--primary-text-color);
@@ -169,7 +170,7 @@ export default {
     right: 40px;
     bottom: 150px;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .refillButton{
@@ -179,7 +180,7 @@ export default {
   background-color: var(--primary-orange);
   width: 100px;
   height: 70px;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 20px;
   color: black;
 }

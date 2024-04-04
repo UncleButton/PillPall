@@ -82,7 +82,7 @@ export default {
       align-items: center; /* Center vertically */
       width: fit-content;
       background: var(--primary-orange);
-      border-radius: 10px;
+      border-radius: 3px;
       height: 16px;
       padding-left: 20px;
       padding-right: 20px;

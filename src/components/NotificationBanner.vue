@@ -70,6 +70,7 @@ export default {
   text-align: center;
   font-weight: bold;
   cursor: pointer;
+  height: 50px;
 }
 
 .close-btn {
