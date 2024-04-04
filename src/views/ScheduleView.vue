@@ -63,8 +63,6 @@
     </div>
     <div v-if="dispensing">
         <div id="dispenseGif"></div>
-        <div class="translucentScreen"></div>
-        <div class="dispensingMessage">Dispensing! Please wait...</div>
     </div>
     
 </template>
@@ -82,6 +80,7 @@ import PillInfoCard from '@/components/PillInfoCard.vue';
 import APICallButton from '@/components/Buttons/APICallButton.vue';
 import DispenseButton from '@/components/Buttons/DispenseButton.vue';
 import DeleteButton from '@/components/Buttons/DeleteButton.vue';
+import DispensingOverlay from '@/components/DispensingOverlay.vue';
 
 export default {
   components: {
@@ -90,7 +89,8 @@ export default {
     PillInfoCard,
     APICallButton,
     DispenseButton,
-    DeleteButton
+    DeleteButton,
+    DispensingOverlay
 },
   data() {
     return {
@@ -142,13 +142,16 @@ export default {
     },
     async dispense(){
         try {
+            this.$store.commit('setDispensing', true);
             this.dispensing = true;
             await apiService.dispenseSchedule(this.schedule).then(() => {
+                this.$store.commit('setDispensing', false);
                 this.dispensing = false;
                 this.goHome()
                 this.setBanner("success");
             });
         } catch (error) {
+            this.$store.commit('setDispensing', false);
             this.dispensing = false;
             console.error('Error dispensing:', error);
             this.setBanner("error");
@@ -181,32 +184,6 @@ export default {
     z-index: 1;
     position: fixed;
     top: 0px;
-}
-.translucentScreen {
-    background-size: cover;
-    background-position: center;
-    height: 480px;
-    width: 800px;
-    position: fixed;
-    z-index: 1;
-    top: 0px;
-    background-color: var(--slightly-translucent-white);
-}
-.dispensingMessage {
-    background-color: white;
-    height: 220px;
-    width: 400px;
-    position: fixed;
-    z-index: 1;
-    top: 100px;
-    left: 200px;
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    color: black;
-    border-radius: 20px;
-    border: solid 1px gray;
-    font-size: 30px;
 }
 
 .headerContainer {

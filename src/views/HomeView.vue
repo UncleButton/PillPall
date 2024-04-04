@@ -51,6 +51,7 @@ import SchedulesContainer from '@/components/HomeView/SchedulesContainer.vue';
 import DispenseButton from '@/components/Buttons/DispenseButton.vue';
 import APICallButton from '@/components/Buttons/APICallButton.vue';
 import StandardButton from '@/components/Buttons/StandardButton.vue';
+import DispensingOverlay from '@/components/DispensingOverlay.vue';
 
 export default {
   components: {
@@ -61,7 +62,8 @@ export default {
     SchedulesContainer,
     DispenseButton,
     APICallButton,
-    StandardButton
+    StandardButton,
+    DispensingOverlay
 },
   data() {
     return {
@@ -69,7 +71,7 @@ export default {
       schedules: [],
       isLoadingContainers: true,
       isLoadingSchedules: true,
-      pageData: 0
+      pageData: 0,
     }
   },
   computed: {
@@ -107,6 +109,7 @@ export default {
       this.goToDispenseView()
     },
     async dispenseNextSchedule(){
+      this.$store.commit('setDispensing', true);
       var nextSchedule = this.$store.getters.getNextSchedule;
       if(nextSchedule.pin != "")
       {
@@ -117,10 +120,12 @@ export default {
       }
       try {
         await apiService.dispenseSchedule(nextSchedule).then(() => {
+          this.$store.commit('setDispensing', false);
           this.goHome()
           this.setBanner("success");
         });
       } catch (error) {
+        this.$store.commit('setDispensing', false);
         console.error('Error fetching schedule data:', error);
         this.setBanner("error");
       }

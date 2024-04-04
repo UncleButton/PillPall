@@ -22,7 +22,6 @@
     <div class="footerButtonsContainer">
         <DispenseButton @click="dispense()" text="Dispense Now"></DispenseButton>
     </div>
-
 </template>
 
 <script>
@@ -34,6 +33,7 @@ import ScheduleMed from '@/models/ScheduleMed';
 import DropDown from '@/components/DropDown.vue';
 import PillInfoCard from '@/components/PillInfoCard.vue';
 import DispenseButton from '@/components/Buttons/DispenseButton.vue';
+import DispensingOverlay from '@/components/DispensingOverlay.vue';
 
 export default {
   components: {
@@ -41,7 +41,8 @@ export default {
     DropDown,
     DropDown,
     PillInfoCard,
-    DispenseButton
+    DispenseButton,
+    DispensingOverlay
 },
   data() {
     return {
@@ -61,12 +62,15 @@ export default {
         this.medication = newValue;
     },
     async dispense(){
+        this.$store.commit('setDispensing', true);
         try {
             await apiService.dispenseCustom(this.scheduleMeds).then(() => {
+                this.$store.commit('setDispensing', false);
                 this.goHome();
                 this.setBanner("success");
             });
         } catch (error) {
+            this.$store.commit('setDispensing', false);
             console.error('Error fetching entity data:', error);
             this.setBanner("error");
         }

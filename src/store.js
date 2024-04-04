@@ -25,7 +25,8 @@ const store = createStore({
     informationBannerText: "",
     successBannerText: "",
     warningBannerText: "",
-    errorBannerText: ""
+    errorBannerText: "",
+    dispensing: false
   },
   mutations: {
     setContainerIndex(state, newValue){
@@ -76,6 +77,9 @@ const store = createStore({
     setErrorBanner(state, text){
       state.errorBanner = true;
       state.errorBannerText = text;
+    },
+    setDispensing(state, bool){
+      state.dispensing = bool;
     },
     clearInformationBanner(state){
       state.informationBanner = false;

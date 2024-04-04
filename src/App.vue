@@ -25,6 +25,11 @@
     </div>
     
     <PinChallenge v-if="!$store.state.PINDone" :pinAnswer="$store.state.PINAnswer"></PinChallenge>
+
+    <div v-if="$store.state.dispensing">
+      <DispensingOverlay></DispensingOverlay>
+    </div>
+
   </div>
 </template>
 
@@ -34,12 +39,14 @@ import NotificationBanner from './components/NotificationBanner.vue';
 import DateTimeWidget from './components/DateTimeWidget.vue';
 import PinChallenge from './components/PinChallenge.vue';
 import apiService from '@/apiService';
+import DispensingOverlay from '@/components/DispensingOverlay.vue';
 
 export default {
   components: {
     NotificationBanner,
     DateTimeWidget,
-    PinChallenge
+    PinChallenge,
+    DispensingOverlay
   },
   data() {
     return {
@@ -86,8 +93,10 @@ export default {
     },
     startTimer() {
       this.timerId = setInterval(() => {
-        console.log("Idle: rerouting to home");
-        this.goHome()
+        if(!this.$store.state.dispensing){
+          console.log("Idle: rerouting to home");
+          this.goHome();
+        }
       }, 60000);
     },
     clearTimer() {
