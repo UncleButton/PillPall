@@ -96,7 +96,7 @@ export default {
             return;
 
         try {
-            await apiService.refill(this.$store.getters.getContainerIndex, this.medication, this.refillQty).then(() => {
+            await apiService.refill(this.$store.getters.getContainerIndex, this.medication.id, this.refillQty).then(() => {
                 this.goHome();
                 this.setBanner("success");
             });

@@ -123,11 +123,11 @@ const apiService = {
     }
   },
 
-  async refill(containerId, medication, qty) {
+  async refill(containerId, medicationId, qty) {
     try {
       const refill = new RefillObject();
       refill.containerId = containerId;
-      refill.medication = medication;
+      refill.medicationId = medicationId;
       refill.qty = qty;
 
       const response = await axios.post(BASE_URL+ '/PillInformation/refill', refill);

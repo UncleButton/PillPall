@@ -107,7 +107,7 @@ export default {
       try {
         await apiService.handshake();
       } catch (error) {
-        this.setBanner("error", "error establishing commmunication with device");
+        
       }
     }
   }

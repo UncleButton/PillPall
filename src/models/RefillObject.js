@@ -1,9 +1,9 @@
-export class Refill {
+export class RefillObject {
     containerId = -1;
-    medication = null;
+    medicationId = -1;
     qty = 0;
 
     constructor() { }
 }
 
-export default Refill;
+export default RefillObject;
