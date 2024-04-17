@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 .selectionBox {
-  width: 150px;
+  width: 200px;
   height: 150px;
   border-radius: 15px;
   display: flex; /* Use flexbox layout */
@@ -105,9 +105,9 @@ export default {
 
 .pillSize {
   background-color: black;
-  border-radius: 50px;
-  width: 40px;
-  height: 40px;
+  border-radius: 60px;
+  width: 60px;
+  height: 60px;
   display: flex; /* Use flexbox layout */
   align-items: center; /* Align items vertically */
   justify-content: center;
@@ -142,19 +142,19 @@ export default {
 }
 
 .largePill1{
-  border-radius: 50px;
-  width: 50px;
-  height: 50px;
+  border-radius: 65px;
+  width: 70px;
+  height: 70px;
 }
 .largePill2{
   border-radius: 5px;
-  width: 28px;
-  height: 44px;
+  width: 38px;
+  height: 60px;
 }
 .largePill3{
   border-radius: 25px;
-  width: 25px;
-  height: 50px;
+  width: 35px;
+  height: 70px;
 }
 
 .sizeSelected {
