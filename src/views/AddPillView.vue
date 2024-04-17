@@ -94,7 +94,7 @@ export default {
             });
         } catch (error) {
             console.error('Error fetching entity data:', error);
-            this.setBanner("error");
+            this.setBanner("error", "Error: Something went wrong! Please make sure you filled out all required fields.");
         }
     },
     async refill(){
