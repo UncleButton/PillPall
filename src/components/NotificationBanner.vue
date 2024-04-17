@@ -75,7 +75,7 @@ export default {
 
 .close-btn {
   position: absolute;
-  top: 0px;
+  top: 5px;
   right: 10px;
   font-size: 24px;
   cursor: pointer;
