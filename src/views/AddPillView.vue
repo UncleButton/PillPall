@@ -47,6 +47,17 @@
         <div class="refillButton" @click="refill" :class="$store.getters.getContainerIndex == -1 ? 'editable' : ''">Refill</div>
     </div>
     
+    <div v-if="isBusy">
+        <div class="translucentScreen"></div>
+        <div class="refillingMessage">
+            <p>Please wait...</p>
+            ---------------------
+            <p>When this message dissapears,</p>
+            <p>you may insert your medication</p>
+            <p>into the "Fill" slot.</p>
+        </div>
+    </div>
+
 
 </template>
 
@@ -74,7 +85,8 @@ export default {
     return {
       medication: new Medication(),
       infoStage: 0,
-      refillQty: null
+      refillQty: null,
+      isBusy: false
     }
   },
   mounted(){
@@ -87,12 +99,15 @@ export default {
         this.medication = newValue;
     },
     async saveNewPills(){
+        this.isBusy = true;
         try {
             await apiService.saveMedication(this.medication).then(() => {
+                this.isBusy = false;
                 this.goHome();
-                this.setBanner("success");
+                this.setBanner("success", "Success!  Please insert your medication into the \"Fill\" slot now.");
             });
         } catch (error) {
+            this.isBusy = false;
             console.error('Error fetching entity data:', error);
             this.setBanner("error", "Error: Something went wrong! Please make sure you filled out all required fields.");
         }
@@ -101,12 +116,15 @@ export default {
         if(this.$store.getters.getContainerIndex == -1)
             return;
 
+        this.isBusy = true;
         try {
             await apiService.refill(this.$store.getters.getContainerIndex, this.medication.id, this.refillQty).then(() => {
+                this.isBusy = false;
                 this.goHome();
-                this.setBanner("success");
+                this.setBanner("success", "Success!  Please insert your medication into the \"Fill\" slot now.");
             });
         } catch (error) {
+            this.isBusy = false;
             console.error('Error refilling:', error);
             this.setBanner("error");
         }
@@ -203,6 +221,34 @@ export default {
 
 .editable {
     background-color: var(--disabled);
+}
+
+.translucentScreen {
+    background-size: cover;
+    background-position: center;
+    height: 480px;
+    width: 800px;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    background-color: var(--slightly-translucent-white);
+}
+.refillingMessage {
+    background-color: white;
+    height: 220px;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+    left: 200px;
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column;
+    color: black;
+    border-radius: 20px;
+    border: solid 1px gray;
+    font-size: 25px;
 }
 
 </style>

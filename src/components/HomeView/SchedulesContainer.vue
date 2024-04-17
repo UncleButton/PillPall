@@ -13,7 +13,7 @@
     </div>
     <div class="addNewScheduleButton" @click="goToAddSchedule()">
         <img class="addIcon" src="../../assets/scheduleIcon.png">
-        <div class="pill-count">New Schedule</div>
+        <div class="text">New Schedule</div>
     </div>
 </template>
 
@@ -110,6 +110,10 @@ export default {
   align-items: center; /* Center vertically */
   width: 40px;
   height: 40px;
+}
+
+.text {
+  color: black;
 }
 
 </style>

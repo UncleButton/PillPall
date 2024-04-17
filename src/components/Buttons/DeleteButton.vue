@@ -1,7 +1,7 @@
 <template>    
     <div class="deleteButton">
         <div><img class="deleteIcon" src="../../assets/deleteIcon.png"></div>
-        <div>{{ text }}</div>
+        <div class="text">{{ text }}</div>
     </div>
 </template>
 
@@ -33,12 +33,15 @@ export default {
     margin-left: 5px;
     border-radius: 25px;
     height: 42px;
-    color: black;
 
     .deleteIcon {
         width: 26px;
         height: 26px;
         margin-right: 5px;
+    }
+
+    .text {
+        color: black;
     }
 }
 </style>

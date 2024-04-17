@@ -1,7 +1,7 @@
 <template>    
     <div class="dispenseButton">
         <div><img class="dispenseIcon" src="../../assets/dispenseIcon.png"></div>
-        <div>{{ text }}</div>
+        <div class="text">{{ text }}</div>
     </div>
 </template>
 
@@ -33,12 +33,16 @@ export default {
     margin-left: 5px;
     border-radius: 25px;
     height: 42px;
-    color: black;
 
     .dispenseIcon {
         width: 30px;
         height: 26px;
         margin-right: 5px;
     }
+
+    .text {
+        color: black;
+    }
+
 }
 </style>

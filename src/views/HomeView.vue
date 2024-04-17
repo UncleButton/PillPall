@@ -212,7 +212,7 @@ export default {
 }
 
 .headerContainer {
-  color: black;
+  color: white;
 }
 
 </style>
