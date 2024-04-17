@@ -12,18 +12,22 @@
         <div @click="infoStage = 1" class="selectorBar" :class="infoStage==1 ? 'selected' : 'unselected'">
             <h4 class="selectionBarText">Pharmacy Info</h4>
         </div>
+        <div @click="infoStage = 2" class="selectorBar" :class="infoStage==2 ? 'selected' : 'unselected'">
+            <h4 class="selectionBarText">Pill Size</h4>
+        </div>
     </div>
 
     <div class="pillInfoContainer">
         <div class="infoPages">
             <PillInfo v-if="infoStage==0" :medication='medication' @input="updateMedication"></PillInfo>
             <PharmacyInfo v-if="infoStage==1" :medication='medication' @input="updateMedication"></PharmacyInfo>
+            <PillSize v-if="infoStage==2" :medication='medication' @input="updateMedication"></PillSize>
         </div>
         
         <div class="footerButtonsContainer">
             <StandardButton v-if="infoStage > 0" @click="infoStage > 0 ? infoStage-- : infoStage" text="Back"></StandardButton>
             <StandardButton v-else @click="goHome" text="Home"></StandardButton>
-            <StandardButton v-if="infoStage < 1" @click="infoStage < 1 ? infoStage++ : infoStage" text="Next Page"></StandardButton>
+            <StandardButton v-if="infoStage < 2" @click="infoStage < 2 ? infoStage++ : infoStage" text="Next Page"></StandardButton>
             <APICallButton v-else @click="saveNewPills()" text="Save Medication"></APICallButton>
         </div>
     </div>
@@ -55,6 +59,7 @@ import apiService from '../apiService';
 import APICallButton from '../components/Buttons/APICallButton.vue';
 import TextField from '@/components/TextField.vue';
 import StandardButton from '../components/Buttons/StandardButton.vue';
+import PillSize from '@/components/AddPillView/PillSize.vue';
 
 export default {
   components: {
@@ -62,7 +67,8 @@ export default {
     PharmacyInfo,
     APICallButton,
     TextField,
-    StandardButton
+    StandardButton,
+    PillSize
   },
   data() {
     return {
@@ -134,7 +140,7 @@ export default {
 
     .selectorBar {
         margin-bottom: -15px;
-        width: 325px;
+        width: 245px;
         height: 6px;
         display: flex; /* Use flexbox layout */
         justify-content: center; /* Center horizontally */

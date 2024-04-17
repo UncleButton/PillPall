@@ -5,6 +5,7 @@ export class Medication {
     numPills = null;
     expirationDate = "";
     pin = "";
+    isLarge = -1;
     maxPillsPerDose = null;
     maxDosesPerDay = null;
     prescriberName = "";
