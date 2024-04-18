@@ -144,7 +144,7 @@ export default {
       } catch (error) {
         this.$store.commit('setDispensing', false);
         console.error('Error fetching schedule data:', error);
-        this.setBanner("error");
+        this.setBanner("error", error.response.data);
       }
     }
   }

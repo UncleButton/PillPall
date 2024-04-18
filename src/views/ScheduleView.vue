@@ -154,7 +154,7 @@ export default {
             this.$store.commit('setDispensing', false);
             this.dispensing = false;
             console.error('Error dispensing:', error);
-            this.setBanner("error");
+            this.setBanner("error", error.response.data);
         }
     },
     dayToggle(event, day){

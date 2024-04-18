@@ -72,7 +72,7 @@ export default {
         } catch (error) {
             this.$store.commit('setDispensing', false);
             console.error('Error fetching entity data:', error);
-            this.setBanner("error");
+            this.setBanner("error", error.response.data);
         }
     },
     async incQty(id){
