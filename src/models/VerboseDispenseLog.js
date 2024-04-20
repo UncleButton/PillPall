@@ -8,7 +8,7 @@ export class VerboseDispenseLog {
 
     getDate(){
         var datetime = new Date(this.timestamp);
-        return `${datetime.getMonth() + 1}-${datetime.getDay()}-${datetime.getFullYear()}`
+        return `${datetime.getMonth() + 1}-${datetime.getDate()}-${datetime.getFullYear()}`
     }
 
     getTime(){
