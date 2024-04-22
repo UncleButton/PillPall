@@ -85,10 +85,12 @@ table {
   margin-left: 50px;
   background-color: var(--translucent-blue);
   th {
+    text-align: center;
     color: var(--primary-text-color);
     font-weight: bold;
   }
   td {
+    text-align: center;
     color: var(--secondary-text-color);
     border: solid 1px black;
     padding: 3px;
