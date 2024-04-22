@@ -102,5 +102,6 @@ body {
 }
 
 div {
+  font-family: sans-serif;
   color: var(--primary-text-color);
 }
