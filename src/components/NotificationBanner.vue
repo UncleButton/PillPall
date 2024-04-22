@@ -3,7 +3,7 @@
     <div v-if="isVisible" class="notification" :class="notificationType">
       <span>
         <img v-if="type=='info'" class="icon" src="../assets/infoIcon.png">
-        <img v-if="type=='error'" class="icon" src="../assets/errorIcon.png">
+        <!-- <img v-if="type=='error'" class="icon" src="../assets/errorIcon.png"> -->
         <img v-if="type=='warning'" class="icon" src="../assets/warningIcon.png">
         <img v-if="type=='success'" class="icon" src="../assets/successIcon.png">
       </span>
