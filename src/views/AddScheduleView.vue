@@ -220,7 +220,7 @@ export default {
     margin-right: 150px;
     display: flex; /* Use flexbox layout */
     align-items: center; /* Align items vertically */
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-bottom: 5px;
 
     div {
@@ -231,6 +231,7 @@ export default {
     }
 
     .hourMinuteContainer {
+       
         display: flex; /* Use flexbox layout */
         align-items: center; /* Align items vertically */
     }

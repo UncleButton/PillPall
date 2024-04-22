@@ -83,9 +83,9 @@ import { stringifyQuery } from 'vue-router';
   }
   
   .selected-item {
-    padding: 6px;
+    padding: 5px;
     padding-left: 10px;
-    padding-right: 30px;
+    padding-right: 15px;
     border: 1px solid #ccc;
     background-color: var(--primary-text-color);
     border-radius: 20px;
@@ -103,6 +103,7 @@ import { stringifyQuery } from 'vue-router';
     display: flex; /* Use flexbox layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
+    color: black;
   }
 
   .dropdown-menu div {

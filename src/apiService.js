@@ -136,6 +136,14 @@ const apiService = {
     }
   },
 
+  async deleteMedication(medication) {
+    try {
+      const response = await axios.post(BASE_URL+ '/PillInformation/deleteMedication', medication);
+    } catch (error) {
+        throw error;
+    }
+  },
+
   mapSingleResultToModel(result, ModelClass) {
     const modelInstance = new ModelClass();
     Object.assign(modelInstance, result);

@@ -29,6 +29,7 @@
             <StandardButton v-else @click="goHome" text="Home"></StandardButton>
             <StandardButton v-if="infoStage < 2" @click="infoStage < 2 ? infoStage++ : infoStage" text="Next Page"></StandardButton>
             <APICallButton v-else @click="saveNewPills()" text="Save Medication"></APICallButton>
+            <DeleteButton v-if="$store.getters.getContainerIndex > -1" @click="deletePills" text="Delete Medication"></DeleteButton>
         </div>
     </div>
 
@@ -53,12 +54,21 @@
             <p>Please wait...</p>
             ---------------------
             <p>When this message dissapears,</p>
-            <p>you may insert your medication</p>
+            <p>you may insert medication</p>
             <p>into the "Fill" slot.</p>
         </div>
     </div>
 
-
+    <div v-if="isDeleting">
+        <div class="translucentScreen"></div>
+        <div class="refillingMessage">
+            <p>Please wait...</p>
+            ---------------------
+            <p>When this message dissapears,</p>
+            <p>you manually remove your</p>
+            <p>medication from the device.</p>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -71,6 +81,7 @@ import APICallButton from '../components/Buttons/APICallButton.vue';
 import TextField from '@/components/TextField.vue';
 import StandardButton from '../components/Buttons/StandardButton.vue';
 import PillSize from '@/components/AddPillView/PillSize.vue';
+import DeleteButton from '@/components/Buttons/DeleteButton.vue';
 
 export default {
   components: {
@@ -79,14 +90,16 @@ export default {
     APICallButton,
     TextField,
     StandardButton,
-    PillSize
+    PillSize,
+    DeleteButton
   },
   data() {
     return {
       medication: new Medication(),
       infoStage: 0,
       refillQty: null,
-      isBusy: false
+      isBusy: false,
+      isDeleting: false
     }
   },
   mounted(){
@@ -128,7 +141,20 @@ export default {
             console.error('Error refilling:', error);
             this.setBanner("error");
         }
-        
+    },
+    async deletePills(){
+        this.isDeleting = true;
+        try {
+            await apiService.deleteMedication(this.medication).then(() => {
+                this.isDeleting = false;
+                this.goHome();
+                this.setBanner("success", "Success!  Please manually remove your medication from the device.");
+            });
+        } catch (error) {
+            this.isDeleting = false;
+            console.error('Error deleting:', error);
+            this.setBanner("error");
+        }
     }
   }
 }
