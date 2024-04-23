@@ -229,13 +229,13 @@ export default {
         color: black;
         font-size: 18px;
     }
-
-    .hourMinuteContainer {
-       
-        display: flex; /* Use flexbox layout */
-        align-items: center; /* Align items vertically */
-    }
 }
+
+.hourMinuteContainer {
+       
+       display: flex; /* Use flexbox layout */
+       align-items: center; /* Align items vertically */
+   }
 
 .flex-c {
   display: flex; /* Use flexbox layout */
